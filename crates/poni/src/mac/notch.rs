@@ -509,10 +509,11 @@ mod tests {
         st.settings.lyrics = false;
         let media = Mode::Activity(Activity::Media);
         assert_eq!(fit(&media, &st), Fit::Ears);
-        assert_eq!(geom(&media, &st, N, BASE), Geom::new(N.w + 2.0 * BELOW_EAR, N.h, EARS_R));
+        assert_eq!(geom(&media, &st, N, BASE), activities::geom(&Mode::Idle, &st));
         let scaled = scaled_geom(&media, &st, N, BASE);
-        assert!((scaled.w - (N.w + 2.0 * BELOW_EAR * UI_SCALE)).abs() < 0.001);
-        assert_eq!((scaled.h, scaled.r), (N.h, EARS_R * UI_SCALE));
+        let scale = activities::ui_scale(&media, &st);
+        assert!((scaled.w - (N.w + 2.0 * BELOW_EAR * scale)).abs() < 0.001);
+        assert_eq!((scaled.h, scaled.r), (N.h, EARS_R * scale));
     }
 
     #[test]

@@ -286,7 +286,11 @@ pub fn geom(m: &Mode, st: &AppState) -> Geom {
         },
         Mode::Activity(Activity::Media) => {
             if !st.settings.lyrics {
-                return Geom::new(MEDIA_W, 32.0, 15.0);
+                return if st.settings.idle_style == IdleStyle::Hidden {
+                    Geom::new(MEDIA_W, 32.0, 15.0)
+                } else {
+                    geom(&Mode::Idle, st)
+                };
             }
             // A song with synced lyrics sings its line here, as in the Pill
             // theme: the pill is as wide as its words (`pill::media`), and
@@ -334,8 +338,10 @@ fn hidden_strip() -> Geom {
 }
 
 pub fn ui_scale(m: &Mode, st: &AppState) -> f32 {
-    if matches!(m, Mode::Idle) && st.settings.idle_style != IdleStyle::Hidden {
-        crate::island::UI_SCALE * crate::island::IDLE_SCALE
+    let visible_rest = st.settings.idle_style != IdleStyle::Hidden
+        && (matches!(m, Mode::Idle) || matches!(m, Mode::Activity(Activity::Media)) && !st.settings.lyrics);
+    if visible_rest {
+        crate::island::UI_SCALE * crate::island::REST_SCALE
     } else {
         crate::island::UI_SCALE
     }
@@ -1077,18 +1083,28 @@ mod tests {
     use poni_core::timeline::Timeline;
 
     #[test]
-    fn visible_idle_uses_base_scale_while_open_and_activity_states_stay_compact() {
+    fn idle_and_waveform_share_a_slightly_larger_scale_and_geometry() {
         let mut st = AppState::new(Settings::default(), Store::default());
         st.settings.idle_style = IdleStyle::Clock;
+        st.settings.lyrics = false;
 
         assert_eq!(
             ui_scale(&Mode::Idle, &st),
-            crate::island::UI_SCALE * crate::island::IDLE_SCALE
+            crate::island::UI_SCALE * crate::island::REST_SCALE
+        );
+        assert_eq!(
+            ui_scale(&Mode::Activity(Activity::Media), &st),
+            ui_scale(&Mode::Idle, &st)
+        );
+        assert_eq!(
+            geom(&Mode::Activity(Activity::Media), &st),
+            geom(&Mode::Idle, &st)
         );
         assert_eq!(
             ui_scale(&Mode::Expanded(PageKind::Today), &st),
             crate::island::UI_SCALE
         );
+        st.settings.lyrics = true;
         assert_eq!(
             ui_scale(&Mode::Activity(Activity::Media), &st),
             crate::island::UI_SCALE

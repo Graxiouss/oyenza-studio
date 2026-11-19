@@ -105,6 +105,11 @@ thread_local! {
 }
 
 pub fn geom(st: &AppState) -> Option<Geom> {
+    if !st.settings.lyrics {
+        if let Some(g) = super::idle::geom(st) {
+            return Some(g);
+        }
+    }
     let h = height(st);
     let w = if st.settings.lyrics { fit_w() } else { EQ_ONLY_W };
     Some(Geom::new(w, h, h / 2.0))
@@ -519,14 +524,15 @@ mod tests {
     }
 
     #[test]
-    fn lyrics_off_compacts_the_pill_and_animates_the_waveform() {
+    fn lyrics_off_matches_idle_size_and_animates_the_waveform() {
         let mut st = playing("One");
         let default_width = geom(&st).unwrap().w;
         st.settings.lyrics = false;
         st.ui.peek_until = 102.0;
-        assert_eq!(geom(&st).unwrap().w, EQ_ONLY_W);
-        assert!(geom(&st).unwrap().w < default_width);
-        let body = Rect::new(0.0, 0.0, EQ_ONLY_W, H);
+        let rest = crate::pill::idle::geom(&st).unwrap();
+        assert_eq!(geom(&st), Some(rest));
+        assert!(rest.w < default_width);
+        let body = Rect::new(0.0, 0.0, rest.w, rest.h);
         assert!(equalizer_x(body) > body.center().x, "the waveform sits on the right");
         assert_eq!(is_live(&st), Some(true));
         st.power.saver = true;

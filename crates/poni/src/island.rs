@@ -13,7 +13,7 @@ pub const SHOULDER: f32 = 9.0;
 /// pixel at 150 % scaling.
 pub const HIT_MARGIN: f32 = 11.0;
 pub const UI_SCALE: f32 = 0.8;
-pub const IDLE_SCALE: f32 = 1.25;
+pub const REST_SCALE: f32 = 1.3125;
 
 /// Spring tunings (stiffness, damping). Growing goes wide first, then drops:
 /// height trails width a little. Shrinking is nearly critically damped so the
