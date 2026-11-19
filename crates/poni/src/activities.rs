@@ -66,7 +66,6 @@ pub enum Mode {
 const MEDIA_GRACE: f64 = 30.0;
 /// The media pill, and its width while it peeks at a new track's title.
 const MEDIA_W: f32 = 120.0;
-const MEDIA_COMPACT_W: f32 = 48.0;
 const MEDIA_PEEK_W: f32 = 300.0;
 /// After a peek ends its text may still draw this long, so it fades out with
 /// the narrowing pill instead of vanishing. Outside this window the title
@@ -285,7 +284,7 @@ pub fn geom(m: &Mode, st: &AppState) -> Geom {
         },
         Mode::Activity(Activity::Media) => {
             if !st.settings.lyrics {
-                return Geom::new(MEDIA_COMPACT_W, 32.0, 15.0);
+                return Geom::new(MEDIA_W, 32.0, 15.0);
             }
             // A song with synced lyrics sings its line here, as in the Pill
             // theme: the pill is as wide as its words (`pill::media`), and
@@ -332,7 +331,7 @@ fn hidden_strip() -> Geom {
     Geom::new(150.0, 5.0, 2.5)
 }
 
-/// Needs continuous ambient frames (near 60 fps): equalizer while lyrics are enabled.
+/// Needs ambient frames while music plays, including when lyrics are off.
 /// A paused (lingering) pill is static, once Oyen's notes are gone.
 pub fn is_live(m: &Mode, st: &AppState) -> bool {
     if let Some(live) = crate::pill::is_live(m, st) {
@@ -340,7 +339,7 @@ pub fn is_live(m: &Mode, st: &AppState) -> bool {
     }
     let Some(media) = st.media.as_ref() else { return false };
     match m {
-        Mode::Activity(Activity::Media) if !st.settings.lyrics => false,
+        Mode::Activity(Activity::Media) if !st.settings.lyrics => media.is_playing() && !st.power.saver,
         Mode::Activity(Activity::Media) if oyen::on(st.settings.theme) => {
             oyen::music_moving(st.now, media.is_playing(), st.media_paused_at, &st.ui.notes)
         }
@@ -579,7 +578,13 @@ pub fn draw_music(ui: &mut Ui, st: &mut AppState, body: Rect, words: bool) {
     let playing = st.media.as_ref().is_some_and(|m| m.is_playing());
     if !st.settings.lyrics {
         let eq = Rect::new(body.center().x - 9.0, cy - 8.0, 18.0, 16.0);
-        equalizer(ui, eq, st.media_accent(), false, st.now);
+        equalizer(
+            ui,
+            eq,
+            st.media_accent(),
+            playing && !st.power.saver,
+            st.now,
+        );
         return;
     }
     let art = Rect::new(body.x + 12.0, cy - 11.0, 22.0, 22.0);
@@ -1091,11 +1096,17 @@ mod tests {
         let sung = playing(Some("[00:10.00]Paper lanterns on the line\n[00:14.00]Count the windows\n"));
         assert!(crate::pill::lyric::sings(&sung));
         assert_eq!(geom(&media, &sung).w, crate::pill::media::fit_w());
-        // Lyrics switched off: keep only the waveform in a compact capsule.
+        // Lyrics switched off: keep the waveform at the media pill's usual width.
         let mut off = playing(Some("[00:10.00]Paper lanterns on the line\n"));
         off.settings.lyrics = false;
-        assert_eq!(geom(&media, &off).w, MEDIA_COMPACT_W);
-        assert!(!is_live(&media, &off), "the static waveform needs no ambient frames");
+        assert_eq!(geom(&media, &off).w, MEDIA_W);
+        assert!(is_live(&media, &off), "the playing waveform animates");
+        off.power.saver = true;
+        assert!(
+            !is_live(&media, &off),
+            "battery saver stops the waveform animation"
+        );
+        off.power.saver = false;
         assert_eq!(next_wake(&media, &off), None, "no lyric or title-peek wakes");
         assert_eq!(geom(&media, &playing(Some("plain words\nno stamps\n"))).w, MEDIA_W);
         // Paused, a singing pill keeps its size (the title shows after a while).
