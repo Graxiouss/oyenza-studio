@@ -217,16 +217,17 @@ pub fn geom(m: &Mode, st: &AppState, n: Notch, base: Geom) -> Geom {
 
 /// Scale the island while leaving the camera notch at its physical size.
 pub fn scaled_geom(m: &Mode, st: &AppState, n: Notch, base: Geom) -> Geom {
+    let scale = activities::ui_scale(m, st);
     match fit(m, st) {
         Fit::Inside => geom(m, st, n, base),
         Fit::Ears => {
-            let ear = ear(m, st) * UI_SCALE;
-            Geom::new(n.w + 2.0 * ear, n.h, EARS_R * UI_SCALE)
+            let ear = ear(m, st) * scale;
+            Geom::new(n.w + 2.0 * ear, n.h, EARS_R * scale)
         }
-        Fit::Below if floats(m, st) => base.scaled(UI_SCALE),
+        Fit::Below if floats(m, st) => base.scaled(scale),
         Fit::Below => {
-            let w = (base.w * UI_SCALE).max(n.w + 2.0 * BELOW_EAR * UI_SCALE);
-            Geom::new(w, n.h + base.h * UI_SCALE, base.r * UI_SCALE)
+            let w = (base.w * scale).max(n.w + 2.0 * BELOW_EAR * scale);
+            Geom::new(w, n.h + base.h * scale, base.r * scale)
         }
     }
 }
@@ -239,8 +240,8 @@ pub fn content_body(m: &Mode, st: &AppState, n: Notch, body: Rect) -> Rect {
 
 /// The shoulders grow in as the island comes out of the notch (inside it,
 /// flares would poke out beside the camera).
-pub fn shoulder(n: Notch, w: f32) -> f32 {
-    SHOULDER * UI_SCALE * clamp01((w - n.w) / 24.0)
+pub fn shoulder(n: Notch, w: f32, scale: f32) -> f32 {
+    SHOULDER * scale * clamp01((w - n.w) / 24.0)
 }
 
 /// The Pill theme's outline `detach` of the way from hanging off the top

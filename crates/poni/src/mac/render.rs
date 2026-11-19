@@ -635,7 +635,9 @@ fn render_morph(gfx: &mut Gfx, theme: Theme, notch: Option<Notch>, path: &Path) 
     let (rest, open) = (Mode::Idle, Mode::Expanded(PageKind::Today));
     let size = |m: &Mode, st: &AppState| {
         let g = activities::geom(m, st);
-        notch.map_or(g.scaled(crate::island::UI_SCALE), |n| notch::scaled_geom(m, st, n, g))
+        notch.map_or(g.scaled(activities::ui_scale(m, st)), |n| {
+            notch::scaled_geom(m, st, n, g)
+        })
     };
     let gap_at = |m: &Mode, st: &AppState| notch.map_or(Some(crate::pill::TOP_GAP), |n| notch::pill_gap(m, st, n));
     let ends = [(rest, size(&rest, &st), gap_at(&rest, &st)), (open, size(&open, &st), gap_at(&open, &st))];
@@ -666,7 +668,8 @@ fn render_morph(gfx: &mut Gfx, theme: Theme, notch: Option<Notch>, path: &Path) 
             let cx = cell_w / 2.0;
             let body = island.body_rect_at(cx);
             let geom = island.current();
-            let shoulder = notch.map_or(SHOULDER * crate::island::UI_SCALE, |n| notch::shoulder(n, geom.w));
+            let scale = activities::ui_scale(&to_mode, &st);
+            let shoulder = notch.map_or(SHOULDER * scale, |n| notch::shoulder(n, geom.w, scale));
             let detach = notch::detach(island.top(), notch);
             gfx.set_look(&poni_core::look::CLASSIC);
             {
@@ -783,7 +786,7 @@ fn render_peek(gfx: &mut Gfx, theme: Theme, n: Notch, path: &Path) -> Result<(),
             let mut c = gfx.canvas(bmp.ctx());
             c.translate(x, y);
             c.clip(Rect::new(0.0, 0.0, CELL.0, CELL.1));
-            let shoulder = notch::shoulder(n, g.w);
+            let shoulder = notch::shoulder(n, g.w, activities::ui_scale(&mode, &st));
             if look.material == poni_core::look::Material::Glass {
                 crate::glass::draw_body(&mut c, body, g.r, shoulder, Some(n), false, true);
             } else {
@@ -1532,7 +1535,8 @@ fn render_scene(gfx: &mut Gfx, scene: Scene, theme: Theme, notch: Option<Notch>,
     // The Pill theme floats it below the top edge, where the app puts it.
     let size = |st: &AppState| {
         let base = activities::geom(&mode, st);
-        let mut g = base.scaled(crate::island::UI_SCALE);
+        let scale = activities::ui_scale(&mode, st);
+        let mut g = base.scaled(scale);
         if let Some(n) = notch {
             g = notch::scaled_geom(&mode, st, n, base);
         }
@@ -1540,11 +1544,15 @@ fn render_scene(gfx: &mut Gfx, scene: Scene, theme: Theme, notch: Option<Notch>,
         if hovering {
             if gap.is_some() {
                 let lifted = crate::pill::motion::hover_lift(g);
-                let s = crate::island::UI_SCALE;
-                g = crate::island::Geom::new(g.w + (lifted.w - g.w) * s, g.h + (lifted.h - g.h) * s, g.r + (lifted.r - g.r) * s)
-                    .below(g.dy + (lifted.dy - g.dy) * s);
+                let s = scale;
+                g = crate::island::Geom::new(
+                    g.w + (lifted.w - g.w) * s,
+                    g.h + (lifted.h - g.h) * s,
+                    g.r + (lifted.r - g.r) * s,
+                )
+                .below(g.dy + (lifted.dy - g.dy) * s);
             } else {
-                let s = crate::island::UI_SCALE;
+                let s = scale;
                 g = crate::island::Geom::new(g.w + 12.0 * s, g.h + 4.0 * s, g.r + 2.0 * s);
             }
         }
@@ -1595,7 +1603,8 @@ fn render_scene(gfx: &mut Gfx, scene: Scene, theme: Theme, notch: Option<Notch>,
     gfx.set_look(look);
     {
         let mut c = gfx.canvas(bmp.ctx());
-        let shoulder = notch.map_or(SHOULDER * crate::island::UI_SCALE, |n| notch::shoulder(n, g.w));
+        let scale = activities::ui_scale(&mode, &st);
+        let shoulder = notch.map_or(SHOULDER * scale, |n| notch::shoulder(n, g.w, scale));
         let inside = notch.is_some_and(|_| notch::fit(&mode, &st) == notch::Fit::Inside);
         if look.material == poni_core::look::Material::Glass {
             crate::glass::draw_body(&mut c, body, g.r, shoulder, notch, inside, true);

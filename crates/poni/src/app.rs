@@ -645,7 +645,8 @@ impl App {
         // Notifications only where Windows lets this copy read them (the Store copy).
         st.notify_can = crate::autostart::packaged();
         let mode = Mode::Idle;
-        let mut island = Island::new(activities::geom(&mode, &st).scaled(crate::island::UI_SCALE));
+        let mut island =
+            Island::new(activities::geom(&mode, &st).scaled(activities::ui_scale(&mode, &st)));
         island.set_floating(pill::on(st.settings.theme).then_some(pill::TOP_GAP));
         let clock = FrameClock::start(SendHwnd::new(hwnd), monitor.handle);
         let taskbar_created_msg = unsafe { RegisterWindowMessageW(w!("TaskbarCreated")) };
@@ -3441,7 +3442,13 @@ impl App {
 
     /// Where the window takes the mouse now (see [`hit_mask_for`]).
     fn hit_mask(&self) -> HitMask {
-        hit_mask_for(&self.island, self.cx, self.expanded, self.rests_hidden())
+        hit_mask_for(
+            &self.island,
+            self.cx,
+            self.expanded,
+            self.rests_hidden(),
+            activities::ui_scale(&self.mode, &self.st),
+        )
     }
 
     /// The closed island rests invisible, a strip at the top edge that only
@@ -3455,9 +3462,16 @@ impl App {
     /// hangs from to its bottom, in screen pixels. Classic's shoulders and
     /// the floating Pill's gap count: they cover what is under them too.
     fn rest_rect(&self) -> RECT {
-        let g = activities::geom(&activities::resting_mode(&self.st), &self.st).scaled(crate::island::UI_SCALE);
+        let resting = activities::resting_mode(&self.st);
+        let scale = activities::ui_scale(&resting, &self.st);
+        let g = activities::geom(&resting, &self.st).scaled(scale);
         let floating = self.island.floating();
-        let w = g.w + if floating { 0.0 } else { 2.0 * SHOULDER * crate::island::UI_SCALE };
+        let w = g.w
+            + if floating {
+                0.0
+            } else {
+                2.0 * SHOULDER * scale
+            };
         let h = g.h + if floating { pill::TOP_GAP } else { 0.0 };
         let s = self.gfx.scale();
         let cx = self.surface.x as f32 + self.cx * s;
@@ -3500,7 +3514,10 @@ impl App {
         let r = if self.expanded {
             self.island.canvas_rect_at(self.cx)
         } else {
-            self.island.hover_rect_at(self.cx).inset(-SHOULDER * crate::island::UI_SCALE - 2.0, 0.0)
+            self.island.hover_rect_at(self.cx).inset(
+                -SHOULDER * activities::ui_scale(&self.mode, &self.st) - 2.0,
+                0.0,
+            )
         };
         !Rect::new(r.x, r.y, r.w, r.h + 2.0).contains(p)
     }
@@ -3547,7 +3564,7 @@ impl App {
         } else {
             g
         };
-        g.scaled(crate::island::UI_SCALE)
+        g.scaled(activities::ui_scale(m, &self.st))
     }
 
     // ------------------------------------------------------------ frame
@@ -3777,8 +3794,13 @@ impl App {
         // self-test brings its own backdrop), then draw this frame's glass
         // before the frame starts. The look follows the glass, light or dark.
         let glass_theme = self.st.settings.theme == Theme::Glass;
-        let shoulder = SHOULDER * crate::island::UI_SCALE;
-        let window_px = RECT { left: self.surface.x, top: self.surface.y, right: self.surface.x + sw, bottom: self.surface.y + sh };
+        let shoulder = SHOULDER * activities::ui_scale(&mode, &self.st);
+        let window_px = RECT {
+            left: self.surface.x,
+            top: self.surface.y,
+            right: self.surface.x + sw,
+            bottom: self.surface.y + sh,
+        };
         // Only while someone can see it: not while hidden, locked or the display
         // is off. Not over a full-screen app either: copying a game's screen
         // every frame costs the game (Glass draws smoked glass there).
@@ -5661,7 +5683,7 @@ fn draw_content(
     now: f64,
 ) -> (bool, bool, Option<bool>, bool) {
     let pivot = body.center();
-    let scale = crate::island::UI_SCALE;
+    let scale = activities::ui_scale(&mode, st);
     let body = crate::ui::scale_rect(body, pivot, 1.0 / scale);
     let lay = crate::ui::scale_rect(lay, pivot, 1.0 / scale);
     Ui::draw_scaled(c, input, hits, now, pivot, scale, |ui| match mode {
@@ -5706,13 +5728,17 @@ fn surface_size(island: &Island, body_w: f32, body_h: f32, scale: f32, mon_w: i3
 /// body, as Classic's hidden strip does, so what sits under the gap keeps
 /// its clicks. The GPU renderer pushes this as the window's hit mask; the
 /// software renderer paints it at alpha 1/255 under the island.
-fn hit_mask_for(island: &Island, cx: f32, expanded: bool, hidden: bool) -> HitMask {
+fn hit_mask_for(island: &Island, cx: f32, expanded: bool, hidden: bool, scale: f32) -> HitMask {
     if expanded {
         return HitMask { rect: Some(island.canvas_rect_at(cx)), notch: None, pill: None };
     }
     let body = island.body_rect_at(cx);
     if !island.floating() {
-        return HitMask { rect: None, notch: Some((body, island.current().r, SHOULDER * crate::island::UI_SCALE)), pill: None };
+        return HitMask {
+            rect: None,
+            notch: Some((body, island.current().r, SHOULDER * scale)),
+            pill: None,
+        };
     }
     if hidden {
         return HitMask { rect: Some(Rect::new(body.x, 0.0, body.w, body.h)), notch: None, pill: None };
@@ -5797,17 +5823,38 @@ mod tests {
     fn classic_masks_are_unchanged() {
         let i = island(Geom::new(84.0, 30.0, 14.0), false);
         let body = i.body_rect_at(CX);
-        assert_eq!(hit_mask_for(&i, CX, false, false), HitMask { rect: None, notch: Some((body, 14.0, SHOULDER * crate::island::UI_SCALE)), pill: None });
+        assert_eq!(
+            hit_mask_for(&i, CX, false, false, crate::island::UI_SCALE),
+            HitMask {
+                rect: None,
+                notch: Some((body, 14.0, SHOULDER * crate::island::UI_SCALE)),
+                pill: None
+            }
+        );
         // Hidden is Classic's own strip there, with its shoulders.
-        assert_eq!(hit_mask_for(&i, CX, false, true), HitMask { rect: None, notch: Some((body, 14.0, SHOULDER * crate::island::UI_SCALE)), pill: None });
-        assert_eq!(hit_mask_for(&i, CX, true, false), HitMask { rect: Some(i.canvas_rect_at(CX)), notch: None, pill: None });
+        assert_eq!(
+            hit_mask_for(&i, CX, false, true, crate::island::UI_SCALE),
+            HitMask {
+                rect: None,
+                notch: Some((body, 14.0, SHOULDER * crate::island::UI_SCALE)),
+                pill: None
+            }
+        );
+        assert_eq!(
+            hit_mask_for(&i, CX, true, false, crate::island::UI_SCALE),
+            HitMask {
+                rect: Some(i.canvas_rect_at(CX)),
+                notch: None,
+                pill: None
+            }
+        );
     }
 
     #[test]
     fn pill_takes_the_gap_not_its_shadow() {
         let i = island(Geom::new(152.0, 32.0, 16.0), true);
         let body = i.body_rect_at(CX);
-        let m = hit_mask_for(&i, CX, false, false);
+        let m = hit_mask_for(&i, CX, false, false, crate::island::UI_SCALE);
         assert_eq!(m.pill, Some((body, 16.0)));
         // A pointer thrown at the top edge: anywhere above the pill.
         for x in [body.x + 0.1, CX, body.right() - 0.1] {
@@ -5830,8 +5877,15 @@ mod tests {
     fn pill_open_takes_the_card_its_margin_and_the_gap() {
         let i = island(Geom::new(620.0, 216.0, 40.0), true);
         let canvas = i.canvas_rect_at(CX);
-        let m = hit_mask_for(&i, CX, true, false);
-        assert_eq!(m, HitMask { rect: Some(canvas), notch: None, pill: None });
+        let m = hit_mask_for(&i, CX, true, false, crate::island::UI_SCALE);
+        assert_eq!(
+            m,
+            HitMask {
+                rect: Some(canvas),
+                notch: None,
+                pill: None
+            }
+        );
         let body = i.body_rect_at(CX);
         assert!(m.contains(pt(CX, 0.0)), "the gap above the card");
         assert!(m.contains(pt(body.x - i.side_room() + 0.5, body.center().y)), "the margin beside it");
@@ -5847,8 +5901,15 @@ mod tests {
         let i = island(Geom::new(150.0, 5.0, 2.5), true);
         let classic = island(Geom::new(150.0, 5.0, 2.5), false).body_rect_at(CX);
         let body = i.body_rect_at(CX);
-        let m = hit_mask_for(&i, CX, false, true);
-        assert_eq!(m, HitMask { rect: Some(Rect::new(classic.x, 0.0, classic.w, classic.h)), notch: None, pill: None });
+        let m = hit_mask_for(&i, CX, false, true, crate::island::UI_SCALE);
+        assert_eq!(
+            m,
+            HitMask {
+                rect: Some(Rect::new(classic.x, 0.0, classic.w, classic.h)),
+                notch: None,
+                pill: None
+            }
+        );
         assert!(m.contains(pt(CX, 0.0)) && m.contains(pt(body.x + 0.1, classic.h - 0.1)));
         assert!(!m.contains(pt(CX, classic.h)) && !m.contains(pt(CX, body.center().y)), "below the band, the invisible body included");
     }
@@ -5860,7 +5921,7 @@ mod tests {
         // pixels beside and under the pill don't.
         let i = island(Geom::new(84.0, 32.0, 16.0), true);
         let body = i.body_rect_at(CX);
-        let m = hit_mask_for(&i, CX, false, false);
+        let m = hit_mask_for(&i, CX, false, false, crate::island::UI_SCALE);
         for s in SCALES {
             let x = (CX * s) as i32;
             let top_px = (pill::TOP_GAP * s).round() as i32;

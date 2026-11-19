@@ -623,7 +623,12 @@ impl App {
         st.accent = theme_accent(st.settings.theme);
         let initial_mode = Mode::Idle;
         let initial_base = activities::geom(&initial_mode, &st);
-        let initial_geom = screen.notch.map_or(initial_base.scaled(crate::island::UI_SCALE), |n| notch::scaled_geom(&initial_mode, &st, n, initial_base));
+        let initial_scale = activities::ui_scale(&initial_mode, &st);
+        let initial_geom = screen
+            .notch
+            .map_or(initial_base.scaled(initial_scale), |n| {
+                notch::scaled_geom(&initial_mode, &st, n, initial_base)
+            });
         let saved_settings = st.settings.clone();
         let smoke = smoke_dir.map(Smoke::new);
         App {
@@ -2307,9 +2312,10 @@ impl App {
     /// while the hover dwell runs.
     fn geom_for(&self, m: &Mode) -> Geom {
         let base = activities::geom(m, &self.st);
+        let scale = activities::ui_scale(m, &self.st);
         let g = match self.screen.notch {
             Some(n) => notch::scaled_geom(m, &self.st, n, base),
-            None => base.scaled(crate::island::UI_SCALE),
+            None => base.scaled(scale),
         };
         let liftable = match m {
             Mode::Idle => self.st.settings.idle_style != IdleStyle::Hidden,
@@ -2319,7 +2325,6 @@ impl App {
         if liftable && self.hovering && !self.expanded {
             if self.gap_target(m).is_some() {
                 let lifted = pill::motion::hover_lift(g);
-                let scale = crate::island::UI_SCALE;
                 Geom::new(
                     g.w + (lifted.w - g.w) * scale,
                     g.h + (lifted.h - g.h) * scale,
@@ -2327,8 +2332,11 @@ impl App {
                 )
                 .below(g.dy + (lifted.dy - g.dy) * scale)
             } else {
-                let scale = crate::island::UI_SCALE;
-                Geom::new(g.w + HOVER_LIFT.0 * scale, g.h + HOVER_LIFT.1 * scale, g.r + HOVER_LIFT.2 * scale)
+                Geom::new(
+                    g.w + HOVER_LIFT.0 * scale,
+                    g.h + HOVER_LIFT.1 * scale,
+                    g.r + HOVER_LIFT.2 * scale,
+                )
             }
         } else {
             g
@@ -2374,7 +2382,7 @@ impl App {
             return n.w;
         }
         let g = notch::scaled_geom(&rest, &self.st, n, activities::geom(&rest, &self.st));
-        (g.w + HOVER_LIFT.0 * crate::island::UI_SCALE).max(n.w)
+        (g.w + HOVER_LIFT.0 * activities::ui_scale(&rest, &self.st)).max(n.w)
     }
 
     // ------------------------------------------------------------ input
@@ -3797,7 +3805,8 @@ impl App {
             }
             _ => body,
         };
-        let shoulder = notch.map_or(SHOULDER * crate::island::UI_SCALE, |n| notch::shoulder(n, geom.w));
+        let scale = activities::ui_scale(&mode, &self.st);
+        let shoulder = notch.map_or(SHOULDER * scale, |n| notch::shoulder(n, geom.w, scale));
         let hidden = self.island_hidden();
         let look = self.look();
         // The Pill theme's island away from the edge, and how far.
@@ -5012,11 +5021,19 @@ impl App {
                 Some((if self.screen.notch.is_some() { "notch-pill-centred" } else { "island-centred" }, ok, d))
             }
             "pill-hover" => {
-                let (now, rest) = (self.island.current(), activities::geom(&self.mode, &self.st).scaled(crate::island::UI_SCALE));
+                let scale = activities::ui_scale(&self.mode, &self.st);
+                let (now, rest) = (
+                    self.island.current(),
+                    activities::geom(&self.mode, &self.st).scaled(scale),
+                );
                 let lifted = pill::motion::hover_lift(rest);
-                let s = crate::island::UI_SCALE;
-                let want = Geom::new(rest.w + (lifted.w - rest.w) * s, rest.h + (lifted.h - rest.h) * s, rest.r + (lifted.r - rest.r) * s)
-                    .below(rest.dy + (lifted.dy - rest.dy) * s);
+                let s = scale;
+                let want = Geom::new(
+                    rest.w + (lifted.w - rest.w) * s,
+                    rest.h + (lifted.h - rest.h) * s,
+                    rest.r + (lifted.r - rest.r) * s,
+                )
+                .below(rest.dy + (lifted.dy - rest.dy) * s);
                 let top = pill::TOP_GAP + want.dy;
                 let ok = self.hovering && (now.w, now.h, now.r) == (want.w, want.h, want.r) && (self.island.top() - top).abs() < 0.01;
                 let d = format!(
@@ -5700,7 +5717,7 @@ pub fn draw_content(
     match notch {
         None => {
             let pivot = body.center();
-            let scale = crate::island::UI_SCALE;
+            let scale = activities::ui_scale(&mode, st);
             let body = crate::ui::scale_rect(body, pivot, 1.0 / scale);
             let lay = crate::ui::scale_rect(lay, pivot, 1.0 / scale);
             Ui::draw_scaled(c, input, hits, now, pivot, scale, |ui| match mode {
@@ -5712,7 +5729,7 @@ pub fn draw_content(
             Mode::Expanded(page) => {
                 let lay = notch::content_body(&mode, st, n, lay);
                 let pivot = lay.center();
-                let scale = crate::island::UI_SCALE;
+                let scale = activities::ui_scale(&mode, st);
                 let lay = crate::ui::scale_rect(lay, pivot, 1.0 / scale);
                 Ui::draw_scaled(c, input, hits, now, pivot, scale, |ui| pages::draw_expanded(ui, st, lay, page, transition))
             }
@@ -5720,7 +5737,7 @@ pub fn draw_content(
                 Fit::Inside => (false, false, None, false),
                 Fit::Ears => {
                     let pivot = body.center();
-                    let scale = crate::island::UI_SCALE;
+                    let scale = activities::ui_scale(&mode, st);
                     let body = crate::ui::scale_rect(body, pivot, 1.0 / scale);
                     let n = Notch { w: n.w / scale, h: n.h / scale };
                     Ui::draw_scaled(c, input, hits, now, pivot, scale, |ui| {
@@ -5732,7 +5749,7 @@ pub fn draw_content(
                 Fit::Below => {
                     let b = notch::content_body(&mode, st, n, body);
                     let pivot = b.center();
-                    let scale = crate::island::UI_SCALE;
+                    let scale = activities::ui_scale(&mode, st);
                     let b = crate::ui::scale_rect(b, pivot, 1.0 / scale);
                     Ui::draw_scaled(c, input, hits, now, pivot, scale, |ui| activities::draw(ui, st, &mode, b))
                 }

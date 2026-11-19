@@ -333,6 +333,14 @@ fn hidden_strip() -> Geom {
     Geom::new(150.0, 5.0, 2.5)
 }
 
+pub fn ui_scale(m: &Mode, st: &AppState) -> f32 {
+    if matches!(m, Mode::Idle) && st.settings.idle_style != IdleStyle::Hidden {
+        crate::island::UI_SCALE * crate::island::IDLE_SCALE
+    } else {
+        crate::island::UI_SCALE
+    }
+}
+
 /// Needs ambient frames while music plays, including when lyrics are off.
 /// A paused (lingering) pill is static, once Oyen's notes are gone.
 pub fn is_live(m: &Mode, st: &AppState) -> bool {
@@ -1067,6 +1075,28 @@ mod tests {
     use poni_core::settings::Settings;
     use poni_core::store::Store;
     use poni_core::timeline::Timeline;
+
+    #[test]
+    fn visible_idle_uses_base_scale_while_open_and_activity_states_stay_compact() {
+        let mut st = AppState::new(Settings::default(), Store::default());
+        st.settings.idle_style = IdleStyle::Clock;
+
+        assert_eq!(
+            ui_scale(&Mode::Idle, &st),
+            crate::island::UI_SCALE * crate::island::IDLE_SCALE
+        );
+        assert_eq!(
+            ui_scale(&Mode::Expanded(PageKind::Today), &st),
+            crate::island::UI_SCALE
+        );
+        assert_eq!(
+            ui_scale(&Mode::Activity(Activity::Media), &st),
+            crate::island::UI_SCALE
+        );
+
+        st.settings.idle_style = IdleStyle::Hidden;
+        assert_eq!(ui_scale(&Mode::Idle, &st), crate::island::UI_SCALE);
+    }
 
     /// Music playing 12 s into a song, with these lyrics found for it.
     fn playing(lrc: Option<&str>) -> AppState {
