@@ -12,6 +12,7 @@ pub const SHOULDER: f32 = 9.0;
 /// SHOULDER + HIT_MARGIN is kept even (20) so the body edge lands on a whole
 /// pixel at 150 % scaling.
 pub const HIT_MARGIN: f32 = 11.0;
+pub const UI_SCALE: f32 = 0.9;
 
 /// Spring tunings (stiffness, damping). Growing goes wide first, then drops:
 /// height trails width a little. Shrinking is nearly critically damped so the
@@ -47,6 +48,10 @@ impl Geom {
     /// The same shape, `dy` DIPs below the gap while it floats.
     pub const fn below(self, dy: f32) -> Self {
         Self { dy, ..self }
+    }
+
+    pub fn scaled(self, scale: f32) -> Self {
+        Self { w: self.w * scale, h: self.h * scale, r: self.r * scale, dy: self.dy * scale }
     }
 }
 
@@ -327,6 +332,13 @@ fn land(s: &mut Spring, floor: Option<f32>) {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn geometry_scales_every_dimension_and_floating_offset() {
+        let g = Geom::new(200.0, 40.0, 20.0).below(-8.0).scaled(UI_SCALE);
+        assert_eq!((g.w, g.h, g.r), (180.0, 36.0, 18.0));
+        assert!((g.dy + 7.2).abs() < 0.001);
+    }
 
     const PILL: Geom = Geom::new(120.0, 32.0, 16.0);
     const CARD: Geom = Geom::new(620.0, 216.0, 40.0);

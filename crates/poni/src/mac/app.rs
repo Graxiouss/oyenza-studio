@@ -621,13 +621,16 @@ impl App {
         st.local = clock::local_now();
         st.unix = clock::unix_now();
         st.accent = theme_accent(st.settings.theme);
+        let initial_mode = Mode::Idle;
+        let initial_base = activities::geom(&initial_mode, &st);
+        let initial_geom = screen.notch.map_or(initial_base.scaled(crate::island::UI_SCALE), |n| notch::scaled_geom(&initial_mode, &st, n, initial_base));
         let saved_settings = st.settings.clone();
         let smoke = smoke_dir.map(Smoke::new);
         App {
             mtm,
             gfx,
             st,
-            island: Island::new(Geom::new(118.0, 30.0, 14.0)),
+            island: Island::new(initial_geom),
             mode: Mode::Idle,
             input: Input::default(),
             hits: Vec::new(),
@@ -2139,6 +2142,8 @@ impl App {
 
     fn layout_surface_for(&mut self, body_w: f32, body_h: f32) {
         let (side, top, bottom) = self.room();
+        let body_w = body_w * crate::island::UI_SCALE;
+        let body_h = body_h * crate::island::UI_SCALE;
         let mut w = (body_w * OVERSHOOT + 2.0 * side).ceil();
         if w as i64 % 2 != 0 {
             w += 1.0;
@@ -2234,9 +2239,9 @@ impl App {
         let need_h = bh + top + bottom;
         if need_w > self.surface.0 || need_h > self.surface.1 {
             let tallest = PageKind::ALL.iter().map(|p| pages::content_height(*p, &self.st)).fold(0.0f32, f32::max);
-            let body_h = (pages::HEADER_H + tallest + pages::PAD).max((bh - self.strip()) / OVERSHOOT * 1.1);
+            let body_h = (pages::HEADER_H + tallest + pages::PAD).max((bh - self.strip()) / OVERSHOOT * 1.1 / crate::island::UI_SCALE);
             pinfo!("island outgrew the window; growing it to fit {bw:.0}x{bh:.0} DIP");
-            self.layout_surface_for(self.st.settings.expanded_width.max(bw / OVERSHOOT * 1.1), body_h);
+            self.layout_surface_for(self.st.settings.expanded_width.max(bw / OVERSHOOT * 1.1 / crate::island::UI_SCALE), body_h);
         }
     }
 
@@ -2303,8 +2308,8 @@ impl App {
     fn geom_for(&self, m: &Mode) -> Geom {
         let base = activities::geom(m, &self.st);
         let g = match self.screen.notch {
-            Some(n) => notch::geom(m, &self.st, n, base),
-            None => base,
+            Some(n) => notch::scaled_geom(m, &self.st, n, base),
+            None => base.scaled(crate::island::UI_SCALE),
         };
         let liftable = match m {
             Mode::Idle => self.st.settings.idle_style != IdleStyle::Hidden,
@@ -2313,10 +2318,17 @@ impl App {
         };
         if liftable && self.hovering && !self.expanded {
             if self.gap_target(m).is_some() {
-                // Floating, it swells evenly about its middle and stays a capsule.
-                pill::motion::hover_lift(g)
+                let lifted = pill::motion::hover_lift(g);
+                let scale = crate::island::UI_SCALE;
+                Geom::new(
+                    g.w + (lifted.w - g.w) * scale,
+                    g.h + (lifted.h - g.h) * scale,
+                    g.r + (lifted.r - g.r) * scale,
+                )
+                .below(g.dy + (lifted.dy - g.dy) * scale)
             } else {
-                Geom::new(g.w + HOVER_LIFT.0, g.h + HOVER_LIFT.1, g.r + HOVER_LIFT.2)
+                let scale = crate::island::UI_SCALE;
+                Geom::new(g.w + HOVER_LIFT.0 * scale, g.h + HOVER_LIFT.1 * scale, g.r + HOVER_LIFT.2 * scale)
             }
         } else {
             g
@@ -2361,8 +2373,8 @@ impl App {
         if notch::floats(&rest, &self.st) {
             return n.w;
         }
-        let g = notch::geom(&rest, &self.st, n, activities::geom(&rest, &self.st));
-        (g.w + HOVER_LIFT.0).max(n.w)
+        let g = notch::scaled_geom(&rest, &self.st, n, activities::geom(&rest, &self.st));
+        (g.w + HOVER_LIFT.0 * crate::island::UI_SCALE).max(n.w)
     }
 
     // ------------------------------------------------------------ input
@@ -3785,7 +3797,7 @@ impl App {
             }
             _ => body,
         };
-        let shoulder = notch.map_or(SHOULDER, |n| notch::shoulder(n, geom.w));
+        let shoulder = notch.map_or(SHOULDER * crate::island::UI_SCALE, |n| notch::shoulder(n, geom.w));
         let hidden = self.island_hidden();
         let look = self.look();
         // The Pill theme's island away from the edge, and how far.
@@ -5000,8 +5012,11 @@ impl App {
                 Some((if self.screen.notch.is_some() { "notch-pill-centred" } else { "island-centred" }, ok, d))
             }
             "pill-hover" => {
-                let (now, rest) = (self.island.current(), activities::geom(&self.mode, &self.st));
-                let want = pill::motion::hover_lift(rest);
+                let (now, rest) = (self.island.current(), activities::geom(&self.mode, &self.st).scaled(crate::island::UI_SCALE));
+                let lifted = pill::motion::hover_lift(rest);
+                let s = crate::island::UI_SCALE;
+                let want = Geom::new(rest.w + (lifted.w - rest.w) * s, rest.h + (lifted.h - rest.h) * s, rest.r + (lifted.r - rest.r) * s)
+                    .below(rest.dy + (lifted.dy - rest.dy) * s);
                 let top = pill::TOP_GAP + want.dy;
                 let ok = self.hovering && (now.w, now.h, now.r) == (want.w, want.h, want.r) && (self.island.top() - top).abs() < 0.01;
                 let d = format!(
@@ -5682,32 +5697,48 @@ pub fn draw_content(
     now: f64,
     notch: Option<Notch>,
 ) -> (bool, bool, Option<bool>, bool) {
-    let mut ui = Ui::new(c, input, hits, now);
     match notch {
-        None => match mode {
-            Mode::Expanded(page) => pages::draw_expanded(&mut ui, st, lay, page, transition),
-            _ => activities::draw(&mut ui, st, &mode, body),
-        },
+        None => {
+            let pivot = body.center();
+            let scale = crate::island::UI_SCALE;
+            let body = crate::ui::scale_rect(body, pivot, 1.0 / scale);
+            let lay = crate::ui::scale_rect(lay, pivot, 1.0 / scale);
+            Ui::draw_scaled(c, input, hits, now, pivot, scale, |ui| match mode {
+                Mode::Expanded(page) => pages::draw_expanded(ui, st, lay, page, transition),
+                _ => activities::draw(ui, st, &mode, body),
+            })
+        }
         Some(n) => match mode {
             Mode::Expanded(page) => {
                 let lay = notch::content_body(&mode, st, n, lay);
-                pages::draw_expanded(&mut ui, st, lay, page, transition)
+                let pivot = lay.center();
+                let scale = crate::island::UI_SCALE;
+                let lay = crate::ui::scale_rect(lay, pivot, 1.0 / scale);
+                Ui::draw_scaled(c, input, hits, now, pivot, scale, |ui| pages::draw_expanded(ui, st, lay, page, transition))
             }
             _ => match notch::fit(&mode, st) {
-                Fit::Inside => {}
+                Fit::Inside => (false, false, None, false),
                 Fit::Ears => {
-                    if !notch::draw_ears(&mut ui, st, &mode, body, n) {
-                        activities::draw(&mut ui, st, &mode, body);
-                    }
+                    let pivot = body.center();
+                    let scale = crate::island::UI_SCALE;
+                    let body = crate::ui::scale_rect(body, pivot, 1.0 / scale);
+                    let n = Notch { w: n.w / scale, h: n.h / scale };
+                    Ui::draw_scaled(c, input, hits, now, pivot, scale, |ui| {
+                        if !notch::draw_ears(ui, st, &mode, body, n) {
+                            activities::draw(ui, st, &mode, body);
+                        }
+                    })
                 }
                 Fit::Below => {
                     let b = notch::content_body(&mode, st, n, body);
-                    activities::draw(&mut ui, st, &mode, b);
+                    let pivot = b.center();
+                    let scale = crate::island::UI_SCALE;
+                    let b = crate::ui::scale_rect(b, pivot, 1.0 / scale);
+                    Ui::draw_scaled(c, input, hits, now, pivot, scale, |ui| activities::draw(ui, st, &mode, b))
                 }
             },
         },
     }
-    (ui.repaint_requested(), ui.anim_requested(), ui.focus_request(), ui.live_requested())
 }
 
 // ---------------------------------------------------------------- smoke test bookkeeping

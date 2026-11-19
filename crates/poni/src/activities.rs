@@ -65,8 +65,10 @@ pub enum Mode {
 /// a short pause doesn't morph the island away and back.
 const MEDIA_GRACE: f64 = 30.0;
 /// The media pill, and its width while it peeks at a new track's title.
-const MEDIA_W: f32 = 120.0;
+const MEDIA_W: f32 = 88.0;
 const MEDIA_PEEK_W: f32 = 300.0;
+const MEDIA_EQ_W: f32 = 18.0;
+const MEDIA_EQ_RIGHT: f32 = 3.0;
 /// After a peek ends its text may still draw this long, so it fades out with
 /// the narrowing pill instead of vanishing. Outside this window the title
 /// never shows (other morphs and the hover lift also widen the pill).
@@ -577,7 +579,7 @@ pub fn draw_music(ui: &mut Ui, st: &mut AppState, body: Rect, words: bool) {
     let cy = body.center().y;
     let playing = st.media.as_ref().is_some_and(|m| m.is_playing());
     if !st.settings.lyrics {
-        let eq = Rect::new(body.center().x - 9.0, cy - 8.0, 18.0, 16.0);
+        let eq = media_eq_rect(body);
         equalizer(
             ui,
             eq,
@@ -611,6 +613,10 @@ pub fn draw_music(ui: &mut Ui, st: &mut AppState, body: Rect, words: bool) {
     } else if alpha > 0.01 {
         draw_peek(ui, st, art.right() + 10.0, eq.x - 10.0, body, alpha);
     }
+}
+
+fn media_eq_rect(body: Rect) -> Rect {
+    Rect::new(body.right() - MEDIA_EQ_RIGHT - MEDIA_EQ_W, body.center().y - 8.0, MEDIA_EQ_W, 16.0)
 }
 
 fn draw_activity(ui: &mut Ui, st: &mut AppState, a: Activity, body: Rect) {
@@ -1096,10 +1102,14 @@ mod tests {
         let sung = playing(Some("[00:10.00]Paper lanterns on the line\n[00:14.00]Count the windows\n"));
         assert!(crate::pill::lyric::sings(&sung));
         assert_eq!(geom(&media, &sung).w, crate::pill::media::fit_w());
-        // Lyrics switched off: keep the waveform at the media pill's usual width.
+        // Lyrics switched off: keep the indicator compact and the waveform on the right.
         let mut off = playing(Some("[00:10.00]Paper lanterns on the line\n"));
         off.settings.lyrics = false;
         assert_eq!(geom(&media, &off).w, MEDIA_W);
+        let body = Rect::new(0.0, 0.0, MEDIA_W, 32.0);
+        let eq = media_eq_rect(body);
+        assert!(eq.x > body.center().x, "the waveform sits on the right");
+        assert_eq!(eq.right(), body.right() - MEDIA_EQ_RIGHT);
         assert!(is_live(&media, &off), "the playing waveform animates");
         off.power.saver = true;
         assert!(

@@ -101,6 +101,27 @@ impl Input {
     }
 }
 
+pub fn scale_point(p: Point, pivot: Point, scale: f32) -> Point {
+    Point::new(pivot.x + (p.x - pivot.x) * scale, pivot.y + (p.y - pivot.y) * scale)
+}
+
+pub fn scale_rect(r: Rect, pivot: Point, scale: f32) -> Rect {
+    let p = scale_point(Point::new(r.x, r.y), pivot, scale);
+    Rect::new(p.x, p.y, r.w * scale, r.h * scale)
+}
+
+pub fn scale_input(input: &mut Input, pivot: Point, scale: f32) {
+    input.mouse = input.mouse.map(|p| scale_point(p, pivot, scale));
+    input.press_pos = input.press_pos.map(|p| scale_point(p, pivot, scale));
+    input.released = input.released.map(|(id, p)| (id, scale_point(p, pivot, scale)));
+}
+
+pub fn scale_hits(hits: &mut [Hit], pivot: Point, scale: f32) {
+    for hit in hits {
+        hit.rect = scale_rect(hit.rect, pivot, scale);
+    }
+}
+
 #[derive(Clone, Copy, Debug, Default)]
 pub struct Resp {
     pub hovered: bool,
@@ -170,6 +191,29 @@ pub struct Ui<'a, 'g> {
 impl<'a, 'g> Ui<'a, 'g> {
     pub fn new(c: &'a mut Canvas<'g>, input: &'a mut Input, hits: &'a mut Vec<Hit>, now: f64) -> Self {
         Self { c, input, hits, now, repaint: false, animating: false, live: false, wants_focus: None }
+    }
+
+    pub fn draw_scaled(
+        c: &mut Canvas,
+        input: &mut Input,
+        hits: &mut Vec<Hit>,
+        now: f64,
+        pivot: Point,
+        scale: f32,
+        draw: impl FnOnce(&mut Ui<'_, '_>),
+    ) -> (bool, bool, Option<bool>, bool) {
+        let transform = c.save_transform();
+        c.scale_about(pivot, scale);
+        scale_input(input, pivot, 1.0 / scale);
+        let out = {
+            let mut ui = Ui::new(c, input, hits, now);
+            draw(&mut ui);
+            (ui.repaint_requested(), ui.anim_requested(), ui.focus_request(), ui.live_requested())
+        };
+        scale_input(input, pivot, scale);
+        scale_hits(hits, pivot, scale);
+        c.restore_transform(transform);
+        out
     }
 
     /// Ask for one more frame (e.g. after a state change).
@@ -505,5 +549,33 @@ impl<'a, 'g> Ui<'a, 'g> {
             self.input.focused = None;
             self.wants_focus = Some(false);
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn scale_maps_pointer_and_hits_about_the_same_pivot() {
+        let pivot = Point::new(100.0, 80.0);
+        assert_eq!(scale_point(Point::new(120.0, 60.0), pivot, 0.9), Point::new(118.0, 62.0));
+
+        let mut input = Input {
+            mouse: Some(Point::new(118.0, 62.0)),
+            press_pos: Some(Point::new(118.0, 62.0)),
+            released: Some((1, Point::new(118.0, 62.0))),
+            ..Input::default()
+        };
+        scale_input(&mut input, pivot, 1.0 / 0.9);
+        let logical = input.mouse.unwrap();
+        assert!((logical.x - 120.0).abs() < 0.001 && (logical.y - 60.0).abs() < 0.001);
+        scale_input(&mut input, pivot, 0.9);
+        let (_, released) = input.released.unwrap();
+        assert!((released.x - 118.0).abs() < 0.001 && (released.y - 62.0).abs() < 0.001);
+
+        let mut hits = vec![Hit { id: 1, rect: Rect::new(110.0, 70.0, 20.0, 10.0), cursor: CursorKind::Hand }];
+        scale_hits(&mut hits, pivot, 0.9);
+        assert_eq!(hits[0].rect, Rect::new(109.0, 71.0, 18.0, 9.0));
     }
 }

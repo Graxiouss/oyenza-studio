@@ -54,7 +54,7 @@ pub enum MonitorChoice {
 }
 
 /// Bumped when defaults change in a way existing files should pick up.
-pub const SETTINGS_VERSION: u32 = 5;
+pub const SETTINGS_VERSION: u32 = 6;
 
 fn version_zero() -> u32 {
     0
@@ -267,7 +267,7 @@ impl Default for Settings {
             use_24h: true,
             hover_delay_ms: 220,
             collapse_delay_ms: 0,
-            expanded_width: 620.0,
+            expanded_width: 480.0,
             hide_in_fullscreen: true,
             step_aside: false,
             monitor: MonitorChoice::Primary,
@@ -381,6 +381,10 @@ impl Settings {
         if self.settings_version < 5 && self.addons.get("notifications") == Some(&false) && !self.hidden_tabs.iter().any(|k| k == "notifications") {
             self.hidden_tabs.push("notifications".into());
         }
+        // v6: narrower open island; move only the old untouched default.
+        if self.settings_version < 6 && self.expanded_width == 620.0 {
+            self.expanded_width = 480.0;
+        }
         self.settings_version = self.settings_version.max(SETTINGS_VERSION);
         // Step aside is no longer offered: the island stays over maximized windows.
         self.step_aside = false;
@@ -392,7 +396,7 @@ impl Settings {
         self.lyrics_offset_ms = self.lyrics_offset_ms.clamp(-5000, 5000);
         self.collapse_delay_ms = self.collapse_delay_ms.min(5000);
         if !self.expanded_width.is_finite() {
-            self.expanded_width = 620.0;
+            self.expanded_width = 480.0;
         }
         self.expanded_width = self.expanded_width.clamp(480.0, 900.0);
         self.island_x = self.island_x.filter(|x| x.is_finite()).map(|x| x.clamp(0.0, 1.0));
@@ -521,6 +525,19 @@ mod tests {
         assert_eq!(s.sanitized().hover_delay_ms, 90);
         let s: Settings = serde_json::from_str(r#"{"settings_version":2,"hover_delay_ms":140}"#).unwrap();
         assert_eq!(s.sanitized().hover_delay_ms, 140);
+    }
+
+    #[test]
+    fn migrates_the_untouched_open_width_default() {
+        let old: Settings = serde_json::from_str(r#"{"settings_version":5,"expanded_width":620.0}"#).unwrap();
+        let old = old.sanitized();
+        assert_eq!((old.expanded_width, old.settings_version), (480.0, SETTINGS_VERSION));
+
+        let custom: Settings = serde_json::from_str(r#"{"settings_version":5,"expanded_width":700.0}"#).unwrap();
+        assert_eq!(custom.sanitized().expanded_width, 700.0);
+
+        let current: Settings = serde_json::from_str(r#"{"settings_version":6,"expanded_width":620.0}"#).unwrap();
+        assert_eq!(current.sanitized().expanded_width, 620.0);
     }
 
     #[test]

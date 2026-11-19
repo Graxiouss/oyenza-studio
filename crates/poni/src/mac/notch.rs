@@ -43,7 +43,7 @@
 use crate::activities::{self, Activity, Mode};
 use crate::gfx::{Canvas, TextStyle, Weight};
 use crate::icons::Icon;
-use crate::island::{Geom, SHOULDER};
+use crate::island::{Geom, SHOULDER, UI_SCALE};
 use crate::oyen;
 use crate::pill;
 use crate::state::AppState;
@@ -183,6 +183,8 @@ fn ear(m: &Mode, st: &AppState) -> f32 {
             }
         }
         Mode::Activity(Activity::MediaTimer) => 96.0,
+        // With lyrics off the island shows only the waveform, in one ear.
+        Mode::Activity(Activity::Media) if !st.settings.lyrics => BELOW_EAR,
         // "12:34" in the right ear, as the timer's; "1:02:03" past an hour.
         Mode::Activity(Activity::Recording) => {
             if st.rec_elapsed() >= 3600.0 {
@@ -213,6 +215,22 @@ pub fn geom(m: &Mode, st: &AppState, n: Notch, base: Geom) -> Geom {
     }
 }
 
+/// Scale the island while leaving the camera notch at its physical size.
+pub fn scaled_geom(m: &Mode, st: &AppState, n: Notch, base: Geom) -> Geom {
+    match fit(m, st) {
+        Fit::Inside => geom(m, st, n, base),
+        Fit::Ears => {
+            let ear = ear(m, st) * UI_SCALE;
+            Geom::new(n.w + 2.0 * ear, n.h, EARS_R * UI_SCALE)
+        }
+        Fit::Below if floats(m, st) => base.scaled(UI_SCALE),
+        Fit::Below => {
+            let w = (base.w * UI_SCALE).max(n.w + 2.0 * BELOW_EAR * UI_SCALE);
+            Geom::new(w, n.h + base.h * UI_SCALE, base.r * UI_SCALE)
+        }
+    }
+}
+
 /// Where the content of `m` draws inside the island's `body`.
 pub fn content_body(m: &Mode, st: &AppState, n: Notch, body: Rect) -> Rect {
     let strip = strip(m, st, n);
@@ -222,7 +240,7 @@ pub fn content_body(m: &Mode, st: &AppState, n: Notch, body: Rect) -> Rect {
 /// The shoulders grow in as the island comes out of the notch (inside it,
 /// flares would poke out beside the camera).
 pub fn shoulder(n: Notch, w: f32) -> f32 {
-    SHOULDER * clamp01((w - n.w) / 24.0)
+    SHOULDER * UI_SCALE * clamp01((w - n.w) / 24.0)
 }
 
 /// The Pill theme's outline `detach` of the way from hanging off the top
@@ -472,6 +490,7 @@ mod tests {
             // A hair smaller than the notch, whatever the pill's own size.
             assert_eq!(geom(&Mode::Idle, &st, N, BASE), Geom::new(183.0, 31.0, 16.0), "{style:?}");
         }
+
         for theme in [Theme::Pill, Theme::Diorama] {
             let st = state(theme, IdleStyle::Clock);
             for m in SHOWN {
@@ -481,6 +500,29 @@ mod tests {
                 assert_eq!(strip(&m, &st, N), 0.0, "{theme:?} {m:?}");
             }
         }
+    }
+
+    #[test]
+    fn lyrics_off_keeps_the_waveform_in_a_small_right_ear() {
+        let mut st = state(Theme::Classic, IdleStyle::Clock);
+        st.settings.lyrics = false;
+        let media = Mode::Activity(Activity::Media);
+        assert_eq!(fit(&media, &st), Fit::Ears);
+        assert_eq!(geom(&media, &st, N, BASE), Geom::new(N.w + 2.0 * BELOW_EAR, N.h, EARS_R));
+        let scaled = scaled_geom(&media, &st, N, BASE);
+        assert!((scaled.w - (N.w + 2.0 * BELOW_EAR * UI_SCALE)).abs() < 0.001);
+        assert_eq!((scaled.h, scaled.r), (N.h, EARS_R * UI_SCALE));
+    }
+
+    #[test]
+    fn scaled_fits_keep_the_camera_notch_at_its_physical_size() {
+        let st = state(Theme::Classic, IdleStyle::Minimal);
+        assert_eq!(scaled_geom(&Mode::Idle, &st, N, BASE), geom(&Mode::Idle, &st, N, BASE));
+
+        let below = scaled_geom(&Mode::Expanded(PageKind::Today), &st, N, BASE);
+        assert_eq!(below.w, (BASE.w * UI_SCALE).max(N.w + 2.0 * BELOW_EAR * UI_SCALE));
+        assert_eq!(below.h, N.h + BASE.h * UI_SCALE);
+        assert_eq!(below.r, BASE.r * UI_SCALE);
     }
 
     #[test]

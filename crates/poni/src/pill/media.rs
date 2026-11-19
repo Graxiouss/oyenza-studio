@@ -38,13 +38,15 @@ pub(crate) const H_READS: f32 = 46.0;
 /// The pill is its text plus this much: the art and the equalizer with
 /// their gaps, the same on both sides so the text centres (spec 6.5).
 const SIDES: f32 = 88.0;
-const MIN_W: f32 = 240.0;
-const MAX_W: f32 = 520.0;
+const MIN_W: f32 = 184.0;
+const MAX_W: f32 = 480.0;
 /// The song ("Title · artist") is held to the spec's width for a title on
 /// the collapsed pill (6.4's peek): without lyrics it rests there all song
 /// long, so it stays as compact as that; a sung line may take the full
 /// MAX_W (6.5).
-const SONG_MAX_W: f32 = 300.0;
+const SONG_MAX_W: f32 = 240.0;
+/// A waveform-only pill: just enough room for the bars and their right inset.
+const EQ_ONLY_W: f32 = 64.0;
 /// The artist shows whole, or at least this much of it.
 const ARTIST_MIN: f32 = 64.0;
 /// Widths go in steps of this much, so lines a few DIPs apart don't each
@@ -104,7 +106,8 @@ thread_local! {
 
 pub fn geom(st: &AppState) -> Option<Geom> {
     let h = height(st);
-    Some(Geom::new(fit_w(), h, h / 2.0))
+    let w = if st.settings.lyrics { fit_w() } else { EQ_ONLY_W };
+    Some(Geom::new(w, h, h / 2.0))
 }
 
 /// How tall the music pill is: two rows while the song sings with its
@@ -124,7 +127,7 @@ pub fn draw(ui: &mut Ui, st: &mut AppState, body: Rect) -> bool {
         let bars = super::music::eq_color(st.media_accent(), ui.c.look().light);
         equalizer(
             ui,
-            body.center().x - EQ_W / 2.0,
+            equalizer_x(body),
             body.center().y,
             bars,
             if playing { 1.0 } else { PAUSED_TEXT },
@@ -146,12 +149,16 @@ pub fn draw(ui: &mut Ui, st: &mut AppState, body: Rect) -> bool {
     draw_art(ui, st, art, lerp(PAUSED_ART, 1.0, level));
     // The bars keep moving while they sink at a pause; on battery saver they stand.
     let moving = (playing || level > 0.0) && !st.power.saver;
-    let eq_x = body.right() - EQ_RIGHT - EQ_W;
+    let eq_x = equalizer_x(body);
     // The open card's equalizer colour, so the bars keep it through a morph.
     let bars = super::music::eq_color(accent, ui.c.look().light);
     equalizer(ui, eq_x, cy, bars, level, moving, now);
     middle(ui, st, body, art.right() + TEXT_CLEAR, eq_x - TEXT_CLEAR, lerp(PAUSED_TEXT, 1.0, level));
     true
+}
+
+fn equalizer_x(body: Rect) -> f32 {
+    body.right() - EQ_RIGHT - EQ_W
 }
 
 /// The middle of a music pill, in this theme and in the others while a song
@@ -453,7 +460,7 @@ mod tests {
         assert_eq!(fit(153.0, MAX_W), 248.0, "241 rounds up to the next 8");
         assert_eq!(fit(1_000.0, MAX_W), MAX_W, "a long line: the widest pill, ellipsized");
         assert_eq!(fit(1_000.0, SONG_MAX_W), SONG_MAX_W, "a long title stops at the peek's width");
-        assert_eq!(fit(200.0, SONG_MAX_W), 288.0, "a title that fits is the same either way");
+        assert_eq!(fit(200.0, SONG_MAX_W), SONG_MAX_W, "a long title is ellipsized at the smaller cap");
         for max in [SONG_MAX_W, MAX_W] {
             let mut w = 0.0;
             while w < 600.0 {
@@ -512,12 +519,15 @@ mod tests {
     }
 
     #[test]
-    fn lyrics_off_keeps_the_default_pill_size_and_animates_the_waveform() {
+    fn lyrics_off_compacts_the_pill_and_animates_the_waveform() {
         let mut st = playing("One");
         let default_width = geom(&st).unwrap().w;
         st.settings.lyrics = false;
         st.ui.peek_until = 102.0;
-        assert_eq!(geom(&st).unwrap().w, default_width);
+        assert_eq!(geom(&st).unwrap().w, EQ_ONLY_W);
+        assert!(geom(&st).unwrap().w < default_width);
+        let body = Rect::new(0.0, 0.0, EQ_ONLY_W, H);
+        assert!(equalizer_x(body) > body.center().x, "the waveform sits on the right");
         assert_eq!(is_live(&st), Some(true));
         st.power.saver = true;
         assert_eq!(is_live(&st), Some(false));

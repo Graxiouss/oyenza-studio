@@ -645,7 +645,7 @@ impl App {
         // Notifications only where Windows lets this copy read them (the Store copy).
         st.notify_can = crate::autostart::packaged();
         let mode = Mode::Idle;
-        let mut island = Island::new(activities::geom(&mode, &st));
+        let mut island = Island::new(activities::geom(&mode, &st).scaled(crate::island::UI_SCALE));
         island.set_floating(pill::on(st.settings.theme).then_some(pill::TOP_GAP));
         let clock = FrameClock::start(SendHwnd::new(hwnd), monitor.handle);
         let taskbar_created_msg = unsafe { RegisterWindowMessageW(w!("TaskbarCreated")) };
@@ -887,7 +887,7 @@ impl App {
     fn layout_surface_for(&mut self, body_w: f32, body_h: f32) {
         let s = self.gfx.scale();
         let mon_w = self.monitor.rect.right - self.monitor.rect.left;
-        let (w, h) = surface_size(&self.island, body_w, body_h, s, mon_w);
+        let (w, h) = surface_size(&self.island, body_w * crate::island::UI_SCALE, body_h * crate::island::UI_SCALE, s, mon_w);
         self.laid_floating = self.island.floating();
         self.place_surface(w, h);
     }
@@ -1016,9 +1016,9 @@ impl App {
         let need_h = ((bh + self.island.bottom_room() + self.island.top()) * s).ceil() as i32;
         if need_w > self.surface.w || need_h > self.surface.h {
             let tallest = PageKind::ALL.iter().map(|p| pages::content_height(*p, &self.st)).fold(0.0f32, f32::max);
-            let body_h = (pages::HEADER_H + tallest + pages::PAD).max(bh / OVERSHOOT * 1.1);
+            let body_h = (pages::HEADER_H + tallest + pages::PAD).max(bh / OVERSHOOT * 1.1 / crate::island::UI_SCALE);
             pinfo!("island outgrew the window; growing it to fit {bw:.0}x{bh:.0} DIP");
-            self.layout_surface_for(self.st.settings.expanded_width.max(bw / OVERSHOOT * 1.1), body_h);
+            self.layout_surface_for(self.st.settings.expanded_width.max(bw / OVERSHOOT * 1.1 / crate::island::UI_SCALE), body_h);
         }
     }
 
@@ -3455,9 +3455,9 @@ impl App {
     /// hangs from to its bottom, in screen pixels. Classic's shoulders and
     /// the floating Pill's gap count: they cover what is under them too.
     fn rest_rect(&self) -> RECT {
-        let g = activities::geom(&activities::resting_mode(&self.st), &self.st);
+        let g = activities::geom(&activities::resting_mode(&self.st), &self.st).scaled(crate::island::UI_SCALE);
         let floating = self.island.floating();
-        let w = g.w + if floating { 0.0 } else { 2.0 * SHOULDER };
+        let w = g.w + if floating { 0.0 } else { 2.0 * SHOULDER * crate::island::UI_SCALE };
         let h = g.h + if floating { pill::TOP_GAP } else { 0.0 };
         let s = self.gfx.scale();
         let cx = self.surface.x as f32 + self.cx * s;
@@ -3497,7 +3497,11 @@ impl App {
         if self.island.settled() {
             return false;
         }
-        let r = if self.expanded { self.island.canvas_rect_at(self.cx) } else { self.island.hover_rect_at(self.cx).inset(-SHOULDER - 2.0, 0.0) };
+        let r = if self.expanded {
+            self.island.canvas_rect_at(self.cx)
+        } else {
+            self.island.hover_rect_at(self.cx).inset(-SHOULDER * crate::island::UI_SCALE - 2.0, 0.0)
+        };
         !Rect::new(r.x, r.y, r.w, r.h + 2.0).contains(p)
     }
 
@@ -3533,7 +3537,7 @@ impl App {
             Mode::Activity(_) => true,
             _ => false,
         };
-        if liftable && self.hovering && !self.expanded {
+        let g = if liftable && self.hovering && !self.expanded {
             if pill::on(self.st.settings.theme) {
                 // Floating, it swells evenly about its middle and stays a capsule.
                 pill::motion::hover_lift(g)
@@ -3542,7 +3546,8 @@ impl App {
             }
         } else {
             g
-        }
+        };
+        g.scaled(crate::island::UI_SCALE)
     }
 
     // ------------------------------------------------------------ frame
@@ -3772,6 +3777,7 @@ impl App {
         // self-test brings its own backdrop), then draw this frame's glass
         // before the frame starts. The look follows the glass, light or dark.
         let glass_theme = self.st.settings.theme == Theme::Glass;
+        let shoulder = SHOULDER * crate::island::UI_SCALE;
         let window_px = RECT { left: self.surface.x, top: self.surface.y, right: self.surface.x + sw, bottom: self.surface.y + sh };
         // Only while someone can see it: not while hidden, locked or the display
         // is off. Not over a full-screen app either: copying a game's screen
@@ -3789,7 +3795,7 @@ impl App {
         let mut glass_moving = false;
         let glass = if glass_theme && !hidden_idle {
             let small = !matches!(mode, Mode::Expanded(_));
-            let (light, p, moving) = self.glass.frame(body, geom.r, SHOULDER, small, now, dt, scale, &mut self.gfx);
+            let (light, p, moving) = self.glass.frame(body, geom.r, shoulder, small, now, dt, scale, &mut self.gfx);
             glass_moving = moving;
             self.gfx.set_look(poni_core::look::glass(light));
             self.gfx.prepare_glass(&p, canvas_px);
@@ -3821,7 +3827,7 @@ impl App {
                             pill::shape::draw_body(&mut canvas, body, geom.r, island_color, border);
                         }
                     } else {
-                        canvas.notch(body, geom.r, SHOULDER, island_color, border);
+                        canvas.notch(body, geom.r, shoulder, island_color, border);
                     }
                 }
 
@@ -3833,7 +3839,7 @@ impl App {
                     if floating {
                         canvas.push_outline_mask(&pill::shape::segments(body, geom.r));
                     } else {
-                        canvas.push_shape_mask(body, geom.r, SHOULDER);
+                        canvas.push_shape_mask(body, geom.r, shoulder);
                     }
                 }
 
@@ -5654,12 +5660,14 @@ fn draw_content(
     transition: Option<pages::PageTransition>,
     now: f64,
 ) -> (bool, bool, Option<bool>, bool) {
-    let mut ui = Ui::new(c, input, hits, now);
-    match mode {
-        Mode::Expanded(page) => pages::draw_expanded(&mut ui, st, lay, page, transition),
-        _ => activities::draw(&mut ui, st, &mode, body),
-    }
-    (ui.repaint_requested(), ui.anim_requested(), ui.focus_request(), ui.live_requested())
+    let pivot = body.center();
+    let scale = crate::island::UI_SCALE;
+    let body = crate::ui::scale_rect(body, pivot, 1.0 / scale);
+    let lay = crate::ui::scale_rect(lay, pivot, 1.0 / scale);
+    Ui::draw_scaled(c, input, hits, now, pivot, scale, |ui| match mode {
+        Mode::Expanded(page) => pages::draw_expanded(ui, st, lay, page, transition),
+        _ => activities::draw(ui, st, &mode, body),
+    })
 }
 
 /// DWM's (refreshes, frames composed, frames missed) counters, if available.
@@ -5704,7 +5712,7 @@ fn hit_mask_for(island: &Island, cx: f32, expanded: bool, hidden: bool) -> HitMa
     }
     let body = island.body_rect_at(cx);
     if !island.floating() {
-        return HitMask { rect: None, notch: Some((body, island.current().r, SHOULDER)), pill: None };
+        return HitMask { rect: None, notch: Some((body, island.current().r, SHOULDER * crate::island::UI_SCALE)), pill: None };
     }
     if hidden {
         return HitMask { rect: Some(Rect::new(body.x, 0.0, body.w, body.h)), notch: None, pill: None };
@@ -5789,9 +5797,9 @@ mod tests {
     fn classic_masks_are_unchanged() {
         let i = island(Geom::new(84.0, 30.0, 14.0), false);
         let body = i.body_rect_at(CX);
-        assert_eq!(hit_mask_for(&i, CX, false, false), HitMask { rect: None, notch: Some((body, 14.0, SHOULDER)), pill: None });
+        assert_eq!(hit_mask_for(&i, CX, false, false), HitMask { rect: None, notch: Some((body, 14.0, SHOULDER * crate::island::UI_SCALE)), pill: None });
         // Hidden is Classic's own strip there, with its shoulders.
-        assert_eq!(hit_mask_for(&i, CX, false, true), HitMask { rect: None, notch: Some((body, 14.0, SHOULDER)), pill: None });
+        assert_eq!(hit_mask_for(&i, CX, false, true), HitMask { rect: None, notch: Some((body, 14.0, SHOULDER * crate::island::UI_SCALE)), pill: None });
         assert_eq!(hit_mask_for(&i, CX, true, false), HitMask { rect: Some(i.canvas_rect_at(CX)), notch: None, pill: None });
     }
 

@@ -1,6 +1,7 @@
 //! Master volume change notifications (Core Audio).
 
 //!
+
 //! A dedicated MTA thread owns the `IMMDeviceEnumerator` and the
 //! `IAudioEndpointVolume` of the default render endpoint (console role).
 //! Volume changes arrive on an audio-engine thread through
