@@ -1,0 +1,71 @@
+{
+  "version": 1,
+  "tasks": {
+    "tasks": [
+      {
+        "id": 1,
+        "text": "Water the balcony plants",
+        "done": true,
+        "created_unix": 1795061194,
+        "done_unix": 1795077394
+      },
+      {
+        "id": 2,
+        "text": "Sketch the onboarding screens",
+        "done": false,
+        "created_unix": 1795068394,
+        "done_unix": null
+      },
+      {
+        "id": 3,
+        "text": "Book the ferry for Saturday",
+        "done": false,
+        "created_unix": 1795071994,
+        "done_unix": null
+      }
+    ],
+    "next_id": 4
+  },
+  "shelf": {
+    "items": [
+      {
+        "path": "Z:\\workspaces\\oyenza-studio\\selftest-release-oyen\\home\\shelf-demo\\Trip notes.txt",
+        "added_unix": 1795076794
+      },
+      {
+        "path": "Z:\\workspaces\\oyenza-studio\\selftest-release-oyen\\home\\shelf-demo\\Harbor sketch.png",
+        "added_unix": 1795076194
+      },
+      {
+        "path": "Z:\\workspaces\\oyenza-studio\\selftest-release-oyen\\home\\shelf-demo\\Project assets",
+        "added_unix": 1795075594
+      }
+    ]
+  },
+  "focus_sessions": {
+    "2026-11-19": 2
+  },
+  "last_page": "media",
+  "oyenza_noticed": [],
+  "script": {
+    "text": "",
+    "wpm": 140
+  },
+  "stocks": {
+    "codes": [
+      "BBCA",
+      "BBRI",
+      "BMRI",
+      "TLKM",
+      "ASII"
+    ],
+    "pick": "IHSG",
+    "show": "percent",
+    "range": "1d"
+  },
+  "caffeine": {
+    "drinks": [],
+    "next_id": 0
+  },
+  "recorder_island": false
+}

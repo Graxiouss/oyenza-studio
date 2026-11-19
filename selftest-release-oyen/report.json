@@ -1,0 +1,3129 @@
+{
+  "app": "Poni",
+  "version": "0.2.30",
+  "ok": false,
+  "exit_code": 1,
+  "total_ms": 90571,
+  "scale": 2.0,
+  "expanded_width_dip": 620.0,
+  "renderer": "software",
+  "frame_budget_ms": 16.0,
+  "states_passed": 0,
+  "states_total": 144,
+  "failed_checks": [
+    "start-with-windows",
+    "notifications",
+    "deadline",
+    "states-visited",
+    "idle-clock: settled",
+    "idle-clock: frame-time",
+    "idle-eyes: frame-time",
+    "media-activity: settled",
+    "media-activity: frame-time",
+    "timer-activity: frame-time",
+    "media-timer: frame-time",
+    "volume-hud: frame-time",
+    "charging-hud: frame-time",
+    "bluetooth-hud: frame-time",
+    "health-notice: frame-time",
+    "page-media: frame-time",
+    "page-focus: frame-time",
+    "page-health: frame-time",
+    "page-shelf: frame-time",
+    "page-shelf-drop: frame-time",
+    "page-shelf-phone: settled",
+    "page-shelf-phone: frame-time",
+    "page-shelf-phone-ask: frame-time",
+    "page-shelf-phone-receive: frame-time",
+    "page-shelf-empty: frame-time",
+    "page-tasks: frame-time",
+    "page-oyenza-signed-out: frame-time",
+    "page-today: frame-time",
+    "tab-click-media: frame-time",
+    "page-health-signed-out: frame-time",
+    "oyenza-money: settled",
+    "oyenza-money: frame-time",
+    "oyenza-money-shown: frame-time",
+    "oyenza-bill: frame-time",
+    "page-oyenza: frame-time",
+    "page-oyenza-signin: frame-time",
+    "page-oyenza-saved: frame-time",
+    "page-health-signed-in: frame-time",
+    "page-settings: frame-time",
+    "page-settings-signing-in: frame-time",
+    "page-settings-signed-in: frame-time",
+    "page-system: settled",
+    "page-system: frame-time",
+    "page-system-memory: frame-time",
+    "page-system-drives: frame-time",
+    "page-system-network: frame-time",
+    "page-system-battery: frame-time",
+    "page-system-waiting: frame-time",
+    "page-settings-stay-on-top: frame-time"
+  ],
+  "slow_frames": [],
+  "checks": [
+    {
+      "name": "system-readings",
+      "ok": true,
+      "detail": "cpu 100% of 2 threads · cores 2 · temperature not reported · package power not reported · gpu none · memory 3.6 GB of 7.8 GB (wired 0 MB, compressed 0 MB, cached 0 MB, free 0 MB) · drives C: Z: · disk activity no · network eth0 10.0.14.159 0 Mbps · battery none · top memory Wine Explorer (0 MB, path), plugplay (0 MB, path), Oyenza Studio (0 MB, path) · light reading 6.0 ms · first full 994.3 ms · full 13.7 ms (processor times 0.1 ms, performance counters 0.0 ms, GPU statistics 0.0 ms, memory status 0.0 ms, network adapters 1.2 ms, interface table (every 10 s) 2.7 ms, process list (open only) 15.8 ms) · light reading CPU not measured"
+    },
+    {
+      "name": "ai-pictures",
+      "ok": true,
+      "detail": "all 8 of the AI page's pictures"
+    },
+    {
+      "name": "lyrics-fixture",
+      "ok": true,
+      "detail": "12 lines, synced true, line at 64s = Some(4)"
+    },
+    {
+      "name": "shelf-files",
+      "ok": true,
+      "detail": "3 items in Z:\\workspaces\\oyenza-studio\\selftest-release-oyen\\home\\shelf-demo"
+    },
+    {
+      "name": "start-with-windows",
+      "ok": false,
+      "detail": "packaged: startup task PoniStartup unavailable: 0x80040154"
+    },
+    {
+      "name": "notifications",
+      "ok": false,
+      "detail": "packaged: listener unavailable: 0x80040154"
+    },
+    {
+      "name": "phone-drop-server",
+      "ok": true,
+      "detail": "served the page at 10.0.14.159:53530 (15203 bytes)"
+    },
+    {
+      "name": "tab-click",
+      "ok": true,
+      "detail": "page 'today' -> 'media' after 126 ms (expected 'media')"
+    },
+    {
+      "name": "gear-click",
+      "ok": true,
+      "detail": "page 'health' -> 'settings' after 444 ms (expected 'settings')"
+    },
+    {
+      "name": "deadline",
+      "ok": false,
+      "detail": "stopped after 90.6 s at 'page-shelf-pairing'"
+    },
+    {
+      "name": "png-files",
+      "ok": true,
+      "detail": "40 screenshot pairs written in 0 ms after the last capture"
+    },
+    {
+      "name": "states-visited",
+      "ok": false,
+      "detail": "40 of 144 states captured"
+    }
+  ],
+  "states": [
+    {
+      "index": 1,
+      "name": "idle-clock",
+      "expanded": false,
+      "page": null,
+      "image": "01-idle-clock.png",
+      "alpha_image": "01-idle-clock-alpha.png",
+      "ok": false,
+      "settle_ms": 3363,
+      "frame_ms": 41.45,
+      "frame_samples_ms": [
+        129.81,
+        59.06,
+        41.45
+      ],
+      "canvas_px": [
+        316,
+        82
+      ],
+      "window_pos_px": [
+        802,
+        0
+      ],
+      "body_dip": [
+        20.147705,
+        0.0,
+        117.70457,
+        30.0
+      ],
+      "measured_width_px": 236,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": false,
+          "detail": "3363 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (157, 6) = rgba(255, 241, 222, 255), ground rgb[255, 241, 222]"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [0, 0, 0, 0]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "236 px opaque at row 30, geometry 235.4 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "1701 content pixels inside the island"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 41.45 ms of [129.81, 59.06, 41.45] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (269, 0) 1382x703 (laid out (269, 0) 1382x703), frame at (802, 0) 316x82"
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "name": "idle-eyes",
+      "expanded": false,
+      "page": null,
+      "image": "02-idle-eyes.png",
+      "alpha_image": "02-idle-eyes-alpha.png",
+      "ok": false,
+      "settle_ms": 1728,
+      "frame_ms": 94.62,
+      "frame_samples_ms": [
+        94.62,
+        98.66,
+        110.35
+      ],
+      "canvas_px": [
+        288,
+        94
+      ],
+      "window_pos_px": [
+        816,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        0.0,
+        104.0,
+        36.0
+      ],
+      "measured_width_px": 208,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "1728 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (144, 6) = rgba(255, 241, 222, 255), ground rgb[255, 241, 222]"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [0, 0, 0, 0]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "208 px opaque at row 36, geometry 208.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "2210 content pixels inside the island"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 94.62 ms of [94.62, 98.66, 110.35] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (269, 0) 1382x703 (laid out (269, 0) 1382x703), frame at (816, 0) 288x94"
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "name": "media-activity",
+      "expanded": false,
+      "page": null,
+      "image": "03-media-activity.png",
+      "alpha_image": "03-media-activity-alpha.png",
+      "ok": false,
+      "settle_ms": 6764,
+      "frame_ms": 108.45,
+      "frame_samples_ms": [
+        508.12,
+        108.45,
+        118.46
+      ],
+      "canvas_px": [
+        706,
+        87
+      ],
+      "window_pos_px": [
+        607,
+        0
+      ],
+      "body_dip": [
+        20.058044,
+        0.0,
+        312.8839,
+        32.16789
+      ],
+      "measured_width_px": 626,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": false,
+          "detail": "6764 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (353, 6) = rgba(255, 241, 222, 255), ground rgb[255, 241, 222]"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [0, 0, 0, 0]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "626 px opaque at row 32, geometry 625.8 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "4394 content pixels inside the island"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 108.45 ms of [508.12, 108.45, 118.46] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (269, 0) 1382x703 (laid out (269, 0) 1382x703), frame at (607, 0) 706x87"
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "name": "timer-activity",
+      "expanded": false,
+      "page": null,
+      "image": "04-timer-activity.png",
+      "alpha_image": "04-timer-activity-alpha.png",
+      "ok": false,
+      "settle_ms": 2107,
+      "frame_ms": 39.87,
+      "frame_samples_ms": [
+        67.86,
+        43.23,
+        39.87
+      ],
+      "canvas_px": [
+        272,
+        86
+      ],
+      "window_pos_px": [
+        824,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        0.0,
+        96.0,
+        32.0
+      ],
+      "measured_width_px": 192,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "2107 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (136, 6) = rgba(255, 241, 222, 255), ground rgb[255, 241, 222]"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [0, 0, 0, 0]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "192 px opaque at row 32, geometry 192.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "615 content pixels inside the island"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 39.87 ms of [67.86, 43.23, 39.87] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (269, 0) 1382x703 (laid out (269, 0) 1382x703), frame at (824, 0) 272x86"
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "name": "media-timer",
+      "expanded": false,
+      "page": null,
+      "image": "05-media-timer.png",
+      "alpha_image": "05-media-timer-alpha.png",
+      "ok": false,
+      "settle_ms": 650,
+      "frame_ms": 45.22,
+      "frame_samples_ms": [
+        45.22,
+        54.53,
+        61.97
+      ],
+      "canvas_px": [
+        344,
+        86
+      ],
+      "window_pos_px": [
+        788,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        0.0,
+        132.0,
+        32.0
+      ],
+      "measured_width_px": 264,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "650 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (172, 6) = rgba(255, 241, 222, 255), ground rgb[255, 241, 222]"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [0, 0, 0, 0]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "264 px opaque at row 32, geometry 264.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "1181 content pixels inside the island"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 45.22 ms of [45.22, 54.53, 61.97] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (269, 0) 1382x703 (laid out (269, 0) 1382x703), frame at (788, 0) 344x86"
+        }
+      ]
+    },
+    {
+      "index": 6,
+      "name": "volume-hud",
+      "expanded": false,
+      "page": null,
+      "image": "06-volume-hud.png",
+      "alpha_image": "06-volume-hud-alpha.png",
+      "ok": false,
+      "settle_ms": 903,
+      "frame_ms": 40.49,
+      "frame_samples_ms": [
+        40.49,
+        61.99,
+        58.01
+      ],
+      "canvas_px": [
+        712,
+        102
+      ],
+      "window_pos_px": [
+        604,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        0.0,
+        316.0,
+        40.0
+      ],
+      "measured_width_px": 632,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "903 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (356, 6) = rgba(255, 241, 222, 255), ground rgb[255, 241, 222]"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [0, 0, 0, 0]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "632 px opaque at row 40, geometry 632.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "3786 content pixels inside the island"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 40.49 ms of [40.49, 61.99, 58.01] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (269, 0) 1382x703 (laid out (269, 0) 1382x703), frame at (604, 0) 712x102"
+        }
+      ]
+    },
+    {
+      "index": 7,
+      "name": "charging-hud",
+      "expanded": false,
+      "page": null,
+      "image": "07-charging-hud.png",
+      "alpha_image": "07-charging-hud-alpha.png",
+      "ok": false,
+      "settle_ms": 1605,
+      "frame_ms": 47.13,
+      "frame_samples_ms": [
+        85.6,
+        82.34,
+        47.13
+      ],
+      "canvas_px": [
+        680,
+        102
+      ],
+      "window_pos_px": [
+        620,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        0.0,
+        300.0,
+        40.0
+      ],
+      "measured_width_px": 600,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "1605 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (340, 6) = rgba(255, 241, 222, 255), ground rgb[255, 241, 222]"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [0, 0, 0, 0]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "600 px opaque at row 40, geometry 600.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "1604 content pixels inside the island"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 47.13 ms of [85.6, 82.34, 47.13] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (269, 0) 1382x703 (laid out (269, 0) 1382x703), frame at (620, 0) 680x102"
+        }
+      ]
+    },
+    {
+      "index": 8,
+      "name": "bluetooth-hud",
+      "expanded": false,
+      "page": null,
+      "image": "08-bluetooth-hud.png",
+      "alpha_image": "08-bluetooth-hud-alpha.png",
+      "ok": false,
+      "settle_ms": 913,
+      "frame_ms": 63.13,
+      "frame_samples_ms": [
+        119.12,
+        72.1,
+        63.13
+      ],
+      "canvas_px": [
+        752,
+        114
+      ],
+      "window_pos_px": [
+        584,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        0.0,
+        336.0,
+        46.0
+      ],
+      "measured_width_px": 672,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "913 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (376, 6) = rgba(255, 241, 222, 255), ground rgb[255, 241, 222]"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [0, 0, 0, 0]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "672 px opaque at row 46, geometry 672.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "4192 content pixels inside the island"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 63.13 ms of [119.12, 72.1, 63.13] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (269, 0) 1382x703 (laid out (269, 0) 1382x703), frame at (584, 0) 752x114"
+        }
+      ]
+    },
+    {
+      "index": 9,
+      "name": "health-notice",
+      "expanded": false,
+      "page": null,
+      "image": "09-health-notice.png",
+      "alpha_image": "09-health-notice-alpha.png",
+      "ok": false,
+      "settle_ms": 1080,
+      "frame_ms": 37.92,
+      "frame_samples_ms": [
+        46.76,
+        37.92,
+        78.68
+      ],
+      "canvas_px": [
+        824,
+        126
+      ],
+      "window_pos_px": [
+        548,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        0.0,
+        372.0,
+        52.0
+      ],
+      "measured_width_px": 744,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "1080 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (412, 6) = rgba(255, 241, 222, 255), ground rgb[255, 241, 222]"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [0, 0, 0, 0]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "744 px opaque at row 52, geometry 744.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "2185 content pixels inside the island"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 37.92 ms of [46.76, 37.92, 78.68] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (269, 0) 1382x703 (laid out (269, 0) 1382x703), frame at (548, 0) 824x126"
+        }
+      ]
+    },
+    {
+      "index": 10,
+      "name": "page-media",
+      "expanded": true,
+      "page": "media",
+      "image": "10-page-media.png",
+      "alpha_image": "10-page-media-alpha.png",
+      "ok": false,
+      "settle_ms": 2758,
+      "frame_ms": 56.37,
+      "frame_samples_ms": [
+        111.4,
+        76.87,
+        56.37
+      ],
+      "canvas_px": [
+        1320,
+        518
+      ],
+      "window_pos_px": [
+        300,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        0.0,
+        620.0,
+        248.0
+      ],
+      "measured_width_px": 1240,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "2758 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (660, 6) = rgba(255, 241, 222, 255), ground rgb[255, 241, 222]"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [1, 1, 1, 1]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "1240 px opaque at row 248, geometry 1240.0 px"
+        },
+        {
+          "name": "expanded-width",
+          "ok": true,
+          "detail": "1240 px vs settings.expanded_width 620 x 2.00 = 1240.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "32890 content pixels inside the island"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 56.37 ms of [111.4, 76.87, 56.37] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (269, 0) 1382x703 (laid out (269, 0) 1382x703), frame at (300, 0) 1320x518"
+        },
+        {
+          "name": "page",
+          "ok": true,
+          "detail": "showing 'media', expected 'media'"
+        }
+      ]
+    },
+    {
+      "index": 11,
+      "name": "page-focus",
+      "expanded": true,
+      "page": "focus",
+      "image": "11-page-focus.png",
+      "alpha_image": "11-page-focus-alpha.png",
+      "ok": false,
+      "settle_ms": 1490,
+      "frame_ms": 75.83,
+      "frame_samples_ms": [
+        97.07,
+        118.99,
+        75.83
+      ],
+      "canvas_px": [
+        1320,
+        446
+      ],
+      "window_pos_px": [
+        300,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        0.0,
+        620.0,
+        212.0
+      ],
+      "measured_width_px": 1240,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "1490 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (660, 6) = rgba(255, 241, 222, 255), ground rgb[255, 241, 222]"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [1, 1, 1, 1]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "1240 px opaque at row 212, geometry 1240.0 px"
+        },
+        {
+          "name": "expanded-width",
+          "ok": true,
+          "detail": "1240 px vs settings.expanded_width 620 x 2.00 = 1240.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "10863 content pixels inside the island"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 75.83 ms of [97.07, 118.99, 75.83] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (269, 0) 1382x703 (laid out (269, 0) 1382x703), frame at (300, 0) 1320x446"
+        },
+        {
+          "name": "page",
+          "ok": true,
+          "detail": "showing 'focus', expected 'focus'"
+        }
+      ]
+    },
+    {
+      "index": 12,
+      "name": "page-health",
+      "expanded": true,
+      "page": "health",
+      "image": "12-page-health.png",
+      "alpha_image": "12-page-health-alpha.png",
+      "ok": false,
+      "settle_ms": 2704,
+      "frame_ms": 75.79,
+      "frame_samples_ms": [
+        85.57,
+        98.84,
+        75.79
+      ],
+      "canvas_px": [
+        1320,
+        446
+      ],
+      "window_pos_px": [
+        300,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        0.0,
+        620.0,
+        212.0
+      ],
+      "measured_width_px": 1240,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "2704 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (660, 6) = rgba(255, 241, 222, 255), ground rgb[255, 241, 222]"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [1, 1, 1, 1]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "1240 px opaque at row 212, geometry 1240.0 px"
+        },
+        {
+          "name": "expanded-width",
+          "ok": true,
+          "detail": "1240 px vs settings.expanded_width 620 x 2.00 = 1240.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "21916 content pixels inside the island"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 75.79 ms of [85.57, 98.84, 75.79] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (269, 0) 1382x703 (laid out (269, 0) 1382x703), frame at (300, 0) 1320x446"
+        },
+        {
+          "name": "page",
+          "ok": true,
+          "detail": "showing 'health', expected 'health'"
+        }
+      ]
+    },
+    {
+      "index": 13,
+      "name": "page-shelf",
+      "expanded": true,
+      "page": "shelf",
+      "image": "13-page-shelf.png",
+      "alpha_image": "13-page-shelf-alpha.png",
+      "ok": false,
+      "settle_ms": 985,
+      "frame_ms": 58.8,
+      "frame_samples_ms": [
+        69.86,
+        58.8,
+        65.51
+      ],
+      "canvas_px": [
+        1320,
+        458
+      ],
+      "window_pos_px": [
+        300,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        0.0,
+        620.0,
+        218.0
+      ],
+      "measured_width_px": 1240,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "985 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (660, 6) = rgba(255, 241, 222, 255), ground rgb[255, 241, 222]"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [1, 1, 1, 1]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "1240 px opaque at row 218, geometry 1240.0 px"
+        },
+        {
+          "name": "expanded-width",
+          "ok": true,
+          "detail": "1240 px vs settings.expanded_width 620 x 2.00 = 1240.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "9092 content pixels inside the island"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 58.80 ms of [69.86, 58.8, 65.51] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (269, 0) 1382x703 (laid out (269, 0) 1382x703), frame at (300, 0) 1320x458"
+        },
+        {
+          "name": "page",
+          "ok": true,
+          "detail": "showing 'shelf', expected 'shelf'"
+        }
+      ]
+    },
+    {
+      "index": 14,
+      "name": "page-shelf-drop",
+      "expanded": true,
+      "page": "shelf",
+      "image": "14-page-shelf-drop.png",
+      "alpha_image": "14-page-shelf-drop-alpha.png",
+      "ok": false,
+      "settle_ms": 1754,
+      "frame_ms": 59.94,
+      "frame_samples_ms": [
+        59.94,
+        83.69,
+        61.84
+      ],
+      "canvas_px": [
+        1320,
+        458
+      ],
+      "window_pos_px": [
+        300,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        0.0,
+        620.0,
+        218.0
+      ],
+      "measured_width_px": 1240,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "1754 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (660, 6) = rgba(255, 241, 222, 255), ground rgb[255, 241, 222]"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [1, 1, 1, 1]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "1240 px opaque at row 218, geometry 1240.0 px"
+        },
+        {
+          "name": "expanded-width",
+          "ok": true,
+          "detail": "1240 px vs settings.expanded_width 620 x 2.00 = 1240.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "13547 content pixels inside the island"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 59.94 ms of [59.94, 83.69, 61.84] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (269, 0) 1382x703 (laid out (269, 0) 1382x703), frame at (300, 0) 1320x458"
+        },
+        {
+          "name": "page",
+          "ok": true,
+          "detail": "showing 'shelf', expected 'shelf'"
+        }
+      ]
+    },
+    {
+      "index": 15,
+      "name": "page-shelf-phone",
+      "expanded": true,
+      "page": "shelf",
+      "image": "15-page-shelf-phone.png",
+      "alpha_image": "15-page-shelf-phone-alpha.png",
+      "ok": false,
+      "settle_ms": 3110,
+      "frame_ms": 116.5,
+      "frame_samples_ms": [
+        137.83,
+        116.5,
+        127.68
+      ],
+      "canvas_px": [
+        1320,
+        787
+      ],
+      "window_pos_px": [
+        300,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        0.0,
+        620.0,
+        382.31693
+      ],
+      "measured_width_px": 1240,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": false,
+          "detail": "3110 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (660, 6) = rgba(255, 241, 222, 255), ground rgb[255, 241, 222]"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [1, 1, 1, 1]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "1240 px opaque at row 382, geometry 1240.0 px"
+        },
+        {
+          "name": "expanded-width",
+          "ok": true,
+          "detail": "1240 px vs settings.expanded_width 620 x 2.00 = 1240.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "39628 content pixels inside the island"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 116.50 ms of [137.83, 116.5, 127.68] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (203, 0) 1514x905 (laid out (203, 0) 1514x905), frame at (300, 0) 1320x787"
+        },
+        {
+          "name": "page",
+          "ok": true,
+          "detail": "showing 'shelf', expected 'shelf'"
+        }
+      ]
+    },
+    {
+      "index": 16,
+      "name": "page-shelf-phone-ask",
+      "expanded": true,
+      "page": "shelf",
+      "image": "16-page-shelf-phone-ask.png",
+      "alpha_image": "16-page-shelf-phone-ask-alpha.png",
+      "ok": false,
+      "settle_ms": 1150,
+      "frame_ms": 89.37,
+      "frame_samples_ms": [
+        155.27,
+        129.7,
+        89.37
+      ],
+      "canvas_px": [
+        1320,
+        786
+      ],
+      "window_pos_px": [
+        300,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        0.0,
+        620.0,
+        382.0
+      ],
+      "measured_width_px": 1240,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "1150 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (660, 6) = rgba(255, 241, 222, 255), ground rgb[255, 241, 222]"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [1, 1, 1, 1]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "1240 px opaque at row 382, geometry 1240.0 px"
+        },
+        {
+          "name": "expanded-width",
+          "ok": true,
+          "detail": "1240 px vs settings.expanded_width 620 x 2.00 = 1240.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "39384 content pixels inside the island"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 89.37 ms of [155.27, 129.7, 89.37] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (203, 0) 1514x905 (laid out (203, 0) 1514x905), frame at (300, 0) 1320x786"
+        },
+        {
+          "name": "page",
+          "ok": true,
+          "detail": "showing 'shelf', expected 'shelf'"
+        }
+      ]
+    },
+    {
+      "index": 17,
+      "name": "page-shelf-phone-receive",
+      "expanded": true,
+      "page": "shelf",
+      "image": "17-page-shelf-phone-receive.png",
+      "alpha_image": "17-page-shelf-phone-receive-alpha.png",
+      "ok": false,
+      "settle_ms": 1030,
+      "frame_ms": 88.45,
+      "frame_samples_ms": [
+        88.45,
+        100.94,
+        91.18
+      ],
+      "canvas_px": [
+        1320,
+        786
+      ],
+      "window_pos_px": [
+        300,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        0.0,
+        620.0,
+        382.0
+      ],
+      "measured_width_px": 1240,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "1030 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (660, 6) = rgba(255, 241, 222, 255), ground rgb[255, 241, 222]"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [1, 1, 1, 1]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "1240 px opaque at row 382, geometry 1240.0 px"
+        },
+        {
+          "name": "expanded-width",
+          "ok": true,
+          "detail": "1240 px vs settings.expanded_width 620 x 2.00 = 1240.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "40820 content pixels inside the island"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 88.45 ms of [88.45, 100.94, 91.18] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (203, 0) 1514x905 (laid out (203, 0) 1514x905), frame at (300, 0) 1320x786"
+        },
+        {
+          "name": "page",
+          "ok": true,
+          "detail": "showing 'shelf', expected 'shelf'"
+        }
+      ]
+    },
+    {
+      "index": 18,
+      "name": "page-shelf-empty",
+      "expanded": true,
+      "page": "shelf",
+      "image": "18-page-shelf-empty.png",
+      "alpha_image": "18-page-shelf-empty-alpha.png",
+      "ok": false,
+      "settle_ms": 1244,
+      "frame_ms": 101.14,
+      "frame_samples_ms": [
+        101.14,
+        660.57,
+        137.22
+      ],
+      "canvas_px": [
+        1320,
+        458
+      ],
+      "window_pos_px": [
+        300,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        0.0,
+        620.0,
+        218.0
+      ],
+      "measured_width_px": 1240,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "1244 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (660, 6) = rgba(255, 241, 222, 255), ground rgb[255, 241, 222]"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [1, 1, 1, 1]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "1240 px opaque at row 218, geometry 1240.0 px"
+        },
+        {
+          "name": "expanded-width",
+          "ok": true,
+          "detail": "1240 px vs settings.expanded_width 620 x 2.00 = 1240.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "6783 content pixels inside the island"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 101.14 ms of [101.14, 660.57, 137.22] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (203, 0) 1514x905 (laid out (203, 0) 1514x905), frame at (300, 0) 1320x458"
+        },
+        {
+          "name": "page",
+          "ok": true,
+          "detail": "showing 'shelf', expected 'shelf'"
+        }
+      ]
+    },
+    {
+      "index": 19,
+      "name": "page-tasks",
+      "expanded": true,
+      "page": "tasks",
+      "image": "19-page-tasks.png",
+      "alpha_image": "19-page-tasks-alpha.png",
+      "ok": false,
+      "settle_ms": 1444,
+      "frame_ms": 42.57,
+      "frame_samples_ms": [
+        89.17,
+        62.2,
+        42.57
+      ],
+      "canvas_px": [
+        1320,
+        558
+      ],
+      "window_pos_px": [
+        300,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        0.0,
+        620.0,
+        268.0
+      ],
+      "measured_width_px": 1240,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "1444 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (660, 6) = rgba(255, 241, 222, 255), ground rgb[255, 241, 222]"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [1, 1, 1, 1]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "1240 px opaque at row 268, geometry 1240.0 px"
+        },
+        {
+          "name": "expanded-width",
+          "ok": true,
+          "detail": "1240 px vs settings.expanded_width 620 x 2.00 = 1240.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "7184 content pixels inside the island"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 42.57 ms of [89.17, 62.2, 42.57] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (203, 0) 1514x905 (laid out (203, 0) 1514x905), frame at (300, 0) 1320x558"
+        },
+        {
+          "name": "page",
+          "ok": true,
+          "detail": "showing 'tasks', expected 'tasks'"
+        }
+      ]
+    },
+    {
+      "index": 20,
+      "name": "page-oyenza-signed-out",
+      "expanded": true,
+      "page": "oyenza",
+      "image": "20-page-oyenza-signed-out.png",
+      "alpha_image": "20-page-oyenza-signed-out-alpha.png",
+      "ok": false,
+      "settle_ms": 1982,
+      "frame_ms": 59.56,
+      "frame_samples_ms": [
+        59.56,
+        88.39,
+        108.02
+      ],
+      "canvas_px": [
+        1320,
+        470
+      ],
+      "window_pos_px": [
+        300,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        0.0,
+        620.0,
+        224.0
+      ],
+      "measured_width_px": 1240,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "1982 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (660, 6) = rgba(255, 241, 222, 255), ground rgb[255, 241, 222]"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [1, 1, 1, 1]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "1240 px opaque at row 224, geometry 1240.0 px"
+        },
+        {
+          "name": "expanded-width",
+          "ok": true,
+          "detail": "1240 px vs settings.expanded_width 620 x 2.00 = 1240.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "22903 content pixels inside the island"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 59.56 ms of [59.56, 88.39, 108.02] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (203, 0) 1514x905 (laid out (203, 0) 1514x905), frame at (300, 0) 1320x470"
+        },
+        {
+          "name": "page",
+          "ok": true,
+          "detail": "showing 'oyenza', expected 'oyenza'"
+        }
+      ]
+    },
+    {
+      "index": 21,
+      "name": "page-today",
+      "expanded": true,
+      "page": "today",
+      "image": "21-page-today.png",
+      "alpha_image": "21-page-today-alpha.png",
+      "ok": false,
+      "settle_ms": 1569,
+      "frame_ms": 76.19,
+      "frame_samples_ms": [
+        87.55,
+        76.19,
+        88.57
+      ],
+      "canvas_px": [
+        1320,
+        558
+      ],
+      "window_pos_px": [
+        300,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        0.0,
+        620.0,
+        268.0
+      ],
+      "measured_width_px": 1240,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "1569 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (660, 6) = rgba(255, 241, 222, 255), ground rgb[255, 241, 222]"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [1, 1, 1, 1]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "1240 px opaque at row 268, geometry 1240.0 px"
+        },
+        {
+          "name": "expanded-width",
+          "ok": true,
+          "detail": "1240 px vs settings.expanded_width 620 x 2.00 = 1240.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "14523 content pixels inside the island"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 76.19 ms of [87.55, 76.19, 88.57] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (203, 0) 1514x905 (laid out (203, 0) 1514x905), frame at (300, 0) 1320x558"
+        },
+        {
+          "name": "page",
+          "ok": true,
+          "detail": "showing 'today', expected 'today'"
+        }
+      ]
+    },
+    {
+      "index": 22,
+      "name": "tab-click-media",
+      "expanded": true,
+      "page": "media",
+      "image": "22-tab-click-media.png",
+      "alpha_image": "22-tab-click-media-alpha.png",
+      "ok": false,
+      "settle_ms": 988,
+      "frame_ms": 79.93,
+      "frame_samples_ms": [
+        79.93,
+        96.88,
+        86.67
+      ],
+      "canvas_px": [
+        1320,
+        518
+      ],
+      "window_pos_px": [
+        300,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        0.0,
+        620.0,
+        248.0
+      ],
+      "measured_width_px": 1240,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "988 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (660, 6) = rgba(255, 241, 222, 255), ground rgb[255, 241, 222]"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [1, 1, 1, 1]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "1240 px opaque at row 248, geometry 1240.0 px"
+        },
+        {
+          "name": "expanded-width",
+          "ok": true,
+          "detail": "1240 px vs settings.expanded_width 620 x 2.00 = 1240.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "32890 content pixels inside the island"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 79.93 ms of [79.93, 96.88, 86.67] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (203, 0) 1514x905 (laid out (203, 0) 1514x905), frame at (300, 0) 1320x518"
+        },
+        {
+          "name": "page",
+          "ok": true,
+          "detail": "showing 'media', expected 'media'"
+        }
+      ]
+    },
+    {
+      "index": 23,
+      "name": "page-health-signed-out",
+      "expanded": true,
+      "page": "health",
+      "image": "23-page-health-signed-out.png",
+      "alpha_image": "23-page-health-signed-out-alpha.png",
+      "ok": false,
+      "settle_ms": 907,
+      "frame_ms": 49.46,
+      "frame_samples_ms": [
+        79.5,
+        49.46,
+        50.55
+      ],
+      "canvas_px": [
+        1320,
+        446
+      ],
+      "window_pos_px": [
+        300,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        0.0,
+        620.0,
+        212.0
+      ],
+      "measured_width_px": 1240,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "907 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (660, 6) = rgba(255, 241, 222, 255), ground rgb[255, 241, 222]"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [1, 1, 1, 1]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "1240 px opaque at row 212, geometry 1240.0 px"
+        },
+        {
+          "name": "expanded-width",
+          "ok": true,
+          "detail": "1240 px vs settings.expanded_width 620 x 2.00 = 1240.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "7712 content pixels inside the island"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 49.46 ms of [79.5, 49.46, 50.55] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (203, 0) 1514x905 (laid out (203, 0) 1514x905), frame at (300, 0) 1320x446"
+        },
+        {
+          "name": "page",
+          "ok": true,
+          "detail": "showing 'health', expected 'health'"
+        }
+      ]
+    },
+    {
+      "index": 24,
+      "name": "oyenza-money",
+      "expanded": false,
+      "page": null,
+      "image": "24-oyenza-money.png",
+      "alpha_image": "24-oyenza-money-alpha.png",
+      "ok": false,
+      "settle_ms": 3047,
+      "frame_ms": 72.72,
+      "frame_samples_ms": [
+        138.02,
+        99.24,
+        72.72
+      ],
+      "canvas_px": [
+        854,
+        140
+      ],
+      "window_pos_px": [
+        533,
+        0
+      ],
+      "body_dip": [
+        20.02797,
+        0.0,
+        386.94406,
+        58.727325
+      ],
+      "measured_width_px": 774,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": false,
+          "detail": "3047 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (427, 6) = rgba(255, 241, 222, 255), ground rgb[255, 241, 222]"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [0, 0, 0, 0]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "774 px opaque at row 58, geometry 773.9 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "1928 content pixels inside the island"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 72.72 ms of [138.02, 99.24, 72.72] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (203, 0) 1514x905 (laid out (203, 0) 1514x905), frame at (533, 0) 854x140"
+        }
+      ]
+    },
+    {
+      "index": 25,
+      "name": "oyenza-money-shown",
+      "expanded": false,
+      "page": null,
+      "image": "25-oyenza-money-shown.png",
+      "alpha_image": "25-oyenza-money-shown-alpha.png",
+      "ok": false,
+      "settle_ms": 565,
+      "frame_ms": 25.56,
+      "frame_samples_ms": [
+        73.95,
+        114.75,
+        25.56
+      ],
+      "canvas_px": [
+        824,
+        126
+      ],
+      "window_pos_px": [
+        548,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        0.0,
+        372.0,
+        52.0
+      ],
+      "measured_width_px": 744,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "565 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (412, 6) = rgba(255, 241, 222, 255), ground rgb[255, 241, 222]"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [0, 0, 0, 0]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "744 px opaque at row 52, geometry 744.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "1655 content pixels inside the island"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 25.56 ms of [73.95, 114.75, 25.56] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (203, 0) 1514x905 (laid out (203, 0) 1514x905), frame at (548, 0) 824x126"
+        }
+      ]
+    },
+    {
+      "index": 26,
+      "name": "oyenza-bill",
+      "expanded": false,
+      "page": null,
+      "image": "26-oyenza-bill.png",
+      "alpha_image": "26-oyenza-bill-alpha.png",
+      "ok": false,
+      "settle_ms": 193,
+      "frame_ms": 62.12,
+      "frame_samples_ms": [
+        62.12,
+        73.91,
+        103.01
+      ],
+      "canvas_px": [
+        824,
+        126
+      ],
+      "window_pos_px": [
+        548,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        0.0,
+        372.0,
+        52.0
+      ],
+      "measured_width_px": 744,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "193 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (412, 6) = rgba(255, 241, 222, 255), ground rgb[255, 241, 222]"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [0, 0, 0, 0]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "744 px opaque at row 52, geometry 744.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "3339 content pixels inside the island"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 62.12 ms of [62.12, 73.91, 103.01] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (203, 0) 1514x905 (laid out (203, 0) 1514x905), frame at (548, 0) 824x126"
+        }
+      ]
+    },
+    {
+      "index": 27,
+      "name": "page-oyenza",
+      "expanded": true,
+      "page": "oyenza",
+      "image": "27-page-oyenza.png",
+      "alpha_image": "27-page-oyenza-alpha.png",
+      "ok": false,
+      "settle_ms": 2816,
+      "frame_ms": 69.28,
+      "frame_samples_ms": [
+        302.11,
+        70.82,
+        69.28
+      ],
+      "canvas_px": [
+        1320,
+        682
+      ],
+      "window_pos_px": [
+        300,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        0.0,
+        620.0,
+        330.0
+      ],
+      "measured_width_px": 1240,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "2816 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (660, 6) = rgba(255, 241, 222, 255), ground rgb[255, 241, 222]"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [1, 1, 1, 1]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "1240 px opaque at row 330, geometry 1240.0 px"
+        },
+        {
+          "name": "expanded-width",
+          "ok": true,
+          "detail": "1240 px vs settings.expanded_width 620 x 2.00 = 1240.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "9636 content pixels inside the island"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 69.28 ms of [302.11, 70.82, 69.28] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (203, 0) 1514x905 (laid out (203, 0) 1514x905), frame at (300, 0) 1320x682"
+        },
+        {
+          "name": "page",
+          "ok": true,
+          "detail": "showing 'oyenza', expected 'oyenza'"
+        }
+      ]
+    },
+    {
+      "index": 28,
+      "name": "page-oyenza-signin",
+      "expanded": true,
+      "page": "oyenza",
+      "image": "28-page-oyenza-signin.png",
+      "alpha_image": "28-page-oyenza-signin-alpha.png",
+      "ok": false,
+      "settle_ms": 990,
+      "frame_ms": 82.56,
+      "frame_samples_ms": [
+        94.33,
+        82.56,
+        135.41
+      ],
+      "canvas_px": [
+        1320,
+        470
+      ],
+      "window_pos_px": [
+        300,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        0.0,
+        620.0,
+        224.0
+      ],
+      "measured_width_px": 1240,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "990 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (660, 6) = rgba(255, 241, 222, 255), ground rgb[255, 241, 222]"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [1, 1, 1, 1]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "1240 px opaque at row 224, geometry 1240.0 px"
+        },
+        {
+          "name": "expanded-width",
+          "ok": true,
+          "detail": "1240 px vs settings.expanded_width 620 x 2.00 = 1240.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "12718 content pixels inside the island"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 82.56 ms of [94.33, 82.56, 135.41] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (203, 0) 1514x905 (laid out (203, 0) 1514x905), frame at (300, 0) 1320x470"
+        },
+        {
+          "name": "page",
+          "ok": true,
+          "detail": "showing 'oyenza', expected 'oyenza'"
+        }
+      ]
+    },
+    {
+      "index": 29,
+      "name": "page-oyenza-saved",
+      "expanded": true,
+      "page": "oyenza",
+      "image": "29-page-oyenza-saved.png",
+      "alpha_image": "29-page-oyenza-saved-alpha.png",
+      "ok": false,
+      "settle_ms": 1319,
+      "frame_ms": 89.27,
+      "frame_samples_ms": [
+        97.31,
+        92.31,
+        89.27
+      ],
+      "canvas_px": [
+        1320,
+        682
+      ],
+      "window_pos_px": [
+        300,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        0.0,
+        620.0,
+        330.0
+      ],
+      "measured_width_px": 1240,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "1319 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (660, 6) = rgba(255, 241, 222, 255), ground rgb[255, 241, 222]"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [1, 1, 1, 1]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "1240 px opaque at row 330, geometry 1240.0 px"
+        },
+        {
+          "name": "expanded-width",
+          "ok": true,
+          "detail": "1240 px vs settings.expanded_width 620 x 2.00 = 1240.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "10645 content pixels inside the island"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 89.27 ms of [97.31, 92.31, 89.27] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (203, 0) 1514x905 (laid out (203, 0) 1514x905), frame at (300, 0) 1320x682"
+        },
+        {
+          "name": "page",
+          "ok": true,
+          "detail": "showing 'oyenza', expected 'oyenza'"
+        }
+      ]
+    },
+    {
+      "index": 30,
+      "name": "page-health-signed-in",
+      "expanded": true,
+      "page": "health",
+      "image": "30-page-health-signed-in.png",
+      "alpha_image": "30-page-health-signed-in-alpha.png",
+      "ok": false,
+      "settle_ms": 1006,
+      "frame_ms": 83.56,
+      "frame_samples_ms": [
+        86.93,
+        83.56,
+        121.32
+      ],
+      "canvas_px": [
+        1320,
+        446
+      ],
+      "window_pos_px": [
+        300,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        0.0,
+        620.0,
+        212.0
+      ],
+      "measured_width_px": 1240,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "1006 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (660, 6) = rgba(255, 241, 222, 255), ground rgb[255, 241, 222]"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [1, 1, 1, 1]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "1240 px opaque at row 212, geometry 1240.0 px"
+        },
+        {
+          "name": "expanded-width",
+          "ok": true,
+          "detail": "1240 px vs settings.expanded_width 620 x 2.00 = 1240.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "6511 content pixels inside the island"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 83.56 ms of [86.93, 83.56, 121.32] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (203, 0) 1514x905 (laid out (203, 0) 1514x905), frame at (300, 0) 1320x446"
+        },
+        {
+          "name": "page",
+          "ok": true,
+          "detail": "showing 'health', expected 'health'"
+        }
+      ]
+    },
+    {
+      "index": 31,
+      "name": "page-settings",
+      "expanded": true,
+      "page": "settings",
+      "image": "31-page-settings.png",
+      "alpha_image": "31-page-settings-alpha.png",
+      "ok": false,
+      "settle_ms": 1981,
+      "frame_ms": 104.44,
+      "frame_samples_ms": [
+        106.8,
+        104.44,
+        111.98
+      ],
+      "canvas_px": [
+        1320,
+        666
+      ],
+      "window_pos_px": [
+        300,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        0.0,
+        620.0,
+        322.0
+      ],
+      "measured_width_px": 1240,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "1981 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (660, 6) = rgba(255, 241, 222, 255), ground rgb[255, 241, 222]"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [1, 1, 1, 1]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "1240 px opaque at row 322, geometry 1240.0 px"
+        },
+        {
+          "name": "expanded-width",
+          "ok": true,
+          "detail": "1240 px vs settings.expanded_width 620 x 2.00 = 1240.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "24458 content pixels inside the island"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 104.44 ms of [106.8, 104.44, 111.98] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (203, 0) 1514x905 (laid out (203, 0) 1514x905), frame at (300, 0) 1320x666"
+        },
+        {
+          "name": "page",
+          "ok": true,
+          "detail": "showing 'settings', expected 'settings'"
+        }
+      ]
+    },
+    {
+      "index": 32,
+      "name": "page-settings-signing-in",
+      "expanded": true,
+      "page": "settings",
+      "image": "32-page-settings-signing-in.png",
+      "alpha_image": "32-page-settings-signing-in-alpha.png",
+      "ok": false,
+      "settle_ms": 285,
+      "frame_ms": 113.91,
+      "frame_samples_ms": [
+        336.76,
+        157.1,
+        113.91
+      ],
+      "canvas_px": [
+        1320,
+        666
+      ],
+      "window_pos_px": [
+        300,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        0.0,
+        620.0,
+        322.0
+      ],
+      "measured_width_px": 1240,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "285 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (660, 6) = rgba(255, 241, 222, 255), ground rgb[255, 241, 222]"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [1, 1, 1, 1]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "1240 px opaque at row 322, geometry 1240.0 px"
+        },
+        {
+          "name": "expanded-width",
+          "ok": true,
+          "detail": "1240 px vs settings.expanded_width 620 x 2.00 = 1240.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "24972 content pixels inside the island"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 113.91 ms of [336.76, 157.1, 113.91] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (203, 0) 1514x905 (laid out (203, 0) 1514x905), frame at (300, 0) 1320x666"
+        },
+        {
+          "name": "page",
+          "ok": true,
+          "detail": "showing 'settings', expected 'settings'"
+        }
+      ]
+    },
+    {
+      "index": 33,
+      "name": "page-settings-signed-in",
+      "expanded": true,
+      "page": "settings",
+      "image": "33-page-settings-signed-in.png",
+      "alpha_image": "33-page-settings-signed-in-alpha.png",
+      "ok": false,
+      "settle_ms": 251,
+      "frame_ms": 105.37,
+      "frame_samples_ms": [
+        135.01,
+        105.37,
+        150.74
+      ],
+      "canvas_px": [
+        1320,
+        666
+      ],
+      "window_pos_px": [
+        300,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        0.0,
+        620.0,
+        322.0
+      ],
+      "measured_width_px": 1240,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "251 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (660, 6) = rgba(255, 241, 222, 255), ground rgb[255, 241, 222]"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [1, 1, 1, 1]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "1240 px opaque at row 322, geometry 1240.0 px"
+        },
+        {
+          "name": "expanded-width",
+          "ok": true,
+          "detail": "1240 px vs settings.expanded_width 620 x 2.00 = 1240.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "23729 content pixels inside the island"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 105.37 ms of [135.01, 105.37, 150.74] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (203, 0) 1514x905 (laid out (203, 0) 1514x905), frame at (300, 0) 1320x666"
+        },
+        {
+          "name": "page",
+          "ok": true,
+          "detail": "showing 'settings', expected 'settings'"
+        }
+      ]
+    },
+    {
+      "index": 34,
+      "name": "page-system",
+      "expanded": true,
+      "page": "system",
+      "image": "34-page-system.png",
+      "alpha_image": "34-page-system-alpha.png",
+      "ok": false,
+      "settle_ms": 3626,
+      "frame_ms": 92.42,
+      "frame_samples_ms": [
+        149.07,
+        129.46,
+        92.42
+      ],
+      "canvas_px": [
+        1320,
+        671
+      ],
+      "window_pos_px": [
+        300,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        0.0,
+        620.0,
+        324.0037
+      ],
+      "measured_width_px": 1240,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": false,
+          "detail": "3626 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (660, 6) = rgba(255, 241, 222, 255), ground rgb[255, 241, 222]"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [1, 1, 0, 0]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "1240 px opaque at row 324, geometry 1240.0 px"
+        },
+        {
+          "name": "expanded-width",
+          "ok": true,
+          "detail": "1240 px vs settings.expanded_width 620 x 2.00 = 1240.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "36034 content pixels inside the island"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 92.42 ms of [149.07, 129.46, 92.42] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (203, 0) 1514x905 (laid out (203, 0) 1514x905), frame at (300, 0) 1320x671"
+        },
+        {
+          "name": "page",
+          "ok": true,
+          "detail": "showing 'system', expected 'system'"
+        }
+      ]
+    },
+    {
+      "index": 35,
+      "name": "page-system-memory",
+      "expanded": true,
+      "page": "system",
+      "image": "35-page-system-memory.png",
+      "alpha_image": "35-page-system-memory-alpha.png",
+      "ok": false,
+      "settle_ms": 798,
+      "frame_ms": 127.15,
+      "frame_samples_ms": [
+        127.15,
+        134.84,
+        255.91
+      ],
+      "canvas_px": [
+        1320,
+        670
+      ],
+      "window_pos_px": [
+        300,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        0.0,
+        620.0,
+        324.0
+      ],
+      "measured_width_px": 1240,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "798 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (660, 6) = rgba(255, 241, 222, 255), ground rgb[255, 241, 222]"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [1, 1, 1, 1]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "1240 px opaque at row 324, geometry 1240.0 px"
+        },
+        {
+          "name": "expanded-width",
+          "ok": true,
+          "detail": "1240 px vs settings.expanded_width 620 x 2.00 = 1240.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "34496 content pixels inside the island"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 127.15 ms of [127.15, 134.84, 255.91] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (203, 0) 1514x905 (laid out (203, 0) 1514x905), frame at (300, 0) 1320x670"
+        },
+        {
+          "name": "page",
+          "ok": true,
+          "detail": "showing 'system', expected 'system'"
+        }
+      ]
+    },
+    {
+      "index": 36,
+      "name": "page-system-drives",
+      "expanded": true,
+      "page": "system",
+      "image": "36-page-system-drives.png",
+      "alpha_image": "36-page-system-drives-alpha.png",
+      "ok": false,
+      "settle_ms": 811,
+      "frame_ms": 106.94,
+      "frame_samples_ms": [
+        156.03,
+        109.02,
+        106.94
+      ],
+      "canvas_px": [
+        1320,
+        670
+      ],
+      "window_pos_px": [
+        300,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        0.0,
+        620.0,
+        324.0
+      ],
+      "measured_width_px": 1240,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "811 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (660, 6) = rgba(255, 241, 222, 255), ground rgb[255, 241, 222]"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [1, 1, 1, 1]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "1240 px opaque at row 324, geometry 1240.0 px"
+        },
+        {
+          "name": "expanded-width",
+          "ok": true,
+          "detail": "1240 px vs settings.expanded_width 620 x 2.00 = 1240.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "30741 content pixels inside the island"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 106.94 ms of [156.03, 109.02, 106.94] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (203, 0) 1514x905 (laid out (203, 0) 1514x905), frame at (300, 0) 1320x670"
+        },
+        {
+          "name": "page",
+          "ok": true,
+          "detail": "showing 'system', expected 'system'"
+        }
+      ]
+    },
+    {
+      "index": 37,
+      "name": "page-system-network",
+      "expanded": true,
+      "page": "system",
+      "image": "37-page-system-network.png",
+      "alpha_image": "37-page-system-network-alpha.png",
+      "ok": false,
+      "settle_ms": 986,
+      "frame_ms": 93.89,
+      "frame_samples_ms": [
+        119.02,
+        111.51,
+        93.89
+      ],
+      "canvas_px": [
+        1320,
+        670
+      ],
+      "window_pos_px": [
+        300,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        0.0,
+        620.0,
+        324.0
+      ],
+      "measured_width_px": 1240,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "986 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (660, 6) = rgba(255, 241, 222, 255), ground rgb[255, 241, 222]"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [1, 1, 1, 1]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "1240 px opaque at row 324, geometry 1240.0 px"
+        },
+        {
+          "name": "expanded-width",
+          "ok": true,
+          "detail": "1240 px vs settings.expanded_width 620 x 2.00 = 1240.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "20823 content pixels inside the island"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 93.89 ms of [119.02, 111.51, 93.89] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (203, 0) 1514x905 (laid out (203, 0) 1514x905), frame at (300, 0) 1320x670"
+        },
+        {
+          "name": "page",
+          "ok": true,
+          "detail": "showing 'system', expected 'system'"
+        }
+      ]
+    },
+    {
+      "index": 38,
+      "name": "page-system-battery",
+      "expanded": true,
+      "page": "system",
+      "image": "38-page-system-battery.png",
+      "alpha_image": "38-page-system-battery-alpha.png",
+      "ok": false,
+      "settle_ms": 969,
+      "frame_ms": 95.03,
+      "frame_samples_ms": [
+        95.03,
+        103.43,
+        134.37
+      ],
+      "canvas_px": [
+        1320,
+        670
+      ],
+      "window_pos_px": [
+        300,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        0.0,
+        620.0,
+        324.0
+      ],
+      "measured_width_px": 1240,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "969 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (660, 6) = rgba(255, 241, 222, 255), ground rgb[255, 241, 222]"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [1, 1, 1, 1]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "1240 px opaque at row 324, geometry 1240.0 px"
+        },
+        {
+          "name": "expanded-width",
+          "ok": true,
+          "detail": "1240 px vs settings.expanded_width 620 x 2.00 = 1240.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "25739 content pixels inside the island"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 95.03 ms of [95.03, 103.43, 134.37] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (203, 0) 1514x905 (laid out (203, 0) 1514x905), frame at (300, 0) 1320x670"
+        },
+        {
+          "name": "page",
+          "ok": true,
+          "detail": "showing 'system', expected 'system'"
+        }
+      ]
+    },
+    {
+      "index": 39,
+      "name": "page-system-waiting",
+      "expanded": true,
+      "page": "system",
+      "image": "39-page-system-waiting.png",
+      "alpha_image": "39-page-system-waiting-alpha.png",
+      "ok": false,
+      "settle_ms": 294,
+      "frame_ms": 72.05,
+      "frame_samples_ms": [
+        106.77,
+        89.81,
+        72.05
+      ],
+      "canvas_px": [
+        1320,
+        670
+      ],
+      "window_pos_px": [
+        300,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        0.0,
+        620.0,
+        324.0
+      ],
+      "measured_width_px": 1240,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "294 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (660, 6) = rgba(255, 241, 222, 255), ground rgb[255, 241, 222]"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [1, 1, 1, 1]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "1240 px opaque at row 324, geometry 1240.0 px"
+        },
+        {
+          "name": "expanded-width",
+          "ok": true,
+          "detail": "1240 px vs settings.expanded_width 620 x 2.00 = 1240.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "4580 content pixels inside the island"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 72.05 ms of [106.77, 89.81, 72.05] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (203, 0) 1514x905 (laid out (203, 0) 1514x905), frame at (300, 0) 1320x670"
+        },
+        {
+          "name": "page",
+          "ok": true,
+          "detail": "showing 'system', expected 'system'"
+        }
+      ]
+    },
+    {
+      "index": 40,
+      "name": "page-settings-stay-on-top",
+      "expanded": true,
+      "page": "settings",
+      "image": "40-page-settings-stay-on-top.png",
+      "alpha_image": "40-page-settings-stay-on-top-alpha.png",
+      "ok": false,
+      "settle_ms": 1260,
+      "frame_ms": 90.9,
+      "frame_samples_ms": [
+        120.43,
+        94.86,
+        90.9
+      ],
+      "canvas_px": [
+        1320,
+        666
+      ],
+      "window_pos_px": [
+        300,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        0.0,
+        620.0,
+        322.0
+      ],
+      "measured_width_px": 1240,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "1260 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (660, 6) = rgba(255, 241, 222, 255), ground rgb[255, 241, 222]"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [1, 1, 1, 1]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "1240 px opaque at row 322, geometry 1240.0 px"
+        },
+        {
+          "name": "expanded-width",
+          "ok": true,
+          "detail": "1240 px vs settings.expanded_width 620 x 2.00 = 1240.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "24918 content pixels inside the island"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 90.90 ms of [120.43, 94.86, 90.9] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (203, 0) 1514x905 (laid out (203, 0) 1514x905), frame at (300, 0) 1320x666"
+        },
+        {
+          "name": "page",
+          "ok": true,
+          "detail": "showing 'settings', expected 'settings'"
+        }
+      ]
+    }
+  ]
+}

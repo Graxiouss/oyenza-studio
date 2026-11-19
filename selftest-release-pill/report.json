@@ -1,0 +1,4738 @@
+{
+  "app": "Poni",
+  "version": "0.2.30",
+  "ok": false,
+  "exit_code": 1,
+  "total_ms": 90549,
+  "scale": 2.0,
+  "expanded_width_dip": 620.0,
+  "renderer": "software",
+  "frame_budget_ms": 16.0,
+  "states_passed": 3,
+  "states_total": 144,
+  "failed_checks": [
+    "start-with-windows",
+    "notifications",
+    "deadline",
+    "states-visited",
+    "idle-eyes: frame-time",
+    "media-activity: frame-time",
+    "timer-activity: frame-time",
+    "volume-hud: frame-time",
+    "charging-hud: frame-time",
+    "bluetooth-hud: frame-time",
+    "page-media: frame-time",
+    "page-focus: frame-time",
+    "page-health: frame-time",
+    "page-shelf: frame-time",
+    "page-shelf-drop: frame-time",
+    "page-shelf-phone: frame-time",
+    "page-shelf-phone-ask: frame-time",
+    "page-shelf-phone-receive: frame-time",
+    "page-shelf-empty: frame-time",
+    "page-tasks: frame-time",
+    "page-oyenza-signed-out: frame-time",
+    "page-today: frame-time",
+    "tab-click-media: frame-time",
+    "page-health-signed-out: frame-time",
+    "oyenza-money: frame-time",
+    "oyenza-money-shown: frame-time",
+    "oyenza-bill: frame-time",
+    "page-oyenza: settled",
+    "page-oyenza: frame-time",
+    "page-oyenza-signin: frame-time",
+    "page-oyenza-saved: frame-time",
+    "page-health-signed-in: frame-time",
+    "page-settings: frame-time",
+    "page-settings-signing-in: frame-time",
+    "page-settings-signed-in: frame-time",
+    "page-system: frame-time",
+    "page-system-memory: frame-time",
+    "page-system-drives: frame-time",
+    "page-system-network: frame-time",
+    "page-system-battery: frame-time",
+    "page-system-waiting: frame-time",
+    "page-settings-stay-on-top: frame-time",
+    "page-shelf-pairing: frame-time",
+    "page-shelf-paired: frame-time",
+    "page-shelf-paired-phones: frame-time",
+    "paired-received-notice: frame-time",
+    "page-system-gpu: settled",
+    "page-system-gpu: expanded-width",
+    "page-system-gpu: frame-time",
+    "page-addons: frame-time",
+    "page-addons-downloading: frame-time",
+    "page-addons-on: frame-time",
+    "page-addons-offline: frame-time",
+    "page-addons-failed: frame-time",
+    "page-prayer: frame-time",
+    "page-prayer-picker: frame-time",
+    "prayer-countdown: frame-time",
+    "prayer-notice: settled",
+    "prayer-notice: frame-time"
+  ],
+  "slow_frames": [],
+  "checks": [
+    {
+      "name": "system-readings",
+      "ok": true,
+      "detail": "cpu 57% of 2 threads · cores 2 · temperature not reported · package power not reported · gpu none · memory 3.4 GB of 7.8 GB (wired 0 MB, compressed 0 MB, cached 0 MB, free 0 MB) · drives C: Z: · disk activity no · network eth0 10.0.14.159 0 Mbps · battery none · top memory Wine Explorer (0 MB, path), plugplay (0 MB, path), Oyenza Studio (0 MB, path) · light reading 2.0 ms · first full 220.9 ms · full 5.0 ms (processor times 0.1 ms, performance counters 0.0 ms, GPU statistics 0.0 ms, memory status 0.0 ms, network adapters 0.7 ms, interface table (every 10 s) 0.8 ms, process list (open only) 1.1 ms) · light reading CPU not measured"
+    },
+    {
+      "name": "ai-pictures",
+      "ok": true,
+      "detail": "all 8 of the AI page's pictures"
+    },
+    {
+      "name": "lyrics-fixture",
+      "ok": true,
+      "detail": "12 lines, synced true, line at 64s = Some(4)"
+    },
+    {
+      "name": "shelf-files",
+      "ok": true,
+      "detail": "3 items in Z:\\workspaces\\oyenza-studio\\selftest-release-pill\\home\\shelf-demo"
+    },
+    {
+      "name": "start-with-windows",
+      "ok": false,
+      "detail": "packaged: startup task PoniStartup unavailable: 0x80040154"
+    },
+    {
+      "name": "notifications",
+      "ok": false,
+      "detail": "packaged: listener unavailable: 0x80040154"
+    },
+    {
+      "name": "phone-drop-server",
+      "ok": true,
+      "detail": "served the page at 10.0.14.159:53530 (15203 bytes)"
+    },
+    {
+      "name": "tab-click",
+      "ok": true,
+      "detail": "page 'today' -> 'media' after 75 ms (expected 'media')"
+    },
+    {
+      "name": "gear-click",
+      "ok": true,
+      "detail": "page 'health' -> 'settings' after 115 ms (expected 'settings')"
+    },
+    {
+      "name": "deadline",
+      "ok": false,
+      "detail": "stopped after 90.5 s at 'page-prayer-picker-world'"
+    },
+    {
+      "name": "png-files",
+      "ok": true,
+      "detail": "54 screenshot pairs written in 0 ms after the last capture"
+    },
+    {
+      "name": "states-visited",
+      "ok": false,
+      "detail": "54 of 144 states captured"
+    }
+  ],
+  "states": [
+    {
+      "index": 1,
+      "name": "idle-clock",
+      "expanded": false,
+      "page": null,
+      "image": "01-idle-clock.png",
+      "alpha_image": "01-idle-clock-alpha.png",
+      "ok": true,
+      "settle_ms": 653,
+      "frame_ms": 14.87,
+      "frame_samples_ms": [
+        17.52,
+        20.58,
+        14.87
+      ],
+      "canvas_px": [
+        384,
+        120
+      ],
+      "window_pos_px": [
+        768,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        8.0,
+        152.0,
+        32.0
+      ],
+      "measured_width_px": 304,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "653 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (192, 22) = rgba(0, 0, 0, 255), ground rgb[0, 0, 0], 3 DIPs inside the floating body"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [0, 0, 0, 0]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "304 px opaque at row 48, geometry 304.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "930 content pixels inside the island"
+        },
+        {
+          "name": "pill-gap",
+          "ok": true,
+          "detail": "rows 0-15 above the body: max alpha 1 (want <= 64), 1 on the screen's edge (want <= 8), 0 coloured pixels (want 0: hit pixels are black and the shadow rgb[0, 0, 0]), 4864 hit pixels at alpha 1; the body starts at row 16 (geometry 16.0)"
+        },
+        {
+          "name": "pill-shadow-inside",
+          "ok": true,
+          "detail": "edge alpha left 0, right 0, bottom 0 (want <= 1); drawn up to 0.0 DIP left, 0.0 right and 0.0 below the body (room 20.0, 20.0, 20.0)"
+        },
+        {
+          "name": "frame-time",
+          "ok": true,
+          "detail": "best 14.87 ms of [17.52, 20.58, 14.87] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (269, 0) 1382x737 (laid out (269, 0) 1382x737), frame at (768, 0) 384x120"
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "name": "idle-eyes",
+      "expanded": false,
+      "page": null,
+      "image": "02-idle-eyes.png",
+      "alpha_image": "02-idle-eyes-alpha.png",
+      "ok": false,
+      "settle_ms": 466,
+      "frame_ms": 17.27,
+      "frame_samples_ms": [
+        20.68,
+        17.27,
+        18.85
+      ],
+      "canvas_px": [
+        248,
+        120
+      ],
+      "window_pos_px": [
+        836,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        8.0,
+        84.0,
+        32.0
+      ],
+      "measured_width_px": 168,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "466 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (124, 22) = rgba(0, 0, 0, 255), ground rgb[0, 0, 0], 3 DIPs inside the floating body"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [0, 0, 0, 0]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "168 px opaque at row 48, geometry 168.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "498 content pixels inside the island"
+        },
+        {
+          "name": "pill-gap",
+          "ok": true,
+          "detail": "rows 0-15 above the body: max alpha 1 (want <= 64), 1 on the screen's edge (want <= 8), 0 coloured pixels (want 0: hit pixels are black and the shadow rgb[0, 0, 0]), 2688 hit pixels at alpha 1; the body starts at row 16 (geometry 16.0)"
+        },
+        {
+          "name": "pill-shadow-inside",
+          "ok": true,
+          "detail": "edge alpha left 0, right 0, bottom 0 (want <= 1); drawn up to 0.0 DIP left, 0.0 right and 0.0 below the body (room 20.0, 20.0, 20.0)"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 17.27 ms of [20.68, 17.27, 18.85] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (269, 0) 1382x737 (laid out (269, 0) 1382x737), frame at (836, 0) 248x120"
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "name": "media-activity",
+      "expanded": false,
+      "page": null,
+      "image": "03-media-activity.png",
+      "alpha_image": "03-media-activity-alpha.png",
+      "ok": false,
+      "settle_ms": 1363,
+      "frame_ms": 21.93,
+      "frame_samples_ms": [
+        30.24,
+        21.93,
+        36.25
+      ],
+      "canvas_px": [
+        752,
+        120
+      ],
+      "window_pos_px": [
+        584,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        8.0,
+        336.0,
+        32.0
+      ],
+      "measured_width_px": 672,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "1363 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (376, 22) = rgba(0, 0, 0, 255), ground rgb[0, 0, 0], 3 DIPs inside the floating body"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [0, 0, 0, 0]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "672 px opaque at row 48, geometry 672.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "4679 content pixels inside the island"
+        },
+        {
+          "name": "pill-gap",
+          "ok": true,
+          "detail": "rows 0-15 above the body: max alpha 1 (want <= 64), 1 on the screen's edge (want <= 8), 0 coloured pixels (want 0: hit pixels are black and the shadow rgb[0, 0, 0]), 10752 hit pixels at alpha 1; the body starts at row 16 (geometry 16.0)"
+        },
+        {
+          "name": "pill-shadow-inside",
+          "ok": true,
+          "detail": "edge alpha left 0, right 0, bottom 0 (want <= 1); drawn up to 0.0 DIP left, 0.0 right and 0.0 below the body (room 20.0, 20.0, 20.0)"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 21.93 ms of [30.24, 21.93, 36.25] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (269, 0) 1382x737 (laid out (269, 0) 1382x737), frame at (584, 0) 752x120"
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "name": "timer-activity",
+      "expanded": false,
+      "page": null,
+      "image": "04-timer-activity.png",
+      "alpha_image": "04-timer-activity-alpha.png",
+      "ok": false,
+      "settle_ms": 470,
+      "frame_ms": 18.36,
+      "frame_samples_ms": [
+        18.74,
+        18.36,
+        25.05
+      ],
+      "canvas_px": [
+        272,
+        120
+      ],
+      "window_pos_px": [
+        824,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        8.0,
+        96.0,
+        32.0
+      ],
+      "measured_width_px": 192,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "470 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (136, 22) = rgba(0, 0, 0, 255), ground rgb[0, 0, 0], 3 DIPs inside the floating body"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [0, 0, 0, 0]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "192 px opaque at row 48, geometry 192.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "536 content pixels inside the island"
+        },
+        {
+          "name": "pill-gap",
+          "ok": true,
+          "detail": "rows 0-15 above the body: max alpha 1 (want <= 64), 1 on the screen's edge (want <= 8), 0 coloured pixels (want 0: hit pixels are black and the shadow rgb[0, 0, 0]), 3072 hit pixels at alpha 1; the body starts at row 16 (geometry 16.0)"
+        },
+        {
+          "name": "pill-shadow-inside",
+          "ok": true,
+          "detail": "edge alpha left 0, right 0, bottom 0 (want <= 1); drawn up to 0.0 DIP left, 0.0 right and 0.0 below the body (room 20.0, 20.0, 20.0)"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 18.36 ms of [18.74, 18.36, 25.05] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (269, 0) 1382x737 (laid out (269, 0) 1382x737), frame at (824, 0) 272x120"
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "name": "media-timer",
+      "expanded": false,
+      "page": null,
+      "image": "05-media-timer.png",
+      "alpha_image": "05-media-timer-alpha.png",
+      "ok": true,
+      "settle_ms": 525,
+      "frame_ms": 15.48,
+      "frame_samples_ms": [
+        15.48
+      ],
+      "canvas_px": [
+        320,
+        120
+      ],
+      "window_pos_px": [
+        800,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        8.0,
+        120.0,
+        32.0
+      ],
+      "measured_width_px": 240,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "525 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (160, 22) = rgba(0, 0, 0, 255), ground rgb[0, 0, 0], 3 DIPs inside the floating body"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [0, 0, 0, 0]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "240 px opaque at row 48, geometry 240.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "1561 content pixels inside the island"
+        },
+        {
+          "name": "pill-gap",
+          "ok": true,
+          "detail": "rows 0-15 above the body: max alpha 1 (want <= 64), 1 on the screen's edge (want <= 8), 0 coloured pixels (want 0: hit pixels are black and the shadow rgb[0, 0, 0]), 3840 hit pixels at alpha 1; the body starts at row 16 (geometry 16.0)"
+        },
+        {
+          "name": "pill-shadow-inside",
+          "ok": true,
+          "detail": "edge alpha left 0, right 0, bottom 0 (want <= 1); drawn up to 0.0 DIP left, 0.0 right and 0.0 below the body (room 20.0, 20.0, 20.0)"
+        },
+        {
+          "name": "frame-time",
+          "ok": true,
+          "detail": "best 15.48 ms of [15.48] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (269, 0) 1382x737 (laid out (269, 0) 1382x737), frame at (800, 0) 320x120"
+        }
+      ]
+    },
+    {
+      "index": 6,
+      "name": "volume-hud",
+      "expanded": false,
+      "page": null,
+      "image": "06-volume-hud.png",
+      "alpha_image": "06-volume-hud-alpha.png",
+      "ok": false,
+      "settle_ms": 642,
+      "frame_ms": 18.0,
+      "frame_samples_ms": [
+        165.35,
+        19.38,
+        18.0
+      ],
+      "canvas_px": [
+        624,
+        120
+      ],
+      "window_pos_px": [
+        648,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        8.0,
+        272.0,
+        32.0
+      ],
+      "measured_width_px": 544,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "642 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (312, 22) = rgba(0, 0, 0, 255), ground rgb[0, 0, 0], 3 DIPs inside the floating body"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [0, 0, 0, 0]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "544 px opaque at row 48, geometry 544.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "2837 content pixels inside the island"
+        },
+        {
+          "name": "pill-gap",
+          "ok": true,
+          "detail": "rows 0-15 above the body: max alpha 1 (want <= 64), 1 on the screen's edge (want <= 8), 0 coloured pixels (want 0: hit pixels are black and the shadow rgb[0, 0, 0]), 8704 hit pixels at alpha 1; the body starts at row 16 (geometry 16.0)"
+        },
+        {
+          "name": "pill-shadow-inside",
+          "ok": true,
+          "detail": "edge alpha left 0, right 0, bottom 0 (want <= 1); drawn up to 0.0 DIP left, 0.0 right and 0.0 below the body (room 20.0, 20.0, 20.0)"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 18.00 ms of [165.35, 19.38, 18.0] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (269, 0) 1382x737 (laid out (269, 0) 1382x737), frame at (648, 0) 624x120"
+        }
+      ]
+    },
+    {
+      "index": 7,
+      "name": "charging-hud",
+      "expanded": false,
+      "page": null,
+      "image": "07-charging-hud.png",
+      "alpha_image": "07-charging-hud-alpha.png",
+      "ok": false,
+      "settle_ms": 470,
+      "frame_ms": 17.57,
+      "frame_samples_ms": [
+        25.91,
+        28.05,
+        17.57
+      ],
+      "canvas_px": [
+        512,
+        120
+      ],
+      "window_pos_px": [
+        704,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        8.0,
+        216.0,
+        32.0
+      ],
+      "measured_width_px": 432,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "470 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (256, 22) = rgba(0, 0, 0, 255), ground rgb[0, 0, 0], 3 DIPs inside the floating body"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [0, 0, 0, 0]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "432 px opaque at row 48, geometry 432.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "1160 content pixels inside the island"
+        },
+        {
+          "name": "pill-gap",
+          "ok": true,
+          "detail": "rows 0-15 above the body: max alpha 1 (want <= 64), 1 on the screen's edge (want <= 8), 0 coloured pixels (want 0: hit pixels are black and the shadow rgb[0, 0, 0]), 6912 hit pixels at alpha 1; the body starts at row 16 (geometry 16.0)"
+        },
+        {
+          "name": "pill-shadow-inside",
+          "ok": true,
+          "detail": "edge alpha left 0, right 0, bottom 0 (want <= 1); drawn up to 0.0 DIP left, 0.0 right and 0.0 below the body (room 20.0, 20.0, 20.0)"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 17.57 ms of [25.91, 28.05, 17.57] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (269, 0) 1382x737 (laid out (269, 0) 1382x737), frame at (704, 0) 512x120"
+        }
+      ]
+    },
+    {
+      "index": 8,
+      "name": "bluetooth-hud",
+      "expanded": false,
+      "page": null,
+      "image": "08-bluetooth-hud.png",
+      "alpha_image": "08-bluetooth-hud-alpha.png",
+      "ok": false,
+      "settle_ms": 580,
+      "frame_ms": 21.04,
+      "frame_samples_ms": [
+        21.04,
+        48.62,
+        28.24
+      ],
+      "canvas_px": [
+        656,
+        120
+      ],
+      "window_pos_px": [
+        632,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        8.0,
+        288.0,
+        32.0
+      ],
+      "measured_width_px": 576,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "580 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (328, 22) = rgba(0, 0, 0, 255), ground rgb[0, 0, 0], 3 DIPs inside the floating body"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [0, 0, 0, 0]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "576 px opaque at row 48, geometry 576.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "3069 content pixels inside the island"
+        },
+        {
+          "name": "pill-gap",
+          "ok": true,
+          "detail": "rows 0-15 above the body: max alpha 1 (want <= 64), 1 on the screen's edge (want <= 8), 0 coloured pixels (want 0: hit pixels are black and the shadow rgb[0, 0, 0]), 9216 hit pixels at alpha 1; the body starts at row 16 (geometry 16.0)"
+        },
+        {
+          "name": "pill-shadow-inside",
+          "ok": true,
+          "detail": "edge alpha left 0, right 0, bottom 0 (want <= 1); drawn up to 0.0 DIP left, 0.0 right and 0.0 below the body (room 20.0, 20.0, 20.0)"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 21.04 ms of [21.04, 48.62, 28.24] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (269, 0) 1382x737 (laid out (269, 0) 1382x737), frame at (632, 0) 656x120"
+        }
+      ]
+    },
+    {
+      "index": 9,
+      "name": "health-notice",
+      "expanded": false,
+      "page": null,
+      "image": "09-health-notice.png",
+      "alpha_image": "09-health-notice-alpha.png",
+      "ok": true,
+      "settle_ms": 658,
+      "frame_ms": 12.13,
+      "frame_samples_ms": [
+        17.49,
+        12.13
+      ],
+      "canvas_px": [
+        480,
+        152
+      ],
+      "window_pos_px": [
+        720,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        8.0,
+        200.0,
+        48.0
+      ],
+      "measured_width_px": 400,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "658 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (240, 22) = rgba(0, 0, 0, 255), ground rgb[0, 0, 0], 3 DIPs inside the floating body"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [0, 0, 0, 0]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "400 px opaque at row 64, geometry 400.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "5425 content pixels inside the island"
+        },
+        {
+          "name": "pill-gap",
+          "ok": true,
+          "detail": "rows 0-15 above the body: max alpha 1 (want <= 64), 1 on the screen's edge (want <= 8), 0 coloured pixels (want 0: hit pixels are black and the shadow rgb[0, 0, 0]), 6400 hit pixels at alpha 1; the body starts at row 16 (geometry 16.0)"
+        },
+        {
+          "name": "pill-shadow-inside",
+          "ok": true,
+          "detail": "edge alpha left 0, right 0, bottom 0 (want <= 1); drawn up to 0.0 DIP left, 0.0 right and 0.0 below the body (room 20.0, 20.0, 20.0)"
+        },
+        {
+          "name": "frame-time",
+          "ok": true,
+          "detail": "best 12.13 ms of [17.49, 12.13] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (269, 0) 1382x737 (laid out (269, 0) 1382x737), frame at (720, 0) 480x152"
+        }
+      ]
+    },
+    {
+      "index": 10,
+      "name": "page-media",
+      "expanded": true,
+      "page": "media",
+      "image": "10-page-media.png",
+      "alpha_image": "10-page-media-alpha.png",
+      "ok": false,
+      "settle_ms": 1985,
+      "frame_ms": 54.91,
+      "frame_samples_ms": [
+        103.25,
+        70.23,
+        54.91
+      ],
+      "canvas_px": [
+        1320,
+        552
+      ],
+      "window_pos_px": [
+        300,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        8.0,
+        620.0,
+        248.0
+      ],
+      "measured_width_px": 1240,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "1985 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (660, 22) = rgba(0, 0, 0, 255), ground rgb[0, 0, 0], 3 DIPs inside the floating body"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [1, 1, 1, 1]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "1240 px opaque at row 264, geometry 1240.0 px"
+        },
+        {
+          "name": "expanded-width",
+          "ok": true,
+          "detail": "1240 px vs settings.expanded_width 620 x 2.00 = 1240.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "29440 content pixels inside the island"
+        },
+        {
+          "name": "pill-gap",
+          "ok": true,
+          "detail": "rows 0-15 above the body: max alpha 1 (want <= 64), 1 on the screen's edge (want <= 8), 0 coloured pixels (want 0: hit pixels are black and the shadow rgb[0, 0, 0]), 21120 hit pixels at alpha 1; the body starts at row 16 (geometry 16.0)"
+        },
+        {
+          "name": "pill-shadow-inside",
+          "ok": true,
+          "detail": "edge alpha left 1, right 1, bottom 1 (want <= 1); drawn up to 0.0 DIP left, 0.0 right and 0.0 below the body (room 20.0, 20.0, 20.0)"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 54.91 ms of [103.25, 70.23, 54.91] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (269, 0) 1382x737 (laid out (269, 0) 1382x737), frame at (300, 0) 1320x552"
+        },
+        {
+          "name": "page",
+          "ok": true,
+          "detail": "showing 'media', expected 'media'"
+        }
+      ]
+    },
+    {
+      "index": 11,
+      "name": "page-focus",
+      "expanded": true,
+      "page": "focus",
+      "image": "11-page-focus.png",
+      "alpha_image": "11-page-focus-alpha.png",
+      "ok": false,
+      "settle_ms": 1120,
+      "frame_ms": 54.08,
+      "frame_samples_ms": [
+        54.08,
+        57.12,
+        66.57
+      ],
+      "canvas_px": [
+        1320,
+        480
+      ],
+      "window_pos_px": [
+        300,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        8.0,
+        620.0,
+        212.0
+      ],
+      "measured_width_px": 1240,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "1120 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (660, 22) = rgba(0, 0, 0, 255), ground rgb[0, 0, 0], 3 DIPs inside the floating body"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [1, 1, 1, 1]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "1240 px opaque at row 228, geometry 1240.0 px"
+        },
+        {
+          "name": "expanded-width",
+          "ok": true,
+          "detail": "1240 px vs settings.expanded_width 620 x 2.00 = 1240.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "10797 content pixels inside the island"
+        },
+        {
+          "name": "pill-gap",
+          "ok": true,
+          "detail": "rows 0-15 above the body: max alpha 1 (want <= 64), 1 on the screen's edge (want <= 8), 0 coloured pixels (want 0: hit pixels are black and the shadow rgb[0, 0, 0]), 21120 hit pixels at alpha 1; the body starts at row 16 (geometry 16.0)"
+        },
+        {
+          "name": "pill-shadow-inside",
+          "ok": true,
+          "detail": "edge alpha left 1, right 1, bottom 1 (want <= 1); drawn up to 0.0 DIP left, 0.0 right and 0.0 below the body (room 20.0, 20.0, 20.0)"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 54.08 ms of [54.08, 57.12, 66.57] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (269, 0) 1382x737 (laid out (269, 0) 1382x737), frame at (300, 0) 1320x480"
+        },
+        {
+          "name": "page",
+          "ok": true,
+          "detail": "showing 'focus', expected 'focus'"
+        }
+      ]
+    },
+    {
+      "index": 12,
+      "name": "page-health",
+      "expanded": true,
+      "page": "health",
+      "image": "12-page-health.png",
+      "alpha_image": "12-page-health-alpha.png",
+      "ok": false,
+      "settle_ms": 2077,
+      "frame_ms": 60.17,
+      "frame_samples_ms": [
+        60.17,
+        66.9,
+        101.62
+      ],
+      "canvas_px": [
+        1320,
+        480
+      ],
+      "window_pos_px": [
+        300,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        8.0,
+        620.0,
+        212.0
+      ],
+      "measured_width_px": 1240,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "2077 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (660, 22) = rgba(0, 0, 0, 255), ground rgb[0, 0, 0], 3 DIPs inside the floating body"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [1, 1, 1, 1]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "1240 px opaque at row 228, geometry 1240.0 px"
+        },
+        {
+          "name": "expanded-width",
+          "ok": true,
+          "detail": "1240 px vs settings.expanded_width 620 x 2.00 = 1240.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "21795 content pixels inside the island"
+        },
+        {
+          "name": "pill-gap",
+          "ok": true,
+          "detail": "rows 0-15 above the body: max alpha 1 (want <= 64), 1 on the screen's edge (want <= 8), 0 coloured pixels (want 0: hit pixels are black and the shadow rgb[0, 0, 0]), 21120 hit pixels at alpha 1; the body starts at row 16 (geometry 16.0)"
+        },
+        {
+          "name": "pill-shadow-inside",
+          "ok": true,
+          "detail": "edge alpha left 1, right 1, bottom 1 (want <= 1); drawn up to 0.0 DIP left, 0.0 right and 0.0 below the body (room 20.0, 20.0, 20.0)"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 60.17 ms of [60.17, 66.9, 101.62] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (269, 0) 1382x737 (laid out (269, 0) 1382x737), frame at (300, 0) 1320x480"
+        },
+        {
+          "name": "page",
+          "ok": true,
+          "detail": "showing 'health', expected 'health'"
+        }
+      ]
+    },
+    {
+      "index": 13,
+      "name": "page-shelf",
+      "expanded": true,
+      "page": "shelf",
+      "image": "13-page-shelf.png",
+      "alpha_image": "13-page-shelf-alpha.png",
+      "ok": false,
+      "settle_ms": 1315,
+      "frame_ms": 43.32,
+      "frame_samples_ms": [
+        92.53,
+        48.0,
+        43.32
+      ],
+      "canvas_px": [
+        1320,
+        492
+      ],
+      "window_pos_px": [
+        300,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        8.0,
+        620.0,
+        218.0
+      ],
+      "measured_width_px": 1240,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "1315 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (660, 22) = rgba(0, 0, 0, 255), ground rgb[0, 0, 0], 3 DIPs inside the floating body"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [1, 1, 1, 1]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "1240 px opaque at row 234, geometry 1240.0 px"
+        },
+        {
+          "name": "expanded-width",
+          "ok": true,
+          "detail": "1240 px vs settings.expanded_width 620 x 2.00 = 1240.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "13915 content pixels inside the island"
+        },
+        {
+          "name": "pill-gap",
+          "ok": true,
+          "detail": "rows 0-15 above the body: max alpha 1 (want <= 64), 1 on the screen's edge (want <= 8), 0 coloured pixels (want 0: hit pixels are black and the shadow rgb[0, 0, 0]), 21120 hit pixels at alpha 1; the body starts at row 16 (geometry 16.0)"
+        },
+        {
+          "name": "pill-shadow-inside",
+          "ok": true,
+          "detail": "edge alpha left 1, right 1, bottom 1 (want <= 1); drawn up to 0.0 DIP left, 0.0 right and 0.0 below the body (room 20.0, 20.0, 20.0)"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 43.32 ms of [92.53, 48.0, 43.32] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (269, 0) 1382x737 (laid out (269, 0) 1382x737), frame at (300, 0) 1320x492"
+        },
+        {
+          "name": "page",
+          "ok": true,
+          "detail": "showing 'shelf', expected 'shelf'"
+        }
+      ]
+    },
+    {
+      "index": 14,
+      "name": "page-shelf-drop",
+      "expanded": true,
+      "page": "shelf",
+      "image": "14-page-shelf-drop.png",
+      "alpha_image": "14-page-shelf-drop-alpha.png",
+      "ok": false,
+      "settle_ms": 168,
+      "frame_ms": 67.04,
+      "frame_samples_ms": [
+        81.41,
+        165.25,
+        67.04
+      ],
+      "canvas_px": [
+        1320,
+        492
+      ],
+      "window_pos_px": [
+        300,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        8.0,
+        620.0,
+        218.0
+      ],
+      "measured_width_px": 1240,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "168 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (660, 22) = rgba(0, 0, 0, 255), ground rgb[0, 0, 0], 3 DIPs inside the floating body"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [1, 1, 1, 1]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "1240 px opaque at row 234, geometry 1240.0 px"
+        },
+        {
+          "name": "expanded-width",
+          "ok": true,
+          "detail": "1240 px vs settings.expanded_width 620 x 2.00 = 1240.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "13148 content pixels inside the island"
+        },
+        {
+          "name": "pill-gap",
+          "ok": true,
+          "detail": "rows 0-15 above the body: max alpha 1 (want <= 64), 1 on the screen's edge (want <= 8), 0 coloured pixels (want 0: hit pixels are black and the shadow rgb[0, 0, 0]), 21120 hit pixels at alpha 1; the body starts at row 16 (geometry 16.0)"
+        },
+        {
+          "name": "pill-shadow-inside",
+          "ok": true,
+          "detail": "edge alpha left 1, right 1, bottom 1 (want <= 1); drawn up to 0.0 DIP left, 0.0 right and 0.0 below the body (room 20.0, 20.0, 20.0)"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 67.04 ms of [81.41, 165.25, 67.04] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (269, 0) 1382x737 (laid out (269, 0) 1382x737), frame at (300, 0) 1320x492"
+        },
+        {
+          "name": "page",
+          "ok": true,
+          "detail": "showing 'shelf', expected 'shelf'"
+        }
+      ]
+    },
+    {
+      "index": 15,
+      "name": "page-shelf-phone",
+      "expanded": true,
+      "page": "shelf",
+      "image": "15-page-shelf-phone.png",
+      "alpha_image": "15-page-shelf-phone-alpha.png",
+      "ok": false,
+      "settle_ms": 71,
+      "frame_ms": 63.26,
+      "frame_samples_ms": [
+        213.24,
+        63.26,
+        75.66
+      ],
+      "canvas_px": [
+        1320,
+        715
+      ],
+      "window_pos_px": [
+        300,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        8.0,
+        620.0,
+        329.09268
+      ],
+      "measured_width_px": 1240,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "71 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (660, 22) = rgba(0, 0, 0, 255), ground rgb[0, 0, 0], 3 DIPs inside the floating body"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [1, 1, 0, 0]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "1240 px opaque at row 345, geometry 1240.0 px"
+        },
+        {
+          "name": "expanded-width",
+          "ok": true,
+          "detail": "1240 px vs settings.expanded_width 620 x 2.00 = 1240.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "51288 content pixels inside the island"
+        },
+        {
+          "name": "pill-gap",
+          "ok": true,
+          "detail": "rows 0-15 above the body: max alpha 1 (want <= 64), 1 on the screen's edge (want <= 8), 0 coloured pixels (want 0: hit pixels are black and the shadow rgb[0, 0, 0]), 21120 hit pixels at alpha 1; the body starts at row 16 (geometry 16.0)"
+        },
+        {
+          "name": "pill-shadow-inside",
+          "ok": true,
+          "detail": "edge alpha left 1, right 1, bottom 0 (want <= 1); drawn up to 0.0 DIP left, 0.0 right and -0.1 below the body (room 20.0, 20.0, 20.4)"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 63.26 ms of [213.24, 63.26, 75.66] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (203, 0) 1514x939 (laid out (203, 0) 1514x939), frame at (300, 0) 1320x715"
+        },
+        {
+          "name": "page",
+          "ok": true,
+          "detail": "showing 'shelf', expected 'shelf'"
+        }
+      ]
+    },
+    {
+      "index": 16,
+      "name": "page-shelf-phone-ask",
+      "expanded": true,
+      "page": "shelf",
+      "image": "16-page-shelf-phone-ask.png",
+      "alpha_image": "16-page-shelf-phone-ask-alpha.png",
+      "ok": false,
+      "settle_ms": 1097,
+      "frame_ms": 58.71,
+      "frame_samples_ms": [
+        60.2,
+        61.79,
+        58.71
+      ],
+      "canvas_px": [
+        1320,
+        820
+      ],
+      "window_pos_px": [
+        300,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        8.0,
+        620.0,
+        382.0
+      ],
+      "measured_width_px": 1240,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "1097 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (660, 22) = rgba(0, 0, 0, 255), ground rgb[0, 0, 0], 3 DIPs inside the floating body"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [1, 1, 1, 1]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "1240 px opaque at row 398, geometry 1240.0 px"
+        },
+        {
+          "name": "expanded-width",
+          "ok": true,
+          "detail": "1240 px vs settings.expanded_width 620 x 2.00 = 1240.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "57386 content pixels inside the island"
+        },
+        {
+          "name": "pill-gap",
+          "ok": true,
+          "detail": "rows 0-15 above the body: max alpha 1 (want <= 64), 1 on the screen's edge (want <= 8), 0 coloured pixels (want 0: hit pixels are black and the shadow rgb[0, 0, 0]), 21120 hit pixels at alpha 1; the body starts at row 16 (geometry 16.0)"
+        },
+        {
+          "name": "pill-shadow-inside",
+          "ok": true,
+          "detail": "edge alpha left 1, right 1, bottom 1 (want <= 1); drawn up to 0.0 DIP left, 0.0 right and 0.0 below the body (room 20.0, 20.0, 20.0)"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 58.71 ms of [60.2, 61.79, 58.71] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (203, 0) 1514x939 (laid out (203, 0) 1514x939), frame at (300, 0) 1320x820"
+        },
+        {
+          "name": "page",
+          "ok": true,
+          "detail": "showing 'shelf', expected 'shelf'"
+        }
+      ]
+    },
+    {
+      "index": 17,
+      "name": "page-shelf-phone-receive",
+      "expanded": true,
+      "page": "shelf",
+      "image": "17-page-shelf-phone-receive.png",
+      "alpha_image": "17-page-shelf-phone-receive-alpha.png",
+      "ok": false,
+      "settle_ms": 169,
+      "frame_ms": 53.62,
+      "frame_samples_ms": [
+        88.66,
+        53.62,
+        55.54
+      ],
+      "canvas_px": [
+        1320,
+        820
+      ],
+      "window_pos_px": [
+        300,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        8.0,
+        620.0,
+        382.0
+      ],
+      "measured_width_px": 1240,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "169 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (660, 22) = rgba(0, 0, 0, 255), ground rgb[0, 0, 0], 3 DIPs inside the floating body"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [1, 1, 1, 1]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "1240 px opaque at row 398, geometry 1240.0 px"
+        },
+        {
+          "name": "expanded-width",
+          "ok": true,
+          "detail": "1240 px vs settings.expanded_width 620 x 2.00 = 1240.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "57690 content pixels inside the island"
+        },
+        {
+          "name": "pill-gap",
+          "ok": true,
+          "detail": "rows 0-15 above the body: max alpha 1 (want <= 64), 1 on the screen's edge (want <= 8), 0 coloured pixels (want 0: hit pixels are black and the shadow rgb[0, 0, 0]), 21120 hit pixels at alpha 1; the body starts at row 16 (geometry 16.0)"
+        },
+        {
+          "name": "pill-shadow-inside",
+          "ok": true,
+          "detail": "edge alpha left 1, right 1, bottom 1 (want <= 1); drawn up to 0.0 DIP left, 0.0 right and 0.0 below the body (room 20.0, 20.0, 20.0)"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 53.62 ms of [88.66, 53.62, 55.54] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (203, 0) 1514x939 (laid out (203, 0) 1514x939), frame at (300, 0) 1320x820"
+        },
+        {
+          "name": "page",
+          "ok": true,
+          "detail": "showing 'shelf', expected 'shelf'"
+        }
+      ]
+    },
+    {
+      "index": 18,
+      "name": "page-shelf-empty",
+      "expanded": true,
+      "page": "shelf",
+      "image": "18-page-shelf-empty.png",
+      "alpha_image": "18-page-shelf-empty-alpha.png",
+      "ok": false,
+      "settle_ms": 1042,
+      "frame_ms": 63.19,
+      "frame_samples_ms": [
+        80.62,
+        82.25,
+        63.19
+      ],
+      "canvas_px": [
+        1320,
+        492
+      ],
+      "window_pos_px": [
+        300,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        8.0,
+        620.0,
+        218.0
+      ],
+      "measured_width_px": 1240,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "1042 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (660, 22) = rgba(0, 0, 0, 255), ground rgb[0, 0, 0], 3 DIPs inside the floating body"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [1, 1, 1, 1]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "1240 px opaque at row 234, geometry 1240.0 px"
+        },
+        {
+          "name": "expanded-width",
+          "ok": true,
+          "detail": "1240 px vs settings.expanded_width 620 x 2.00 = 1240.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "8952 content pixels inside the island"
+        },
+        {
+          "name": "pill-gap",
+          "ok": true,
+          "detail": "rows 0-15 above the body: max alpha 1 (want <= 64), 1 on the screen's edge (want <= 8), 0 coloured pixels (want 0: hit pixels are black and the shadow rgb[0, 0, 0]), 21120 hit pixels at alpha 1; the body starts at row 16 (geometry 16.0)"
+        },
+        {
+          "name": "pill-shadow-inside",
+          "ok": true,
+          "detail": "edge alpha left 1, right 1, bottom 1 (want <= 1); drawn up to 0.0 DIP left, 0.0 right and 0.0 below the body (room 20.0, 20.0, 20.0)"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 63.19 ms of [80.62, 82.25, 63.19] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (203, 0) 1514x939 (laid out (203, 0) 1514x939), frame at (300, 0) 1320x492"
+        },
+        {
+          "name": "page",
+          "ok": true,
+          "detail": "showing 'shelf', expected 'shelf'"
+        }
+      ]
+    },
+    {
+      "index": 19,
+      "name": "page-tasks",
+      "expanded": true,
+      "page": "tasks",
+      "image": "19-page-tasks.png",
+      "alpha_image": "19-page-tasks-alpha.png",
+      "ok": false,
+      "settle_ms": 865,
+      "frame_ms": 38.26,
+      "frame_samples_ms": [
+        38.26,
+        44.49,
+        38.5
+      ],
+      "canvas_px": [
+        1320,
+        592
+      ],
+      "window_pos_px": [
+        300,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        8.0,
+        620.0,
+        268.0
+      ],
+      "measured_width_px": 1240,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "865 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (660, 22) = rgba(0, 0, 0, 255), ground rgb[0, 0, 0], 3 DIPs inside the floating body"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [1, 1, 1, 1]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "1240 px opaque at row 284, geometry 1240.0 px"
+        },
+        {
+          "name": "expanded-width",
+          "ok": true,
+          "detail": "1240 px vs settings.expanded_width 620 x 2.00 = 1240.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "7664 content pixels inside the island"
+        },
+        {
+          "name": "pill-gap",
+          "ok": true,
+          "detail": "rows 0-15 above the body: max alpha 1 (want <= 64), 1 on the screen's edge (want <= 8), 0 coloured pixels (want 0: hit pixels are black and the shadow rgb[0, 0, 0]), 21120 hit pixels at alpha 1; the body starts at row 16 (geometry 16.0)"
+        },
+        {
+          "name": "pill-shadow-inside",
+          "ok": true,
+          "detail": "edge alpha left 1, right 1, bottom 1 (want <= 1); drawn up to 0.0 DIP left, 0.0 right and 0.0 below the body (room 20.0, 20.0, 20.0)"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 38.26 ms of [38.26, 44.49, 38.5] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (203, 0) 1514x939 (laid out (203, 0) 1514x939), frame at (300, 0) 1320x592"
+        },
+        {
+          "name": "page",
+          "ok": true,
+          "detail": "showing 'tasks', expected 'tasks'"
+        }
+      ]
+    },
+    {
+      "index": 20,
+      "name": "page-oyenza-signed-out",
+      "expanded": true,
+      "page": "oyenza",
+      "image": "20-page-oyenza-signed-out.png",
+      "alpha_image": "20-page-oyenza-signed-out-alpha.png",
+      "ok": false,
+      "settle_ms": 538,
+      "frame_ms": 38.46,
+      "frame_samples_ms": [
+        142.36,
+        38.46,
+        40.82
+      ],
+      "canvas_px": [
+        1320,
+        504
+      ],
+      "window_pos_px": [
+        300,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        8.0,
+        620.0,
+        224.0
+      ],
+      "measured_width_px": 1240,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "538 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (660, 22) = rgba(0, 0, 0, 255), ground rgb[0, 0, 0], 3 DIPs inside the floating body"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [1, 1, 1, 1]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "1240 px opaque at row 240, geometry 1240.0 px"
+        },
+        {
+          "name": "expanded-width",
+          "ok": true,
+          "detail": "1240 px vs settings.expanded_width 620 x 2.00 = 1240.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "14013 content pixels inside the island"
+        },
+        {
+          "name": "pill-gap",
+          "ok": true,
+          "detail": "rows 0-15 above the body: max alpha 1 (want <= 64), 1 on the screen's edge (want <= 8), 0 coloured pixels (want 0: hit pixels are black and the shadow rgb[0, 0, 0]), 21120 hit pixels at alpha 1; the body starts at row 16 (geometry 16.0)"
+        },
+        {
+          "name": "pill-shadow-inside",
+          "ok": true,
+          "detail": "edge alpha left 1, right 1, bottom 1 (want <= 1); drawn up to 0.0 DIP left, 0.0 right and 0.0 below the body (room 20.0, 20.0, 20.0)"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 38.46 ms of [142.36, 38.46, 40.82] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (203, 0) 1514x939 (laid out (203, 0) 1514x939), frame at (300, 0) 1320x504"
+        },
+        {
+          "name": "page",
+          "ok": true,
+          "detail": "showing 'oyenza', expected 'oyenza'"
+        }
+      ]
+    },
+    {
+      "index": 21,
+      "name": "page-today",
+      "expanded": true,
+      "page": "today",
+      "image": "21-page-today.png",
+      "alpha_image": "21-page-today-alpha.png",
+      "ok": false,
+      "settle_ms": 891,
+      "frame_ms": 62.5,
+      "frame_samples_ms": [
+        62.5,
+        79.05,
+        63.32
+      ],
+      "canvas_px": [
+        1320,
+        592
+      ],
+      "window_pos_px": [
+        300,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        8.0,
+        620.0,
+        268.0
+      ],
+      "measured_width_px": 1240,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "891 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (660, 22) = rgba(0, 0, 0, 255), ground rgb[0, 0, 0], 3 DIPs inside the floating body"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [1, 1, 1, 1]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "1240 px opaque at row 284, geometry 1240.0 px"
+        },
+        {
+          "name": "expanded-width",
+          "ok": true,
+          "detail": "1240 px vs settings.expanded_width 620 x 2.00 = 1240.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "23706 content pixels inside the island"
+        },
+        {
+          "name": "pill-gap",
+          "ok": true,
+          "detail": "rows 0-15 above the body: max alpha 1 (want <= 64), 1 on the screen's edge (want <= 8), 0 coloured pixels (want 0: hit pixels are black and the shadow rgb[0, 0, 0]), 21120 hit pixels at alpha 1; the body starts at row 16 (geometry 16.0)"
+        },
+        {
+          "name": "pill-shadow-inside",
+          "ok": true,
+          "detail": "edge alpha left 1, right 1, bottom 1 (want <= 1); drawn up to 0.0 DIP left, 0.0 right and 0.0 below the body (room 20.0, 20.0, 20.0)"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 62.50 ms of [62.5, 79.05, 63.32] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (203, 0) 1514x939 (laid out (203, 0) 1514x939), frame at (300, 0) 1320x592"
+        },
+        {
+          "name": "page",
+          "ok": true,
+          "detail": "showing 'today', expected 'today'"
+        }
+      ]
+    },
+    {
+      "index": 22,
+      "name": "tab-click-media",
+      "expanded": true,
+      "page": "media",
+      "image": "22-tab-click-media.png",
+      "alpha_image": "22-tab-click-media-alpha.png",
+      "ok": false,
+      "settle_ms": 1346,
+      "frame_ms": 62.01,
+      "frame_samples_ms": [
+        62.01,
+        86.11,
+        108.84
+      ],
+      "canvas_px": [
+        1320,
+        552
+      ],
+      "window_pos_px": [
+        300,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        8.0,
+        620.0,
+        248.0
+      ],
+      "measured_width_px": 1240,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "1346 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (660, 22) = rgba(0, 0, 0, 255), ground rgb[0, 0, 0], 3 DIPs inside the floating body"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [1, 1, 1, 1]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "1240 px opaque at row 264, geometry 1240.0 px"
+        },
+        {
+          "name": "expanded-width",
+          "ok": true,
+          "detail": "1240 px vs settings.expanded_width 620 x 2.00 = 1240.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "29737 content pixels inside the island"
+        },
+        {
+          "name": "pill-gap",
+          "ok": true,
+          "detail": "rows 0-15 above the body: max alpha 1 (want <= 64), 1 on the screen's edge (want <= 8), 0 coloured pixels (want 0: hit pixels are black and the shadow rgb[0, 0, 0]), 21120 hit pixels at alpha 1; the body starts at row 16 (geometry 16.0)"
+        },
+        {
+          "name": "pill-shadow-inside",
+          "ok": true,
+          "detail": "edge alpha left 1, right 1, bottom 1 (want <= 1); drawn up to 0.0 DIP left, 0.0 right and 0.0 below the body (room 20.0, 20.0, 20.0)"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 62.01 ms of [62.01, 86.11, 108.84] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (203, 0) 1514x939 (laid out (203, 0) 1514x939), frame at (300, 0) 1320x552"
+        },
+        {
+          "name": "page",
+          "ok": true,
+          "detail": "showing 'media', expected 'media'"
+        }
+      ]
+    },
+    {
+      "index": 23,
+      "name": "page-health-signed-out",
+      "expanded": true,
+      "page": "health",
+      "image": "23-page-health-signed-out.png",
+      "alpha_image": "23-page-health-signed-out-alpha.png",
+      "ok": false,
+      "settle_ms": 629,
+      "frame_ms": 33.35,
+      "frame_samples_ms": [
+        33.35,
+        35.87,
+        58.57
+      ],
+      "canvas_px": [
+        1320,
+        480
+      ],
+      "window_pos_px": [
+        300,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        8.0,
+        620.0,
+        212.0
+      ],
+      "measured_width_px": 1240,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "629 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (660, 22) = rgba(0, 0, 0, 255), ground rgb[0, 0, 0], 3 DIPs inside the floating body"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [1, 1, 1, 1]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "1240 px opaque at row 228, geometry 1240.0 px"
+        },
+        {
+          "name": "expanded-width",
+          "ok": true,
+          "detail": "1240 px vs settings.expanded_width 620 x 2.00 = 1240.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "11286 content pixels inside the island"
+        },
+        {
+          "name": "pill-gap",
+          "ok": true,
+          "detail": "rows 0-15 above the body: max alpha 1 (want <= 64), 1 on the screen's edge (want <= 8), 0 coloured pixels (want 0: hit pixels are black and the shadow rgb[0, 0, 0]), 21120 hit pixels at alpha 1; the body starts at row 16 (geometry 16.0)"
+        },
+        {
+          "name": "pill-shadow-inside",
+          "ok": true,
+          "detail": "edge alpha left 1, right 1, bottom 1 (want <= 1); drawn up to 0.0 DIP left, 0.0 right and 0.0 below the body (room 20.0, 20.0, 20.0)"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 33.35 ms of [33.35, 35.87, 58.57] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (203, 0) 1514x939 (laid out (203, 0) 1514x939), frame at (300, 0) 1320x480"
+        },
+        {
+          "name": "page",
+          "ok": true,
+          "detail": "showing 'health', expected 'health'"
+        }
+      ]
+    },
+    {
+      "index": 24,
+      "name": "oyenza-money",
+      "expanded": false,
+      "page": null,
+      "image": "24-oyenza-money.png",
+      "alpha_image": "24-oyenza-money-alpha.png",
+      "ok": false,
+      "settle_ms": 899,
+      "frame_ms": 18.95,
+      "frame_samples_ms": [
+        26.51,
+        22.0,
+        18.95
+      ],
+      "canvas_px": [
+        668,
+        152
+      ],
+      "window_pos_px": [
+        626,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        8.0,
+        294.0,
+        48.0
+      ],
+      "measured_width_px": 588,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "899 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (334, 22) = rgba(0, 0, 0, 255), ground rgb[0, 0, 0], 3 DIPs inside the floating body"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [0, 0, 0, 0]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "588 px opaque at row 64, geometry 588.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "5781 content pixels inside the island"
+        },
+        {
+          "name": "pill-gap",
+          "ok": true,
+          "detail": "rows 0-15 above the body: max alpha 1 (want <= 64), 1 on the screen's edge (want <= 8), 0 coloured pixels (want 0: hit pixels are black and the shadow rgb[0, 0, 0]), 9408 hit pixels at alpha 1; the body starts at row 16 (geometry 16.0)"
+        },
+        {
+          "name": "pill-shadow-inside",
+          "ok": true,
+          "detail": "edge alpha left 0, right 0, bottom 0 (want <= 1); drawn up to 0.0 DIP left, 0.0 right and 0.0 below the body (room 20.0, 20.0, 20.0)"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 18.95 ms of [26.51, 22.0, 18.95] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (203, 0) 1514x939 (laid out (203, 0) 1514x939), frame at (626, 0) 668x152"
+        }
+      ]
+    },
+    {
+      "index": 25,
+      "name": "oyenza-money-shown",
+      "expanded": false,
+      "page": null,
+      "image": "25-oyenza-money-shown.png",
+      "alpha_image": "25-oyenza-money-shown-alpha.png",
+      "ok": false,
+      "settle_ms": 728,
+      "frame_ms": 45.51,
+      "frame_samples_ms": [
+        46.24,
+        49.85,
+        45.51
+      ],
+      "canvas_px": [
+        680,
+        152
+      ],
+      "window_pos_px": [
+        620,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        8.0,
+        300.0,
+        48.0
+      ],
+      "measured_width_px": 600,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "728 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (340, 22) = rgba(0, 0, 0, 255), ground rgb[0, 0, 0], 3 DIPs inside the floating body"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [0, 0, 0, 0]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "600 px opaque at row 64, geometry 600.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "5280 content pixels inside the island"
+        },
+        {
+          "name": "pill-gap",
+          "ok": true,
+          "detail": "rows 0-15 above the body: max alpha 1 (want <= 64), 1 on the screen's edge (want <= 8), 0 coloured pixels (want 0: hit pixels are black and the shadow rgb[0, 0, 0]), 9600 hit pixels at alpha 1; the body starts at row 16 (geometry 16.0)"
+        },
+        {
+          "name": "pill-shadow-inside",
+          "ok": true,
+          "detail": "edge alpha left 0, right 0, bottom 0 (want <= 1); drawn up to 0.0 DIP left, 0.0 right and 0.0 below the body (room 20.0, 20.0, 20.0)"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 45.51 ms of [46.24, 49.85, 45.51] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (203, 0) 1514x939 (laid out (203, 0) 1514x939), frame at (620, 0) 680x152"
+        }
+      ]
+    },
+    {
+      "index": 26,
+      "name": "oyenza-bill",
+      "expanded": false,
+      "page": null,
+      "image": "26-oyenza-bill.png",
+      "alpha_image": "26-oyenza-bill-alpha.png",
+      "ok": false,
+      "settle_ms": 617,
+      "frame_ms": 28.88,
+      "frame_samples_ms": [
+        28.88,
+        47.0,
+        34.23
+      ],
+      "canvas_px": [
+        712,
+        152
+      ],
+      "window_pos_px": [
+        604,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        8.0,
+        316.0,
+        48.0
+      ],
+      "measured_width_px": 632,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "617 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (356, 22) = rgba(0, 0, 0, 255), ground rgb[0, 0, 0], 3 DIPs inside the floating body"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [0, 0, 0, 0]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "632 px opaque at row 64, geometry 632.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "5944 content pixels inside the island"
+        },
+        {
+          "name": "pill-gap",
+          "ok": true,
+          "detail": "rows 0-15 above the body: max alpha 1 (want <= 64), 1 on the screen's edge (want <= 8), 0 coloured pixels (want 0: hit pixels are black and the shadow rgb[0, 0, 0]), 10112 hit pixels at alpha 1; the body starts at row 16 (geometry 16.0)"
+        },
+        {
+          "name": "pill-shadow-inside",
+          "ok": true,
+          "detail": "edge alpha left 0, right 0, bottom 0 (want <= 1); drawn up to 0.0 DIP left, 0.0 right and 0.0 below the body (room 20.0, 20.0, 20.0)"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 28.88 ms of [28.88, 47.0, 34.23] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (203, 0) 1514x939 (laid out (203, 0) 1514x939), frame at (604, 0) 712x152"
+        }
+      ]
+    },
+    {
+      "index": 27,
+      "name": "page-oyenza",
+      "expanded": true,
+      "page": "oyenza",
+      "image": "27-page-oyenza.png",
+      "alpha_image": "27-page-oyenza-alpha.png",
+      "ok": false,
+      "settle_ms": 3028,
+      "frame_ms": 92.67,
+      "frame_samples_ms": [
+        112.22,
+        92.67,
+        132.08
+      ],
+      "canvas_px": [
+        1320,
+        721
+      ],
+      "window_pos_px": [
+        300,
+        0
+      ],
+      "body_dip": [
+        20.11319,
+        8.0,
+        619.7736,
+        332.2835
+      ],
+      "measured_width_px": 1240,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": false,
+          "detail": "3028 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (660, 22) = rgba(0, 0, 0, 255), ground rgb[0, 0, 0], 3 DIPs inside the floating body"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [1, 1, 1, 1]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "1240 px opaque at row 348, geometry 1239.5 px"
+        },
+        {
+          "name": "expanded-width",
+          "ok": true,
+          "detail": "1240 px vs settings.expanded_width 620 x 2.00 = 1240.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "15190 content pixels inside the island"
+        },
+        {
+          "name": "pill-gap",
+          "ok": true,
+          "detail": "rows 0-15 above the body: max alpha 1 (want <= 64), 1 on the screen's edge (want <= 8), 0 coloured pixels (want 0: hit pixels are black and the shadow rgb[0, 0, 0]), 21120 hit pixels at alpha 1; the body starts at row 16 (geometry 16.0)"
+        },
+        {
+          "name": "pill-shadow-inside",
+          "ok": true,
+          "detail": "edge alpha left 1, right 1, bottom 1 (want <= 1); drawn up to 0.1 DIP left, 0.1 right and 0.2 below the body (room 20.1, 20.1, 20.2)"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 92.67 ms of [112.22, 92.67, 132.08] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (203, 0) 1514x939 (laid out (203, 0) 1514x939), frame at (300, 0) 1320x721"
+        },
+        {
+          "name": "page",
+          "ok": true,
+          "detail": "showing 'oyenza', expected 'oyenza'"
+        }
+      ]
+    },
+    {
+      "index": 28,
+      "name": "page-oyenza-signin",
+      "expanded": true,
+      "page": "oyenza",
+      "image": "28-page-oyenza-signin.png",
+      "alpha_image": "28-page-oyenza-signin-alpha.png",
+      "ok": false,
+      "settle_ms": 1168,
+      "frame_ms": 74.51,
+      "frame_samples_ms": [
+        74.51,
+        104.86,
+        94.2
+      ],
+      "canvas_px": [
+        1320,
+        504
+      ],
+      "window_pos_px": [
+        300,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        8.0,
+        620.0,
+        224.0
+      ],
+      "measured_width_px": 1240,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "1168 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (660, 22) = rgba(0, 0, 0, 255), ground rgb[0, 0, 0], 3 DIPs inside the floating body"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [1, 1, 1, 1]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "1240 px opaque at row 240, geometry 1240.0 px"
+        },
+        {
+          "name": "expanded-width",
+          "ok": true,
+          "detail": "1240 px vs settings.expanded_width 620 x 2.00 = 1240.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "13924 content pixels inside the island"
+        },
+        {
+          "name": "pill-gap",
+          "ok": true,
+          "detail": "rows 0-15 above the body: max alpha 1 (want <= 64), 1 on the screen's edge (want <= 8), 0 coloured pixels (want 0: hit pixels are black and the shadow rgb[0, 0, 0]), 21120 hit pixels at alpha 1; the body starts at row 16 (geometry 16.0)"
+        },
+        {
+          "name": "pill-shadow-inside",
+          "ok": true,
+          "detail": "edge alpha left 1, right 1, bottom 1 (want <= 1); drawn up to 0.0 DIP left, 0.0 right and 0.0 below the body (room 20.0, 20.0, 20.0)"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 74.51 ms of [74.51, 104.86, 94.2] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (203, 0) 1514x939 (laid out (203, 0) 1514x939), frame at (300, 0) 1320x504"
+        },
+        {
+          "name": "page",
+          "ok": true,
+          "detail": "showing 'oyenza', expected 'oyenza'"
+        }
+      ]
+    },
+    {
+      "index": 29,
+      "name": "page-oyenza-saved",
+      "expanded": true,
+      "page": "oyenza",
+      "image": "29-page-oyenza-saved.png",
+      "alpha_image": "29-page-oyenza-saved-alpha.png",
+      "ok": false,
+      "settle_ms": 2148,
+      "frame_ms": 77.9,
+      "frame_samples_ms": [
+        91.63,
+        105.15,
+        77.9
+      ],
+      "canvas_px": [
+        1320,
+        716
+      ],
+      "window_pos_px": [
+        300,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        8.0,
+        620.0,
+        330.0
+      ],
+      "measured_width_px": 1240,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "2148 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (660, 22) = rgba(0, 0, 0, 255), ground rgb[0, 0, 0], 3 DIPs inside the floating body"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [1, 1, 1, 1]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "1240 px opaque at row 346, geometry 1240.0 px"
+        },
+        {
+          "name": "expanded-width",
+          "ok": true,
+          "detail": "1240 px vs settings.expanded_width 620 x 2.00 = 1240.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "17919 content pixels inside the island"
+        },
+        {
+          "name": "pill-gap",
+          "ok": true,
+          "detail": "rows 0-15 above the body: max alpha 1 (want <= 64), 1 on the screen's edge (want <= 8), 0 coloured pixels (want 0: hit pixels are black and the shadow rgb[0, 0, 0]), 21120 hit pixels at alpha 1; the body starts at row 16 (geometry 16.0)"
+        },
+        {
+          "name": "pill-shadow-inside",
+          "ok": true,
+          "detail": "edge alpha left 1, right 1, bottom 1 (want <= 1); drawn up to 0.0 DIP left, 0.0 right and 0.0 below the body (room 20.0, 20.0, 20.0)"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 77.90 ms of [91.63, 105.15, 77.9] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (203, 0) 1514x939 (laid out (203, 0) 1514x939), frame at (300, 0) 1320x716"
+        },
+        {
+          "name": "page",
+          "ok": true,
+          "detail": "showing 'oyenza', expected 'oyenza'"
+        }
+      ]
+    },
+    {
+      "index": 30,
+      "name": "page-health-signed-in",
+      "expanded": true,
+      "page": "health",
+      "image": "30-page-health-signed-in.png",
+      "alpha_image": "30-page-health-signed-in-alpha.png",
+      "ok": false,
+      "settle_ms": 1460,
+      "frame_ms": 92.48,
+      "frame_samples_ms": [
+        104.52,
+        133.2,
+        92.48
+      ],
+      "canvas_px": [
+        1320,
+        480
+      ],
+      "window_pos_px": [
+        300,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        8.0,
+        620.0,
+        212.0
+      ],
+      "measured_width_px": 1240,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "1460 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (660, 22) = rgba(0, 0, 0, 255), ground rgb[0, 0, 0], 3 DIPs inside the floating body"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [1, 1, 1, 1]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "1240 px opaque at row 228, geometry 1240.0 px"
+        },
+        {
+          "name": "expanded-width",
+          "ok": true,
+          "detail": "1240 px vs settings.expanded_width 620 x 2.00 = 1240.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "11599 content pixels inside the island"
+        },
+        {
+          "name": "pill-gap",
+          "ok": true,
+          "detail": "rows 0-15 above the body: max alpha 1 (want <= 64), 1 on the screen's edge (want <= 8), 0 coloured pixels (want 0: hit pixels are black and the shadow rgb[0, 0, 0]), 21120 hit pixels at alpha 1; the body starts at row 16 (geometry 16.0)"
+        },
+        {
+          "name": "pill-shadow-inside",
+          "ok": true,
+          "detail": "edge alpha left 1, right 1, bottom 1 (want <= 1); drawn up to 0.0 DIP left, 0.0 right and 0.0 below the body (room 20.0, 20.0, 20.0)"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 92.48 ms of [104.52, 133.2, 92.48] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (203, 0) 1514x939 (laid out (203, 0) 1514x939), frame at (300, 0) 1320x480"
+        },
+        {
+          "name": "page",
+          "ok": true,
+          "detail": "showing 'health', expected 'health'"
+        }
+      ]
+    },
+    {
+      "index": 31,
+      "name": "page-settings",
+      "expanded": true,
+      "page": "settings",
+      "image": "31-page-settings.png",
+      "alpha_image": "31-page-settings-alpha.png",
+      "ok": false,
+      "settle_ms": 1979,
+      "frame_ms": 138.55,
+      "frame_samples_ms": [
+        212.97,
+        175.58,
+        138.55
+      ],
+      "canvas_px": [
+        1320,
+        700
+      ],
+      "window_pos_px": [
+        300,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        8.0,
+        620.0,
+        322.0
+      ],
+      "measured_width_px": 1240,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "1979 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (660, 22) = rgba(0, 0, 0, 255), ground rgb[0, 0, 0], 3 DIPs inside the floating body"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [1, 1, 1, 1]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "1240 px opaque at row 338, geometry 1240.0 px"
+        },
+        {
+          "name": "expanded-width",
+          "ok": true,
+          "detail": "1240 px vs settings.expanded_width 620 x 2.00 = 1240.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "27632 content pixels inside the island"
+        },
+        {
+          "name": "pill-gap",
+          "ok": true,
+          "detail": "rows 0-15 above the body: max alpha 1 (want <= 64), 1 on the screen's edge (want <= 8), 0 coloured pixels (want 0: hit pixels are black and the shadow rgb[0, 0, 0]), 21120 hit pixels at alpha 1; the body starts at row 16 (geometry 16.0)"
+        },
+        {
+          "name": "pill-shadow-inside",
+          "ok": true,
+          "detail": "edge alpha left 1, right 1, bottom 1 (want <= 1); drawn up to 0.0 DIP left, 0.0 right and 0.0 below the body (room 20.0, 20.0, 20.0)"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 138.55 ms of [212.97, 175.58, 138.55] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (203, 0) 1514x939 (laid out (203, 0) 1514x939), frame at (300, 0) 1320x700"
+        },
+        {
+          "name": "page",
+          "ok": true,
+          "detail": "showing 'settings', expected 'settings'"
+        }
+      ]
+    },
+    {
+      "index": 32,
+      "name": "page-settings-signing-in",
+      "expanded": true,
+      "page": "settings",
+      "image": "32-page-settings-signing-in.png",
+      "alpha_image": "32-page-settings-signing-in-alpha.png",
+      "ok": false,
+      "settle_ms": 391,
+      "frame_ms": 126.69,
+      "frame_samples_ms": [
+        169.6,
+        195.19,
+        126.69
+      ],
+      "canvas_px": [
+        1320,
+        700
+      ],
+      "window_pos_px": [
+        300,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        8.0,
+        620.0,
+        322.0
+      ],
+      "measured_width_px": 1240,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "391 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (660, 22) = rgba(0, 0, 0, 255), ground rgb[0, 0, 0], 3 DIPs inside the floating body"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [1, 1, 1, 1]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "1240 px opaque at row 338, geometry 1240.0 px"
+        },
+        {
+          "name": "expanded-width",
+          "ok": true,
+          "detail": "1240 px vs settings.expanded_width 620 x 2.00 = 1240.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "28047 content pixels inside the island"
+        },
+        {
+          "name": "pill-gap",
+          "ok": true,
+          "detail": "rows 0-15 above the body: max alpha 1 (want <= 64), 1 on the screen's edge (want <= 8), 0 coloured pixels (want 0: hit pixels are black and the shadow rgb[0, 0, 0]), 21120 hit pixels at alpha 1; the body starts at row 16 (geometry 16.0)"
+        },
+        {
+          "name": "pill-shadow-inside",
+          "ok": true,
+          "detail": "edge alpha left 1, right 1, bottom 1 (want <= 1); drawn up to 0.0 DIP left, 0.0 right and 0.0 below the body (room 20.0, 20.0, 20.0)"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 126.69 ms of [169.6, 195.19, 126.69] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (203, 0) 1514x939 (laid out (203, 0) 1514x939), frame at (300, 0) 1320x700"
+        },
+        {
+          "name": "page",
+          "ok": true,
+          "detail": "showing 'settings', expected 'settings'"
+        }
+      ]
+    },
+    {
+      "index": 33,
+      "name": "page-settings-signed-in",
+      "expanded": true,
+      "page": "settings",
+      "image": "33-page-settings-signed-in.png",
+      "alpha_image": "33-page-settings-signed-in-alpha.png",
+      "ok": false,
+      "settle_ms": 138,
+      "frame_ms": 119.85,
+      "frame_samples_ms": [
+        119.85,
+        451.09,
+        127.27
+      ],
+      "canvas_px": [
+        1320,
+        700
+      ],
+      "window_pos_px": [
+        300,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        8.0,
+        620.0,
+        322.0
+      ],
+      "measured_width_px": 1240,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "138 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (660, 22) = rgba(0, 0, 0, 255), ground rgb[0, 0, 0], 3 DIPs inside the floating body"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [1, 1, 1, 1]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "1240 px opaque at row 338, geometry 1240.0 px"
+        },
+        {
+          "name": "expanded-width",
+          "ok": true,
+          "detail": "1240 px vs settings.expanded_width 620 x 2.00 = 1240.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "28064 content pixels inside the island"
+        },
+        {
+          "name": "pill-gap",
+          "ok": true,
+          "detail": "rows 0-15 above the body: max alpha 1 (want <= 64), 1 on the screen's edge (want <= 8), 0 coloured pixels (want 0: hit pixels are black and the shadow rgb[0, 0, 0]), 21120 hit pixels at alpha 1; the body starts at row 16 (geometry 16.0)"
+        },
+        {
+          "name": "pill-shadow-inside",
+          "ok": true,
+          "detail": "edge alpha left 1, right 1, bottom 1 (want <= 1); drawn up to 0.0 DIP left, 0.0 right and 0.0 below the body (room 20.0, 20.0, 20.0)"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 119.85 ms of [119.85, 451.09, 127.27] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (203, 0) 1514x939 (laid out (203, 0) 1514x939), frame at (300, 0) 1320x700"
+        },
+        {
+          "name": "page",
+          "ok": true,
+          "detail": "showing 'settings', expected 'settings'"
+        }
+      ]
+    },
+    {
+      "index": 34,
+      "name": "page-system",
+      "expanded": true,
+      "page": "system",
+      "image": "34-page-system.png",
+      "alpha_image": "34-page-system-alpha.png",
+      "ok": false,
+      "settle_ms": 1679,
+      "frame_ms": 165.15,
+      "frame_samples_ms": [
+        214.6,
+        242.09,
+        165.15
+      ],
+      "canvas_px": [
+        1320,
+        704
+      ],
+      "window_pos_px": [
+        300,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        8.0,
+        620.0,
+        324.0
+      ],
+      "measured_width_px": 1240,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "1679 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (660, 22) = rgba(0, 0, 0, 255), ground rgb[0, 0, 0], 3 DIPs inside the floating body"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [1, 1, 1, 1]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "1240 px opaque at row 340, geometry 1240.0 px"
+        },
+        {
+          "name": "expanded-width",
+          "ok": true,
+          "detail": "1240 px vs settings.expanded_width 620 x 2.00 = 1240.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "59249 content pixels inside the island"
+        },
+        {
+          "name": "pill-gap",
+          "ok": true,
+          "detail": "rows 0-15 above the body: max alpha 1 (want <= 64), 1 on the screen's edge (want <= 8), 0 coloured pixels (want 0: hit pixels are black and the shadow rgb[0, 0, 0]), 21120 hit pixels at alpha 1; the body starts at row 16 (geometry 16.0)"
+        },
+        {
+          "name": "pill-shadow-inside",
+          "ok": true,
+          "detail": "edge alpha left 1, right 1, bottom 1 (want <= 1); drawn up to 0.0 DIP left, 0.0 right and 0.0 below the body (room 20.0, 20.0, 20.0)"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 165.15 ms of [214.6, 242.09, 165.15] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (203, 0) 1514x939 (laid out (203, 0) 1514x939), frame at (300, 0) 1320x704"
+        },
+        {
+          "name": "page",
+          "ok": true,
+          "detail": "showing 'system', expected 'system'"
+        }
+      ]
+    },
+    {
+      "index": 35,
+      "name": "page-system-memory",
+      "expanded": true,
+      "page": "system",
+      "image": "35-page-system-memory.png",
+      "alpha_image": "35-page-system-memory-alpha.png",
+      "ok": false,
+      "settle_ms": 1153,
+      "frame_ms": 108.84,
+      "frame_samples_ms": [
+        208.66,
+        108.84,
+        152.74
+      ],
+      "canvas_px": [
+        1320,
+        704
+      ],
+      "window_pos_px": [
+        300,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        8.0,
+        620.0,
+        324.0
+      ],
+      "measured_width_px": 1240,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "1153 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (660, 22) = rgba(0, 0, 0, 255), ground rgb[0, 0, 0], 3 DIPs inside the floating body"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [1, 1, 1, 1]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "1240 px opaque at row 340, geometry 1240.0 px"
+        },
+        {
+          "name": "expanded-width",
+          "ok": true,
+          "detail": "1240 px vs settings.expanded_width 620 x 2.00 = 1240.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "90002 content pixels inside the island"
+        },
+        {
+          "name": "pill-gap",
+          "ok": true,
+          "detail": "rows 0-15 above the body: max alpha 1 (want <= 64), 1 on the screen's edge (want <= 8), 0 coloured pixels (want 0: hit pixels are black and the shadow rgb[0, 0, 0]), 21120 hit pixels at alpha 1; the body starts at row 16 (geometry 16.0)"
+        },
+        {
+          "name": "pill-shadow-inside",
+          "ok": true,
+          "detail": "edge alpha left 1, right 1, bottom 1 (want <= 1); drawn up to 0.0 DIP left, 0.0 right and 0.0 below the body (room 20.0, 20.0, 20.0)"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 108.84 ms of [208.66, 108.84, 152.74] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (203, 0) 1514x939 (laid out (203, 0) 1514x939), frame at (300, 0) 1320x704"
+        },
+        {
+          "name": "page",
+          "ok": true,
+          "detail": "showing 'system', expected 'system'"
+        }
+      ]
+    },
+    {
+      "index": 36,
+      "name": "page-system-drives",
+      "expanded": true,
+      "page": "system",
+      "image": "36-page-system-drives.png",
+      "alpha_image": "36-page-system-drives-alpha.png",
+      "ok": false,
+      "settle_ms": 711,
+      "frame_ms": 81.82,
+      "frame_samples_ms": [
+        81.82,
+        106.25,
+        87.87
+      ],
+      "canvas_px": [
+        1320,
+        704
+      ],
+      "window_pos_px": [
+        300,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        8.0,
+        620.0,
+        324.0
+      ],
+      "measured_width_px": 1240,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "711 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (660, 22) = rgba(0, 0, 0, 255), ground rgb[0, 0, 0], 3 DIPs inside the floating body"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [1, 1, 1, 1]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "1240 px opaque at row 340, geometry 1240.0 px"
+        },
+        {
+          "name": "expanded-width",
+          "ok": true,
+          "detail": "1240 px vs settings.expanded_width 620 x 2.00 = 1240.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "42767 content pixels inside the island"
+        },
+        {
+          "name": "pill-gap",
+          "ok": true,
+          "detail": "rows 0-15 above the body: max alpha 1 (want <= 64), 1 on the screen's edge (want <= 8), 0 coloured pixels (want 0: hit pixels are black and the shadow rgb[0, 0, 0]), 21120 hit pixels at alpha 1; the body starts at row 16 (geometry 16.0)"
+        },
+        {
+          "name": "pill-shadow-inside",
+          "ok": true,
+          "detail": "edge alpha left 1, right 1, bottom 1 (want <= 1); drawn up to 0.0 DIP left, 0.0 right and 0.0 below the body (room 20.0, 20.0, 20.0)"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 81.82 ms of [81.82, 106.25, 87.87] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (203, 0) 1514x939 (laid out (203, 0) 1514x939), frame at (300, 0) 1320x704"
+        },
+        {
+          "name": "page",
+          "ok": true,
+          "detail": "showing 'system', expected 'system'"
+        }
+      ]
+    },
+    {
+      "index": 37,
+      "name": "page-system-network",
+      "expanded": true,
+      "page": "system",
+      "image": "37-page-system-network.png",
+      "alpha_image": "37-page-system-network-alpha.png",
+      "ok": false,
+      "settle_ms": 259,
+      "frame_ms": 115.13,
+      "frame_samples_ms": [
+        195.31,
+        138.06,
+        115.13
+      ],
+      "canvas_px": [
+        1320,
+        704
+      ],
+      "window_pos_px": [
+        300,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        8.0,
+        620.0,
+        324.0
+      ],
+      "measured_width_px": 1240,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "259 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (660, 22) = rgba(0, 0, 0, 255), ground rgb[0, 0, 0], 3 DIPs inside the floating body"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [1, 1, 1, 1]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "1240 px opaque at row 340, geometry 1240.0 px"
+        },
+        {
+          "name": "expanded-width",
+          "ok": true,
+          "detail": "1240 px vs settings.expanded_width 620 x 2.00 = 1240.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "36001 content pixels inside the island"
+        },
+        {
+          "name": "pill-gap",
+          "ok": true,
+          "detail": "rows 0-15 above the body: max alpha 1 (want <= 64), 1 on the screen's edge (want <= 8), 0 coloured pixels (want 0: hit pixels are black and the shadow rgb[0, 0, 0]), 21120 hit pixels at alpha 1; the body starts at row 16 (geometry 16.0)"
+        },
+        {
+          "name": "pill-shadow-inside",
+          "ok": true,
+          "detail": "edge alpha left 1, right 1, bottom 1 (want <= 1); drawn up to 0.0 DIP left, 0.0 right and 0.0 below the body (room 20.0, 20.0, 20.0)"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 115.13 ms of [195.31, 138.06, 115.13] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (203, 0) 1514x939 (laid out (203, 0) 1514x939), frame at (300, 0) 1320x704"
+        },
+        {
+          "name": "page",
+          "ok": true,
+          "detail": "showing 'system', expected 'system'"
+        }
+      ]
+    },
+    {
+      "index": 38,
+      "name": "page-system-battery",
+      "expanded": true,
+      "page": "system",
+      "image": "38-page-system-battery.png",
+      "alpha_image": "38-page-system-battery-alpha.png",
+      "ok": false,
+      "settle_ms": 964,
+      "frame_ms": 132.88,
+      "frame_samples_ms": [
+        133.08,
+        151.94,
+        132.88
+      ],
+      "canvas_px": [
+        1320,
+        704
+      ],
+      "window_pos_px": [
+        300,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        8.0,
+        620.0,
+        324.0
+      ],
+      "measured_width_px": 1240,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "964 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (660, 22) = rgba(0, 0, 0, 255), ground rgb[0, 0, 0], 3 DIPs inside the floating body"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [1, 1, 1, 1]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "1240 px opaque at row 340, geometry 1240.0 px"
+        },
+        {
+          "name": "expanded-width",
+          "ok": true,
+          "detail": "1240 px vs settings.expanded_width 620 x 2.00 = 1240.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "30810 content pixels inside the island"
+        },
+        {
+          "name": "pill-gap",
+          "ok": true,
+          "detail": "rows 0-15 above the body: max alpha 1 (want <= 64), 1 on the screen's edge (want <= 8), 0 coloured pixels (want 0: hit pixels are black and the shadow rgb[0, 0, 0]), 21120 hit pixels at alpha 1; the body starts at row 16 (geometry 16.0)"
+        },
+        {
+          "name": "pill-shadow-inside",
+          "ok": true,
+          "detail": "edge alpha left 1, right 1, bottom 1 (want <= 1); drawn up to 0.0 DIP left, 0.0 right and 0.0 below the body (room 20.0, 20.0, 20.0)"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 132.88 ms of [133.08, 151.94, 132.88] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (203, 0) 1514x939 (laid out (203, 0) 1514x939), frame at (300, 0) 1320x704"
+        },
+        {
+          "name": "page",
+          "ok": true,
+          "detail": "showing 'system', expected 'system'"
+        }
+      ]
+    },
+    {
+      "index": 39,
+      "name": "page-system-waiting",
+      "expanded": true,
+      "page": "system",
+      "image": "39-page-system-waiting.png",
+      "alpha_image": "39-page-system-waiting-alpha.png",
+      "ok": false,
+      "settle_ms": 270,
+      "frame_ms": 86.43,
+      "frame_samples_ms": [
+        101.33,
+        135.61,
+        86.43
+      ],
+      "canvas_px": [
+        1320,
+        704
+      ],
+      "window_pos_px": [
+        300,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        8.0,
+        620.0,
+        324.0
+      ],
+      "measured_width_px": 1240,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "270 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (660, 22) = rgba(0, 0, 0, 255), ground rgb[0, 0, 0], 3 DIPs inside the floating body"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [1, 1, 1, 1]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "1240 px opaque at row 340, geometry 1240.0 px"
+        },
+        {
+          "name": "expanded-width",
+          "ok": true,
+          "detail": "1240 px vs settings.expanded_width 620 x 2.00 = 1240.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "4663 content pixels inside the island"
+        },
+        {
+          "name": "pill-gap",
+          "ok": true,
+          "detail": "rows 0-15 above the body: max alpha 1 (want <= 64), 1 on the screen's edge (want <= 8), 0 coloured pixels (want 0: hit pixels are black and the shadow rgb[0, 0, 0]), 21120 hit pixels at alpha 1; the body starts at row 16 (geometry 16.0)"
+        },
+        {
+          "name": "pill-shadow-inside",
+          "ok": true,
+          "detail": "edge alpha left 1, right 1, bottom 1 (want <= 1); drawn up to 0.0 DIP left, 0.0 right and 0.0 below the body (room 20.0, 20.0, 20.0)"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 86.43 ms of [101.33, 135.61, 86.43] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (203, 0) 1514x939 (laid out (203, 0) 1514x939), frame at (300, 0) 1320x704"
+        },
+        {
+          "name": "page",
+          "ok": true,
+          "detail": "showing 'system', expected 'system'"
+        }
+      ]
+    },
+    {
+      "index": 40,
+      "name": "page-settings-stay-on-top",
+      "expanded": true,
+      "page": "settings",
+      "image": "40-page-settings-stay-on-top.png",
+      "alpha_image": "40-page-settings-stay-on-top-alpha.png",
+      "ok": false,
+      "settle_ms": 1237,
+      "frame_ms": 137.84,
+      "frame_samples_ms": [
+        576.44,
+        137.84,
+        149.15
+      ],
+      "canvas_px": [
+        1320,
+        700
+      ],
+      "window_pos_px": [
+        300,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        8.0,
+        620.0,
+        322.0
+      ],
+      "measured_width_px": 1240,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "1237 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (660, 22) = rgba(0, 0, 0, 255), ground rgb[0, 0, 0], 3 DIPs inside the floating body"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [1, 1, 1, 1]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "1240 px opaque at row 338, geometry 1240.0 px"
+        },
+        {
+          "name": "expanded-width",
+          "ok": true,
+          "detail": "1240 px vs settings.expanded_width 620 x 2.00 = 1240.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "27739 content pixels inside the island"
+        },
+        {
+          "name": "pill-gap",
+          "ok": true,
+          "detail": "rows 0-15 above the body: max alpha 1 (want <= 64), 1 on the screen's edge (want <= 8), 0 coloured pixels (want 0: hit pixels are black and the shadow rgb[0, 0, 0]), 21120 hit pixels at alpha 1; the body starts at row 16 (geometry 16.0)"
+        },
+        {
+          "name": "pill-shadow-inside",
+          "ok": true,
+          "detail": "edge alpha left 1, right 1, bottom 1 (want <= 1); drawn up to 0.0 DIP left, 0.0 right and 0.0 below the body (room 20.0, 20.0, 20.0)"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 137.84 ms of [576.44, 137.84, 149.15] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (203, 0) 1514x939 (laid out (203, 0) 1514x939), frame at (300, 0) 1320x700"
+        },
+        {
+          "name": "page",
+          "ok": true,
+          "detail": "showing 'settings', expected 'settings'"
+        }
+      ]
+    },
+    {
+      "index": 41,
+      "name": "page-shelf-pairing",
+      "expanded": true,
+      "page": "shelf",
+      "image": "41-page-shelf-pairing.png",
+      "alpha_image": "41-page-shelf-pairing-alpha.png",
+      "ok": false,
+      "settle_ms": 2730,
+      "frame_ms": 101.04,
+      "frame_samples_ms": [
+        101.04,
+        148.83,
+        244.57
+      ],
+      "canvas_px": [
+        1320,
+        820
+      ],
+      "window_pos_px": [
+        300,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        8.0,
+        620.0,
+        382.0
+      ],
+      "measured_width_px": 1240,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "2730 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (660, 22) = rgba(0, 0, 0, 255), ground rgb[0, 0, 0], 3 DIPs inside the floating body"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [1, 1, 1, 1]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "1240 px opaque at row 398, geometry 1240.0 px"
+        },
+        {
+          "name": "expanded-width",
+          "ok": true,
+          "detail": "1240 px vs settings.expanded_width 620 x 2.00 = 1240.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "49578 content pixels inside the island"
+        },
+        {
+          "name": "pill-gap",
+          "ok": true,
+          "detail": "rows 0-15 above the body: max alpha 1 (want <= 64), 1 on the screen's edge (want <= 8), 0 coloured pixels (want 0: hit pixels are black and the shadow rgb[0, 0, 0]), 21120 hit pixels at alpha 1; the body starts at row 16 (geometry 16.0)"
+        },
+        {
+          "name": "pill-shadow-inside",
+          "ok": true,
+          "detail": "edge alpha left 1, right 1, bottom 1 (want <= 1); drawn up to 0.0 DIP left, 0.0 right and 0.0 below the body (room 20.0, 20.0, 20.0)"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 101.04 ms of [101.04, 148.83, 244.57] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (203, 0) 1514x939 (laid out (203, 0) 1514x939), frame at (300, 0) 1320x820"
+        },
+        {
+          "name": "page",
+          "ok": true,
+          "detail": "showing 'shelf', expected 'shelf'"
+        }
+      ]
+    },
+    {
+      "index": 42,
+      "name": "page-shelf-paired",
+      "expanded": true,
+      "page": "shelf",
+      "image": "42-page-shelf-paired.png",
+      "alpha_image": "42-page-shelf-paired-alpha.png",
+      "ok": false,
+      "settle_ms": 298,
+      "frame_ms": 91.89,
+      "frame_samples_ms": [
+        127.79,
+        91.89,
+        139.95
+      ],
+      "canvas_px": [
+        1320,
+        820
+      ],
+      "window_pos_px": [
+        300,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        8.0,
+        620.0,
+        382.0
+      ],
+      "measured_width_px": 1240,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "298 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (660, 22) = rgba(0, 0, 0, 255), ground rgb[0, 0, 0], 3 DIPs inside the floating body"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [1, 1, 1, 1]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "1240 px opaque at row 398, geometry 1240.0 px"
+        },
+        {
+          "name": "expanded-width",
+          "ok": true,
+          "detail": "1240 px vs settings.expanded_width 620 x 2.00 = 1240.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "50000 content pixels inside the island"
+        },
+        {
+          "name": "pill-gap",
+          "ok": true,
+          "detail": "rows 0-15 above the body: max alpha 1 (want <= 64), 1 on the screen's edge (want <= 8), 0 coloured pixels (want 0: hit pixels are black and the shadow rgb[0, 0, 0]), 21120 hit pixels at alpha 1; the body starts at row 16 (geometry 16.0)"
+        },
+        {
+          "name": "pill-shadow-inside",
+          "ok": true,
+          "detail": "edge alpha left 1, right 1, bottom 1 (want <= 1); drawn up to 0.0 DIP left, 0.0 right and 0.0 below the body (room 20.0, 20.0, 20.0)"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 91.89 ms of [127.79, 91.89, 139.95] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (203, 0) 1514x939 (laid out (203, 0) 1514x939), frame at (300, 0) 1320x820"
+        },
+        {
+          "name": "page",
+          "ok": true,
+          "detail": "showing 'shelf', expected 'shelf'"
+        }
+      ]
+    },
+    {
+      "index": 43,
+      "name": "page-shelf-paired-phones",
+      "expanded": true,
+      "page": "shelf",
+      "image": "43-page-shelf-paired-phones.png",
+      "alpha_image": "43-page-shelf-paired-phones-alpha.png",
+      "ok": false,
+      "settle_ms": 401,
+      "frame_ms": 129.36,
+      "frame_samples_ms": [
+        595.57,
+        129.36,
+        146.99
+      ],
+      "canvas_px": [
+        1320,
+        820
+      ],
+      "window_pos_px": [
+        300,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        8.0,
+        620.0,
+        382.0
+      ],
+      "measured_width_px": 1240,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "401 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (660, 22) = rgba(0, 0, 0, 255), ground rgb[0, 0, 0], 3 DIPs inside the floating body"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [1, 1, 1, 1]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "1240 px opaque at row 398, geometry 1240.0 px"
+        },
+        {
+          "name": "expanded-width",
+          "ok": true,
+          "detail": "1240 px vs settings.expanded_width 620 x 2.00 = 1240.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "12032 content pixels inside the island"
+        },
+        {
+          "name": "pill-gap",
+          "ok": true,
+          "detail": "rows 0-15 above the body: max alpha 1 (want <= 64), 1 on the screen's edge (want <= 8), 0 coloured pixels (want 0: hit pixels are black and the shadow rgb[0, 0, 0]), 21120 hit pixels at alpha 1; the body starts at row 16 (geometry 16.0)"
+        },
+        {
+          "name": "pill-shadow-inside",
+          "ok": true,
+          "detail": "edge alpha left 1, right 1, bottom 1 (want <= 1); drawn up to 0.0 DIP left, 0.0 right and 0.0 below the body (room 20.0, 20.0, 20.0)"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 129.36 ms of [595.57, 129.36, 146.99] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (203, 0) 1514x939 (laid out (203, 0) 1514x939), frame at (300, 0) 1320x820"
+        },
+        {
+          "name": "page",
+          "ok": true,
+          "detail": "showing 'shelf', expected 'shelf'"
+        }
+      ]
+    },
+    {
+      "index": 44,
+      "name": "paired-received-notice",
+      "expanded": false,
+      "page": null,
+      "image": "44-paired-received-notice.png",
+      "alpha_image": "44-paired-received-notice-alpha.png",
+      "ok": false,
+      "settle_ms": 1067,
+      "frame_ms": 49.34,
+      "frame_samples_ms": [
+        49.34,
+        52.03,
+        49.94
+      ],
+      "canvas_px": [
+        700,
+        152
+      ],
+      "window_pos_px": [
+        610,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        8.0,
+        310.0,
+        48.0
+      ],
+      "measured_width_px": 620,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "1067 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (350, 22) = rgba(0, 0, 0, 255), ground rgb[0, 0, 0], 3 DIPs inside the floating body"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [0, 0, 0, 0]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "620 px opaque at row 64, geometry 620.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "6493 content pixels inside the island"
+        },
+        {
+          "name": "pill-gap",
+          "ok": true,
+          "detail": "rows 0-15 above the body: max alpha 1 (want <= 64), 1 on the screen's edge (want <= 8), 0 coloured pixels (want 0: hit pixels are black and the shadow rgb[0, 0, 0]), 9920 hit pixels at alpha 1; the body starts at row 16 (geometry 16.0)"
+        },
+        {
+          "name": "pill-shadow-inside",
+          "ok": true,
+          "detail": "edge alpha left 0, right 0, bottom 0 (want <= 1); drawn up to 0.0 DIP left, 0.0 right and 0.0 below the body (room 20.0, 20.0, 20.0)"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 49.34 ms of [49.34, 52.03, 49.94] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (203, 0) 1514x939 (laid out (203, 0) 1514x939), frame at (610, 0) 700x152"
+        }
+      ]
+    },
+    {
+      "index": 45,
+      "name": "page-system-gpu",
+      "expanded": true,
+      "page": "system",
+      "image": "45-page-system-gpu.png",
+      "alpha_image": "45-page-system-gpu-alpha.png",
+      "ok": false,
+      "settle_ms": 4314,
+      "frame_ms": 854.08,
+      "frame_samples_ms": [
+        4391.24,
+        2046.37,
+        854.08
+      ],
+      "canvas_px": [
+        1328,
+        645
+      ],
+      "window_pos_px": [
+        296,
+        0
+      ],
+      "body_dip": [
+        20.10379,
+        8.0,
+        623.7924,
+        294.2386
+      ],
+      "measured_width_px": 1248,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": false,
+          "detail": "4314 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (664, 22) = rgba(0, 0, 0, 255), ground rgb[0, 0, 0], 3 DIPs inside the floating body"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [1, 1, 0, 0]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "1248 px opaque at row 310, geometry 1247.6 px"
+        },
+        {
+          "name": "expanded-width",
+          "ok": false,
+          "detail": "1248 px vs settings.expanded_width 620 x 2.00 = 1240.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "44532 content pixels inside the island"
+        },
+        {
+          "name": "pill-gap",
+          "ok": true,
+          "detail": "rows 0-15 above the body: max alpha 1 (want <= 64), 1 on the screen's edge (want <= 8), 0 coloured pixels (want 0: hit pixels are black and the shadow rgb[0, 0, 0]), 21248 hit pixels at alpha 1; the body starts at row 16 (geometry 16.0)"
+        },
+        {
+          "name": "pill-shadow-inside",
+          "ok": true,
+          "detail": "edge alpha left 1, right 1, bottom 0 (want <= 1); drawn up to 0.1 DIP left, 0.1 right and -0.2 below the body (room 20.1, 20.1, 20.3)"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 854.08 ms of [4391.24, 2046.37, 854.08] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (203, 0) 1514x939 (laid out (203, 0) 1514x939), frame at (296, 0) 1328x645"
+        },
+        {
+          "name": "page",
+          "ok": true,
+          "detail": "showing 'system', expected 'system'"
+        }
+      ]
+    },
+    {
+      "index": 46,
+      "name": "page-addons",
+      "expanded": true,
+      "page": "addons",
+      "image": "46-page-addons.png",
+      "alpha_image": "46-page-addons-alpha.png",
+      "ok": false,
+      "settle_ms": 2416,
+      "frame_ms": 117.79,
+      "frame_samples_ms": [
+        117.79,
+        155.8,
+        119.01
+      ],
+      "canvas_px": [
+        1320,
+        688
+      ],
+      "window_pos_px": [
+        300,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        8.0,
+        620.0,
+        316.0
+      ],
+      "measured_width_px": 1240,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "2416 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (660, 22) = rgba(0, 0, 0, 255), ground rgb[0, 0, 0], 3 DIPs inside the floating body"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [1, 1, 1, 1]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "1240 px opaque at row 332, geometry 1240.0 px"
+        },
+        {
+          "name": "expanded-width",
+          "ok": true,
+          "detail": "1240 px vs settings.expanded_width 620 x 2.00 = 1240.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "50284 content pixels inside the island"
+        },
+        {
+          "name": "pill-gap",
+          "ok": true,
+          "detail": "rows 0-15 above the body: max alpha 1 (want <= 64), 1 on the screen's edge (want <= 8), 0 coloured pixels (want 0: hit pixels are black and the shadow rgb[0, 0, 0]), 21120 hit pixels at alpha 1; the body starts at row 16 (geometry 16.0)"
+        },
+        {
+          "name": "pill-shadow-inside",
+          "ok": true,
+          "detail": "edge alpha left 1, right 1, bottom 1 (want <= 1); drawn up to 0.0 DIP left, 0.0 right and 0.0 below the body (room 20.0, 20.0, 20.0)"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 117.79 ms of [117.79, 155.8, 119.01] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (203, 0) 1514x939 (laid out (203, 0) 1514x939), frame at (300, 0) 1320x688"
+        },
+        {
+          "name": "page",
+          "ok": true,
+          "detail": "showing 'addons', expected 'addons'"
+        }
+      ]
+    },
+    {
+      "index": 47,
+      "name": "page-addons-downloading",
+      "expanded": true,
+      "page": "addons",
+      "image": "47-page-addons-downloading.png",
+      "alpha_image": "47-page-addons-downloading-alpha.png",
+      "ok": false,
+      "settle_ms": 171,
+      "frame_ms": 109.77,
+      "frame_samples_ms": [
+        109.77,
+        159.4,
+        202.13
+      ],
+      "canvas_px": [
+        1320,
+        688
+      ],
+      "window_pos_px": [
+        300,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        8.0,
+        620.0,
+        316.0
+      ],
+      "measured_width_px": 1240,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "171 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (660, 22) = rgba(0, 0, 0, 255), ground rgb[0, 0, 0], 3 DIPs inside the floating body"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [1, 1, 1, 1]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "1240 px opaque at row 332, geometry 1240.0 px"
+        },
+        {
+          "name": "expanded-width",
+          "ok": true,
+          "detail": "1240 px vs settings.expanded_width 620 x 2.00 = 1240.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "56096 content pixels inside the island"
+        },
+        {
+          "name": "pill-gap",
+          "ok": true,
+          "detail": "rows 0-15 above the body: max alpha 1 (want <= 64), 1 on the screen's edge (want <= 8), 0 coloured pixels (want 0: hit pixels are black and the shadow rgb[0, 0, 0]), 21120 hit pixels at alpha 1; the body starts at row 16 (geometry 16.0)"
+        },
+        {
+          "name": "pill-shadow-inside",
+          "ok": true,
+          "detail": "edge alpha left 1, right 1, bottom 1 (want <= 1); drawn up to 0.0 DIP left, 0.0 right and 0.0 below the body (room 20.0, 20.0, 20.0)"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 109.77 ms of [109.77, 159.4, 202.13] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (203, 0) 1514x939 (laid out (203, 0) 1514x939), frame at (300, 0) 1320x688"
+        },
+        {
+          "name": "page",
+          "ok": true,
+          "detail": "showing 'addons', expected 'addons'"
+        }
+      ]
+    },
+    {
+      "index": 48,
+      "name": "page-addons-on",
+      "expanded": true,
+      "page": "addons",
+      "image": "48-page-addons-on.png",
+      "alpha_image": "48-page-addons-on-alpha.png",
+      "ok": false,
+      "settle_ms": 521,
+      "frame_ms": 147.19,
+      "frame_samples_ms": [
+        300.25,
+        209.58,
+        147.19
+      ],
+      "canvas_px": [
+        1320,
+        688
+      ],
+      "window_pos_px": [
+        300,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        8.0,
+        620.0,
+        316.0
+      ],
+      "measured_width_px": 1240,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "521 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (660, 22) = rgba(0, 0, 0, 255), ground rgb[0, 0, 0], 3 DIPs inside the floating body"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [1, 1, 1, 1]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "1240 px opaque at row 332, geometry 1240.0 px"
+        },
+        {
+          "name": "expanded-width",
+          "ok": true,
+          "detail": "1240 px vs settings.expanded_width 620 x 2.00 = 1240.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "49729 content pixels inside the island"
+        },
+        {
+          "name": "pill-gap",
+          "ok": true,
+          "detail": "rows 0-15 above the body: max alpha 1 (want <= 64), 1 on the screen's edge (want <= 8), 0 coloured pixels (want 0: hit pixels are black and the shadow rgb[0, 0, 0]), 21120 hit pixels at alpha 1; the body starts at row 16 (geometry 16.0)"
+        },
+        {
+          "name": "pill-shadow-inside",
+          "ok": true,
+          "detail": "edge alpha left 1, right 1, bottom 1 (want <= 1); drawn up to 0.0 DIP left, 0.0 right and 0.0 below the body (room 20.0, 20.0, 20.0)"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 147.19 ms of [300.25, 209.58, 147.19] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (203, 0) 1514x939 (laid out (203, 0) 1514x939), frame at (300, 0) 1320x688"
+        },
+        {
+          "name": "page",
+          "ok": true,
+          "detail": "showing 'addons', expected 'addons'"
+        }
+      ]
+    },
+    {
+      "index": 49,
+      "name": "page-addons-offline",
+      "expanded": true,
+      "page": "addons",
+      "image": "49-page-addons-offline.png",
+      "alpha_image": "49-page-addons-offline-alpha.png",
+      "ok": false,
+      "settle_ms": 451,
+      "frame_ms": 164.28,
+      "frame_samples_ms": [
+        176.28,
+        164.28,
+        203.82
+      ],
+      "canvas_px": [
+        1320,
+        688
+      ],
+      "window_pos_px": [
+        300,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        8.0,
+        620.0,
+        316.0
+      ],
+      "measured_width_px": 1240,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "451 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (660, 22) = rgba(0, 0, 0, 255), ground rgb[0, 0, 0], 3 DIPs inside the floating body"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [1, 1, 1, 1]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "1240 px opaque at row 332, geometry 1240.0 px"
+        },
+        {
+          "name": "expanded-width",
+          "ok": true,
+          "detail": "1240 px vs settings.expanded_width 620 x 2.00 = 1240.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "51423 content pixels inside the island"
+        },
+        {
+          "name": "pill-gap",
+          "ok": true,
+          "detail": "rows 0-15 above the body: max alpha 1 (want <= 64), 1 on the screen's edge (want <= 8), 0 coloured pixels (want 0: hit pixels are black and the shadow rgb[0, 0, 0]), 21120 hit pixels at alpha 1; the body starts at row 16 (geometry 16.0)"
+        },
+        {
+          "name": "pill-shadow-inside",
+          "ok": true,
+          "detail": "edge alpha left 1, right 1, bottom 1 (want <= 1); drawn up to 0.0 DIP left, 0.0 right and 0.0 below the body (room 20.0, 20.0, 20.0)"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 164.28 ms of [176.28, 164.28, 203.82] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (203, 0) 1514x939 (laid out (203, 0) 1514x939), frame at (300, 0) 1320x688"
+        },
+        {
+          "name": "page",
+          "ok": true,
+          "detail": "showing 'addons', expected 'addons'"
+        }
+      ]
+    },
+    {
+      "index": 50,
+      "name": "page-addons-failed",
+      "expanded": true,
+      "page": "addons",
+      "image": "50-page-addons-failed.png",
+      "alpha_image": "50-page-addons-failed-alpha.png",
+      "ok": false,
+      "settle_ms": 353,
+      "frame_ms": 119.6,
+      "frame_samples_ms": [
+        134.59,
+        131.92,
+        119.6
+      ],
+      "canvas_px": [
+        1320,
+        688
+      ],
+      "window_pos_px": [
+        300,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        8.0,
+        620.0,
+        316.0
+      ],
+      "measured_width_px": 1240,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "353 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (660, 22) = rgba(0, 0, 0, 255), ground rgb[0, 0, 0], 3 DIPs inside the floating body"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [1, 1, 1, 1]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "1240 px opaque at row 332, geometry 1240.0 px"
+        },
+        {
+          "name": "expanded-width",
+          "ok": true,
+          "detail": "1240 px vs settings.expanded_width 620 x 2.00 = 1240.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "52609 content pixels inside the island"
+        },
+        {
+          "name": "pill-gap",
+          "ok": true,
+          "detail": "rows 0-15 above the body: max alpha 1 (want <= 64), 1 on the screen's edge (want <= 8), 0 coloured pixels (want 0: hit pixels are black and the shadow rgb[0, 0, 0]), 21120 hit pixels at alpha 1; the body starts at row 16 (geometry 16.0)"
+        },
+        {
+          "name": "pill-shadow-inside",
+          "ok": true,
+          "detail": "edge alpha left 1, right 1, bottom 1 (want <= 1); drawn up to 0.0 DIP left, 0.0 right and 0.0 below the body (room 20.0, 20.0, 20.0)"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 119.60 ms of [134.59, 131.92, 119.6] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (203, 0) 1514x939 (laid out (203, 0) 1514x939), frame at (300, 0) 1320x688"
+        },
+        {
+          "name": "page",
+          "ok": true,
+          "detail": "showing 'addons', expected 'addons'"
+        }
+      ]
+    },
+    {
+      "index": 51,
+      "name": "page-prayer",
+      "expanded": true,
+      "page": "prayer",
+      "image": "51-page-prayer.png",
+      "alpha_image": "51-page-prayer-alpha.png",
+      "ok": false,
+      "settle_ms": 1304,
+      "frame_ms": 113.98,
+      "frame_samples_ms": [
+        381.64,
+        114.42,
+        113.98
+      ],
+      "canvas_px": [
+        1320,
+        484
+      ],
+      "window_pos_px": [
+        300,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        8.0,
+        620.0,
+        214.0
+      ],
+      "measured_width_px": 1240,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "1304 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (660, 22) = rgba(0, 0, 0, 255), ground rgb[0, 0, 0], 3 DIPs inside the floating body"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [1, 1, 1, 1]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "1240 px opaque at row 230, geometry 1240.0 px"
+        },
+        {
+          "name": "expanded-width",
+          "ok": true,
+          "detail": "1240 px vs settings.expanded_width 620 x 2.00 = 1240.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "18182 content pixels inside the island"
+        },
+        {
+          "name": "pill-gap",
+          "ok": true,
+          "detail": "rows 0-15 above the body: max alpha 1 (want <= 64), 1 on the screen's edge (want <= 8), 0 coloured pixels (want 0: hit pixels are black and the shadow rgb[0, 0, 0]), 21120 hit pixels at alpha 1; the body starts at row 16 (geometry 16.0)"
+        },
+        {
+          "name": "pill-shadow-inside",
+          "ok": true,
+          "detail": "edge alpha left 1, right 1, bottom 1 (want <= 1); drawn up to 0.0 DIP left, 0.0 right and 0.0 below the body (room 20.0, 20.0, 20.0)"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 113.98 ms of [381.64, 114.42, 113.98] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (203, 0) 1514x939 (laid out (203, 0) 1514x939), frame at (300, 0) 1320x484"
+        },
+        {
+          "name": "page",
+          "ok": true,
+          "detail": "showing 'prayer', expected 'prayer'"
+        }
+      ]
+    },
+    {
+      "index": 52,
+      "name": "page-prayer-picker",
+      "expanded": true,
+      "page": "prayer",
+      "image": "52-page-prayer-picker.png",
+      "alpha_image": "52-page-prayer-picker-alpha.png",
+      "ok": false,
+      "settle_ms": 135,
+      "frame_ms": 62.95,
+      "frame_samples_ms": [
+        76.09,
+        69.21,
+        62.95
+      ],
+      "canvas_px": [
+        1320,
+        484
+      ],
+      "window_pos_px": [
+        300,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        8.0,
+        620.0,
+        214.0
+      ],
+      "measured_width_px": 1240,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "135 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (660, 22) = rgba(0, 0, 0, 255), ground rgb[0, 0, 0], 3 DIPs inside the floating body"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [1, 1, 1, 1]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "1240 px opaque at row 230, geometry 1240.0 px"
+        },
+        {
+          "name": "expanded-width",
+          "ok": true,
+          "detail": "1240 px vs settings.expanded_width 620 x 2.00 = 1240.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "11694 content pixels inside the island"
+        },
+        {
+          "name": "pill-gap",
+          "ok": true,
+          "detail": "rows 0-15 above the body: max alpha 1 (want <= 64), 1 on the screen's edge (want <= 8), 0 coloured pixels (want 0: hit pixels are black and the shadow rgb[0, 0, 0]), 21120 hit pixels at alpha 1; the body starts at row 16 (geometry 16.0)"
+        },
+        {
+          "name": "pill-shadow-inside",
+          "ok": true,
+          "detail": "edge alpha left 1, right 1, bottom 1 (want <= 1); drawn up to 0.0 DIP left, 0.0 right and 0.0 below the body (room 20.0, 20.0, 20.0)"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 62.95 ms of [76.09, 69.21, 62.95] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (203, 0) 1514x939 (laid out (203, 0) 1514x939), frame at (300, 0) 1320x484"
+        },
+        {
+          "name": "page",
+          "ok": true,
+          "detail": "showing 'prayer', expected 'prayer'"
+        }
+      ]
+    },
+    {
+      "index": 53,
+      "name": "prayer-countdown",
+      "expanded": false,
+      "page": null,
+      "image": "53-prayer-countdown.png",
+      "alpha_image": "53-prayer-countdown-alpha.png",
+      "ok": false,
+      "settle_ms": 2233,
+      "frame_ms": 67.99,
+      "frame_samples_ms": [
+        71.84,
+        74.08,
+        67.99
+      ],
+      "canvas_px": [
+        434,
+        120
+      ],
+      "window_pos_px": [
+        743,
+        0
+      ],
+      "body_dip": [
+        20.0,
+        8.0,
+        177.0,
+        32.0
+      ],
+      "measured_width_px": 354,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": true,
+          "detail": "2233 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (217, 22) = rgba(0, 0, 0, 255), ground rgb[0, 0, 0], 3 DIPs inside the floating body"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [0, 0, 0, 0]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "354 px opaque at row 48, geometry 354.0 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "1136 content pixels inside the island"
+        },
+        {
+          "name": "pill-gap",
+          "ok": true,
+          "detail": "rows 0-15 above the body: max alpha 1 (want <= 64), 1 on the screen's edge (want <= 8), 0 coloured pixels (want 0: hit pixels are black and the shadow rgb[0, 0, 0]), 5664 hit pixels at alpha 1; the body starts at row 16 (geometry 16.0)"
+        },
+        {
+          "name": "pill-shadow-inside",
+          "ok": true,
+          "detail": "edge alpha left 0, right 0, bottom 0 (want <= 1); drawn up to 0.0 DIP left, 0.0 right and 0.0 below the body (room 20.0, 20.0, 20.0)"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 67.99 ms of [71.84, 74.08, 67.99] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (203, 0) 1514x939 (laid out (203, 0) 1514x939), frame at (743, 0) 434x120"
+        }
+      ]
+    },
+    {
+      "index": 54,
+      "name": "prayer-notice",
+      "expanded": false,
+      "page": null,
+      "image": "54-prayer-notice.png",
+      "alpha_image": "54-prayer-notice-alpha.png",
+      "ok": false,
+      "settle_ms": 3104,
+      "frame_ms": 77.51,
+      "frame_samples_ms": [
+        173.92,
+        100.81,
+        77.51
+      ],
+      "canvas_px": [
+        616,
+        153
+      ],
+      "window_pos_px": [
+        652,
+        0
+      ],
+      "body_dip": [
+        20.023804,
+        8.0,
+        267.9524,
+        48.228214
+      ],
+      "measured_width_px": 536,
+      "checks": [
+        {
+          "name": "settled",
+          "ok": false,
+          "detail": "3104 ms (limit 3000 ms)"
+        },
+        {
+          "name": "body-opaque-ground",
+          "ok": true,
+          "detail": "pixel (308, 22) = rgba(0, 0, 0, 255), ground rgb[0, 0, 0], 3 DIPs inside the floating body"
+        },
+        {
+          "name": "corners-transparent",
+          "ok": true,
+          "detail": "corner alpha [0, 0, 0, 0]"
+        },
+        {
+          "name": "body-width",
+          "ok": true,
+          "detail": "536 px opaque at row 64, geometry 535.9 px"
+        },
+        {
+          "name": "content-drawn",
+          "ok": true,
+          "detail": "5481 content pixels inside the island"
+        },
+        {
+          "name": "pill-gap",
+          "ok": true,
+          "detail": "rows 0-15 above the body: max alpha 1 (want <= 64), 1 on the screen's edge (want <= 8), 0 coloured pixels (want 0: hit pixels are black and the shadow rgb[0, 0, 0]), 8576 hit pixels at alpha 1; the body starts at row 16 (geometry 16.0)"
+        },
+        {
+          "name": "pill-shadow-inside",
+          "ok": true,
+          "detail": "edge alpha left 0, right 0, bottom 0 (want <= 1); drawn up to 0.0 DIP left, 0.0 right and -0.2 below the body (room 20.0, 20.0, 20.3)"
+        },
+        {
+          "name": "frame-time",
+          "ok": false,
+          "detail": "best 77.51 ms of [173.92, 100.81, 77.51] (budget 16 ms)"
+        },
+        {
+          "name": "window",
+          "ok": true,
+          "detail": "visible true, ex-style 0x8080088 (needs 0x8080088), rect (203, 0) 1514x939 (laid out (203, 0) 1514x939), frame at (652, 0) 616x153"
+        }
+      ]
+    }
+  ]
+}
