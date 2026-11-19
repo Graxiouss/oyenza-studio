@@ -5273,7 +5273,7 @@ fn browser_chrome(dark: bool, x: f32, y: f32) -> [u8; 3] {
         if (13.0..29.0).contains(&y) && (12.0..28.0).contains(&lx) {
             c = FAVICONS[k.rem_euclid(6) as usize];
         }
-        if (17.0..24.0).contains(&y) && on_word(lx, 36.0, 190.0, k + 7) {
+        if (17.0..24.0).contains(&y) && on_word(lx, 36.0, studio_diorama::LONG, k + 7) {
             c = if active { text } else { text_dim };
         }
         return c;
@@ -5464,15 +5464,15 @@ mod tests {
             assert!(RESTS[..k].iter().all(|q| q.name != r.name), "{} twice", r.name);
             assert!(!r.name.is_empty() && r.name.bytes().all(|b| b.is_ascii_lowercase() || b.is_ascii_digit() || b == b'-'), "{}", r.name);
         }
-        // The pill is as long as a notch whatever it shows: 190 by 38, with
+        // The pill is as long as a notch whatever it shows: 170 by 38, with
         // a 12-hour clock, a badge, both, or no clock.
         let wide = |name: &str| Sight::of(&state(rest(name)), Some(rest(name))).sizes();
-        assert_eq!(wide("noon"), ((190.0, 38.0), (190.0, 38.0)));
+        assert_eq!(wide("noon"), ((studio_diorama::LONG, 38.0), (studio_diorama::LONG, 38.0)));
         for name in ["12-hour", "charging", "low-battery", "12-hour-charging", "minimal"] {
-            assert_eq!(wide(name).0, (190.0, 38.0), "{name}");
+            assert_eq!(wide(name).0, (studio_diorama::LONG, 38.0), "{name}");
         }
         // Under the pointer: 6 more each way around the same pane.
-        assert_eq!(wide("hover"), ((190.0, 38.0), (196.0, 44.0)));
+        assert_eq!(wide("hover"), ((studio_diorama::LONG, 38.0), (studio_diorama::LONG + 6.0, 44.0)));
         // The roll holds the app's clock, so it is the last, a minute before
         // the house's sunset; the slide by hand, which holds it too, just
         // before it.
@@ -5520,7 +5520,7 @@ mod tests {
             st.settings.idle_style = if k % 5 == 0 { IdleStyle::Status } else { IdleStyle::Clock };
             let sight = Sight::of(&st, None);
             let (pane, shown) = sight.sizes();
-            assert_eq!(pane.0, 190.0);
+            assert_eq!(pane.0, studio_diorama::LONG);
             let (w, h, px, body) = drawn(&sight.moment, pane, shown, shown.1 / 2.0, 1.0);
             let mut checks = Vec::new();
             diorama_checks(&Frame { w, h, px: &px }, body, (0, 0), 1.0, &sight, crate::pill::diorama::geom(&st), &mut checks);
@@ -5553,7 +5553,7 @@ mod tests {
             let boxy = failing(rest("noon"), scale, |_, _, radius, _| *radius = 12.0);
             assert_eq!(named(&boxy), ["diorama-capsule"], "{scale}: {boxy:?}");
             // Under the pointer, a pill that didn't swell.
-            let flat = failing(rest("hover"), scale, |_, shown, radius, _| (*shown, *radius) = ((190.0, 38.0), 19.0));
+            let flat = failing(rest("hover"), scale, |_, shown, radius, _| (*shown, *radius) = ((studio_diorama::LONG, 38.0), 19.0));
             assert_eq!(named(&flat), ["diorama-size", "diorama-lift", "diorama-picture"], "{scale}: {flat:?}");
         }
     }

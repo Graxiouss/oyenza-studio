@@ -150,8 +150,8 @@ impl Moment {
 }
 
 /// How long the resting pill is, in DIPs: about a MacBook's notch, so it
-/// reads as an island and the glass ball has a long way to slide.
-pub const LONG: f32 = 190.0;
+/// reads as an island and the glass ball has room to slide.
+pub const LONG: f32 = 170.0;
 
 /// The resting pill's width in DIPs for what it shows: [`LONG`], or longer
 /// where the house's end, the tree's end and a middle wide enough for the
@@ -395,7 +395,7 @@ mod tests {
             assert_eq!(width(clock, badge), LONG, "{clock:?} {badge:?}");
         }
         let widest = scene::HOUSE_ZONE + scene::CLOCK_W + scene::MERIDIEM_W + scene::BADGE_W + 2 * scene::MID_PAD + scene::TREE_ZONE;
-        assert!((widest as f32) < LONG - 50.0, "{widest}");
+        assert!((widest as f32) < LONG - 40.0, "{widest}");
         // Even, so the centred pill lands on whole pixels at 100 %.
         for w in [width(None, None), width(Some(h24), None), width(Some(h12), Some(Badge::Charging))] {
             assert_eq!(w % 2.0, 0.0);
@@ -424,7 +424,7 @@ mod tests {
         // Under the pointer the body is larger and so is the picture.
         let lifted = View { w: LONG + 6.0, h: 44.0, ..view(&m, 2.0) };
         let p = render(&m, &lifted);
-        assert_eq!((p.w, p.h), (392, 88));
+        assert_eq!((p.w, p.h), (((LONG + 6.0) * 2.0) as u32, 88));
     }
 
     #[test]

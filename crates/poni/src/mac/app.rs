@@ -3348,8 +3348,8 @@ impl App {
                 self.st.notify(Icon::Unlink, palette::TEXT_DIM, title, subtitle, 6.0, None);
             }
         }
-        // The Oyenza tab came or went: the menu changes with it, and the
-        // window makes room for its page (or no longer has to).
+        // Account state changes the menu, and the window may need to resize
+        // if its directly opened page is active.
         if self.st.oyenza.link != link_before {
             self.refresh_menu();
             self.layout_surface();
@@ -5200,7 +5200,7 @@ impl App {
             }
             "oyenza-code" => {
                 let code = matches!(&self.st.oyenza.link, OyenzaLink::Connecting { code, .. } if code == "KPJX-TMNQ");
-                let ok = code && self.st.pinned && self.st.page == PageKind::Oyenza && pages::tabs(&self.st).contains(&PageKind::Oyenza);
+                let ok = code && self.st.pinned && self.st.page == PageKind::Oyenza && !pages::tabs(&self.st).contains(&PageKind::Oyenza);
                 Some(("oyenza-code", ok, format!("code shown: {code}; island kept open: {}; page {:?}", self.st.pinned, self.st.page)))
             }
             "oyenza-page" => {
@@ -5249,9 +5249,9 @@ impl App {
                 Some(("secret-backups", ok, d))
             }
             "oyenza-off" => {
-                // Signed out, the tab stays: it is where to sign in again.
+                // Signed out, the account page is reachable from Settings, not the tab row.
                 let tab = pages::tabs(&self.st).contains(&PageKind::Oyenza);
-                let ok = self.st.oyenza.link == OyenzaLink::Off && tab;
+                let ok = self.st.oyenza.link == OyenzaLink::Off && !tab;
                 Some(("oyenza-off", ok, format!("{:?}; Oyenza tab: {tab}", self.st.oyenza.link)))
             }
             "ja-off" => {

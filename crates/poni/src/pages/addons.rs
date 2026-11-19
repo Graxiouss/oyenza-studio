@@ -317,6 +317,7 @@ mod tests {
         assert!(BADGE_ONE_LINE.min(h - 2.0) + 2.0 <= h, "{h} DIPs: the badges keep apart");
     }
 
+    #[cfg(not(feature = "local-pro-unlock"))]
     #[test]
     fn pro_add_ons_show_for_everyone_and_say_what_they_do_without_pro() {
         use poni_core::addons::{AI_USAGE, DOWNLOADER, IELTS, MEETING_NOTES, STOCKS};
@@ -363,6 +364,22 @@ mod tests {
         assert!(listed(&st, STOCKS.id) && !locked(&st, &STOCKS));
     }
 
+    #[cfg(feature = "local-pro-unlock")]
+    #[test]
+    fn local_pro_unlock_makes_pro_add_ons_available_for_testing() {
+        use poni_core::addons::{AI_USAGE, DOWNLOADER, IELTS, MEETING_NOTES};
+        let mut st = AppState::new(Settings::default(), Store::default());
+        st.downloader_offered = true;
+        st.oyenza.pro = Some(false);
+        for addon in [&AI_USAGE, &MEETING_NOTES, &IELTS, &DOWNLOADER] {
+            assert!(!locked(&st, addon), "{} remains unlocked in a local test build", addon.id);
+        }
+        assert!(!pro_wanted(&st));
+        st.addons.insert(IELTS.id, Status::Ready);
+        assert!(st.ielts_on());
+    }
+
+    #[cfg(not(feature = "local-pro-unlock"))]
     #[test]
     fn the_island_asks_about_pro_at_sign_in_for_what_needs_it() {
         use poni_core::addons::{AI_USAGE, DOWNLOADER};

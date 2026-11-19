@@ -430,7 +430,10 @@ impl State {
             self.shown = None;
             return None;
         };
-        let shown = self.show(now, on_screen, i, text, reading_sig(st, i), || reading_at(st, i));
+        let reading_visible = reads(st) && area.h >= super::media::H_READS;
+        let shown = self.show(now, on_screen, i, text, if reading_visible { reading_sig(st, i) } else { 0 }, || {
+            reading_visible.then(|| reading_at(st, i)).flatten()
+        });
         let line_w = ui.c.measure(&shown.text, &style(), 10_000.0).0;
         let reading_w = shown.reading.as_ref().map_or(0.0, |r| ui.c.measure(r, &reading_style(), 10_000.0).0);
         let w = line_w.max(reading_w);

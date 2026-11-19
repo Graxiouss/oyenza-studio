@@ -35,9 +35,8 @@ const H: f32 = 32.0;
 /// A song sung with its readings is two rows tall, the line over its
 /// reading in Latin letters (`super::lyric::reads`), in every theme.
 pub(crate) const H_READS: f32 = 46.0;
-/// The pill is its text plus this much: the art and the equalizer with
-/// their gaps, the same on both sides so the text centres (spec 6.5).
-const SIDES: f32 = 88.0;
+/// The fixed-width song preview's inner text lane.
+const SONG_SIDES: f32 = 88.0;
 const MIN_W: f32 = 184.0;
 const MAX_W: f32 = 480.0;
 /// The song ("Title · artist") is held to the spec's width for a title on
@@ -105,10 +104,12 @@ thread_local! {
 }
 
 pub fn geom(st: &AppState) -> Option<Geom> {
-    if !st.settings.lyrics {
-        if let Some(g) = super::idle::geom(st) {
-            return Some(g);
-        }
+    if st.settings.lyrics && super::lyric::sings(st) {
+        let h = height(st);
+        return Some(Geom::new(fit_w(), h, h / 2.0));
+    }
+    if let Some(g) = super::idle::geom(st) {
+        return Some(g);
     }
     let h = height(st);
     let w = if st.settings.lyrics { fit_w() } else { EQ_ONLY_W };
@@ -147,18 +148,22 @@ pub fn draw(ui: &mut Ui, st: &mut AppState, body: Rect) -> bool {
     }
     let cy = body.center().y;
     let accent = st.media_accent();
+    let compact = super::idle::geom(st).is_some();
 
     // The glow lies under everything else.
     glow(ui, body, accent, level);
     let art = Rect::new(body.x + ART_INSET, cy - ART / 2.0, ART, ART);
-    draw_art(ui, st, art, lerp(PAUSED_ART, 1.0, level));
+    if !compact {
+        draw_art(ui, st, art, lerp(PAUSED_ART, 1.0, level));
+    }
     // The bars keep moving while they sink at a pause; on battery saver they stand.
     let moving = (playing || level > 0.0) && !st.power.saver;
     let eq_x = equalizer_x(body);
     // The open card's equalizer colour, so the bars keep it through a morph.
     let bars = super::music::eq_color(accent, ui.c.look().light);
     equalizer(ui, eq_x, cy, bars, level, moving, now);
-    middle(ui, st, body, art.right() + TEXT_CLEAR, eq_x - TEXT_CLEAR, lerp(PAUSED_TEXT, 1.0, level));
+    let x0 = if compact { body.x + TEXT_CLEAR } else { art.right() + TEXT_CLEAR };
+    middle(ui, st, body, x0, eq_x - TEXT_CLEAR, lerp(PAUSED_TEXT, 1.0, level));
     true
 }
 
@@ -172,13 +177,11 @@ fn equalizer_x(body: Rect) -> f32 {
 /// Oyen) are. `alpha` dims it while paused. The width the text asks for is
 /// kept for [`fit_w`].
 pub(crate) fn middle(ui: &mut Ui, st: &AppState, body: Rect, x0: f32, x1: f32, alpha: f32) {
-    // The text centres on the pill in a box as wide as the widest pill's
-    // text, so its layout doesn't change with the pill's width on each
-    // frame of a morph, cut where the art and the bars are.
-    let h = height(st);
-    let area = Rect::new(body.center().x - (MAX_W - SIDES) / 2.0, body.center().y - h / 2.0, MAX_W - SIDES, h);
+    let area = Rect::new(x0, body.y, (x1 - x0).max(0.0), body.h);
     ui.c.clip(Rect::new(x0, body.y, (x1 - x0).max(0.0), body.h));
-    let want = draw_text(ui, st, area, alpha, st.now);
+    let sides = (body.w - area.w).max(0.0);
+    let min_w = super::idle::geom(st).map_or(MIN_W, |g| g.w);
+    let want = draw_text(ui, st, area, alpha, st.now, sides, min_w);
     ui.c.unclip();
     if want != FIT_W.get() {
         FIT_W.set(want);
@@ -186,8 +189,8 @@ pub(crate) fn middle(ui: &mut Ui, st: &AppState, body: Rect, x0: f32, x1: f32, a
     }
 }
 
-/// The music pill's width for its text, as [`middle`] last measured it
-/// (between [`MIN_W`] and [`MAX_W`]; the pill follows a frame late).
+/// The music pill's width for its text, as [`middle`] last measured it;
+/// the visible idle width is its floor, and Hidden uses [`MIN_W`].
 pub(crate) fn fit_w() -> f32 {
     FIT_W.get()
 }
@@ -238,8 +241,8 @@ fn smooth(t: f32) -> f32 {
 }
 
 /// The width the pill needs for text `w` wide, at most `max`.
-fn fit(w: f32, max: f32) -> f32 {
-    (((w + SIDES) / W_STEP).ceil() * W_STEP).clamp(MIN_W, max)
+fn fit(w: f32, max: f32, sides: f32, min: f32) -> f32 {
+    (((w + sides) / W_STEP).ceil() * W_STEP).clamp(min.min(max), max)
 }
 
 /// Run `f` with everything it draws `a` times as opaque.
@@ -254,7 +257,7 @@ fn faded<R>(ui: &mut Ui, a: f32, f: impl FnOnce(&mut Ui) -> R) -> R {
 /// The middle: the line being sung, or the song (dimmed by `paused_a` while
 /// paused). The two cross-fade when one takes over from the other. Returns
 /// the pill width the text needs.
-fn draw_text(ui: &mut Ui, st: &AppState, area: Rect, paused_a: f32, now: f64) -> f32 {
+fn draw_text(ui: &mut Ui, st: &AppState, area: Rect, paused_a: f32, now: f64, sides: f32, min_w: f32) -> f32 {
     // The title holds the middle while a new track peeks. The line still
     // draws then, unseen, so the lyric lane keeps its fade state frame to
     // frame. A paused line dims with `paused_a`, as the song does.
@@ -274,17 +277,22 @@ fn draw_text(ui: &mut Ui, st: &AppState, area: Rect, paused_a: f32, now: f64) ->
     if k < 1.0 {
         ui.request_anim();
     }
-    let song = Rect::new(area.center().x - (SONG_MAX_W - SIDES) / 2.0, area.y, SONG_MAX_W - SIDES, area.h);
+    let song = Rect::new(
+        area.center().x - (SONG_MAX_W - SONG_SIDES) / 2.0,
+        area.y,
+        SONG_MAX_W - SONG_SIDES,
+        area.h,
+    );
     if !sung {
         // A line that just ended can't be drawn fading out (the lyric lane
         // has let go of it), so the title fades in on its own.
-        return fit(draw_song(ui, st, song, paused_a * k), SONG_MAX_W);
+        return fit(draw_song(ui, st, song, paused_a * k), SONG_MAX_W, sides, min_w);
     }
     if k < 1.0 {
         draw_song(ui, st, song, paused_a * (1.0 - k));
     }
     // The line's width, or its reading's when that is wider.
-    line_w.map_or(FIT_W.get(), |w| fit(widest_line(st, w), MAX_W))
+    line_w.map_or(FIT_W.get(), |w| fit(widest_line(st, w), MAX_W, sides, min_w))
 }
 
 /// The widest line sung so far in this track, with one `w` wide now. The
@@ -460,22 +468,29 @@ mod tests {
 
     #[test]
     fn the_pill_fits_its_text_in_steps_between_the_spec_widths() {
-        assert_eq!(fit(0.0, MAX_W), MIN_W, "short text: the narrowest pill");
-        assert_eq!(fit(200.0, MAX_W), 288.0, "text + 88, already a whole step");
-        assert_eq!(fit(153.0, MAX_W), 248.0, "241 rounds up to the next 8");
-        assert_eq!(fit(1_000.0, MAX_W), MAX_W, "a long line: the widest pill, ellipsized");
-        assert_eq!(fit(1_000.0, SONG_MAX_W), SONG_MAX_W, "a long title stops at the peek's width");
-        assert_eq!(fit(200.0, SONG_MAX_W), SONG_MAX_W, "a long title is ellipsized at the smaller cap");
+        assert_eq!(fit(0.0, MAX_W, SONG_SIDES, MIN_W), MIN_W, "short text: the narrowest pill");
+        assert_eq!(fit(200.0, MAX_W, SONG_SIDES, MIN_W), 288.0, "text + 88, already a whole step");
+        assert_eq!(fit(153.0, MAX_W, SONG_SIDES, MIN_W), 248.0, "241 rounds up to the next 8");
+        assert_eq!(fit(1_000.0, MAX_W, SONG_SIDES, MIN_W), MAX_W, "a long line: the widest pill, ellipsized");
+        assert_eq!(fit(1_000.0, SONG_MAX_W, SONG_SIDES, MIN_W), SONG_MAX_W, "a long title stops at the peek's width");
+        assert_eq!(fit(200.0, SONG_MAX_W, SONG_SIDES, MIN_W), SONG_MAX_W, "a long title is ellipsized at the smaller cap");
         for max in [SONG_MAX_W, MAX_W] {
             let mut w = 0.0;
             while w < 600.0 {
-                let f = fit(w, max);
-                assert!(f >= w + SIDES || f == max, "{w} wide text fits in {f}");
+                let f = fit(w, max, SONG_SIDES, MIN_W);
+                assert!(f >= w + SONG_SIDES || f == max, "{w} wide text fits in {f}");
                 // The caps hold every longer text, so they needn't be whole steps.
                 assert!(f % W_STEP == 0.0 || f == max, "{f} is a whole step");
                 w += 0.7;
             }
         }
+    }
+
+    #[test]
+    fn compact_lyrics_use_the_measured_lane_and_idle_width_as_the_floor() {
+        assert_eq!(fit(20.0, MAX_W, 44.0, 96.0), 96.0);
+        assert_eq!(fit(100.0, MAX_W, 44.0, 96.0), 144.0);
+        assert_eq!(fit(100.0, MAX_W, 65.0, 184.0), 184.0);
     }
 
     #[test]

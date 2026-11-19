@@ -1050,7 +1050,11 @@ impl AppState {
     /// The IELTS add-on is on, and the server hasn't said the account is
     /// without Studio Pro: the IELTS tab shows (signed out, its sign-in card).
     pub fn ielts_on(&self) -> bool {
-        self.addon(poni_core::addons::IELTS.id) == AddonStatus::Ready && self.oyenza.pro != Some(false)
+        #[cfg(feature = "local-pro-unlock")]
+        let pro_ok = true;
+        #[cfg(not(feature = "local-pro-unlock"))]
+        let pro_ok = self.oyenza.pro != Some(false);
+        self.addon(poni_core::addons::IELTS.id) == AddonStatus::Ready && pro_ok
     }
 
     /// AI usage is on: the AI tab shows and its readers may run. It takes an
@@ -1061,6 +1065,11 @@ impl AppState {
 
     /// The signed-in account has Studio Pro, as the server last said.
     pub fn studio_pro(&self) -> Option<bool> {
+        #[cfg(feature = "local-pro-unlock")]
+        {
+            return Some(true);
+        }
+        #[cfg(not(feature = "local-pro-unlock"))]
         match self.oyenza.link {
             OyenzaLink::Connected { .. } => self.oyenza.pro,
             _ => Some(false),

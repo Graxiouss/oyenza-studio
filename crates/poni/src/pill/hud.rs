@@ -16,7 +16,7 @@ use poni_core::svgpath::Seg;
 
 /// The compact pop-up height, with round ends (spec 6.1).
 const H: f32 = 32.0;
-const FAT_H: f32 = 38.0;
+const FAT_H: f32 = 44.0;
 /// The spec's 260 plus room for "Muted" and "100%" (its value was a bare "64").
 const VOLUME_W: f32 = 272.0;
 /// Charging, on battery and low battery: the longest label and the battery.

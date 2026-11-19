@@ -531,16 +531,16 @@ mod tests {
     fn the_picture_rests_in_its_theme_for_the_clock_and_minimal() {
         let mut st = state(10, 8);
         // As long as a notch, whatever the clock.
-        assert_eq!(geom(&st), Some(Geom::new(190.0, 38.0, 19.0)));
+        assert_eq!(geom(&st), Some(Geom::new(studio_diorama::LONG, 38.0, 19.0)));
         st.settings.use_24h = false;
-        assert_eq!(geom(&st), Some(Geom::new(190.0, 38.0, 19.0)));
+        assert_eq!(geom(&st), Some(Geom::new(studio_diorama::LONG, 38.0, 19.0)));
         // The status bar is the Pill theme's: here it is the clock.
         st.settings.idle_style = IdleStyle::Status;
         assert_eq!(moment(&st).clock.map(|c| c.h24), Some(false));
         // Minimal is the place alone, and so is a setting left on Eyes.
         for style in [IdleStyle::Minimal, IdleStyle::Eyes] {
             st.settings.idle_style = style;
-            assert_eq!(geom(&st), Some(Geom::new(190.0, 38.0, 19.0)), "{style:?}");
+            assert_eq!(geom(&st), Some(Geom::new(studio_diorama::LONG, 38.0, 19.0)), "{style:?}");
             assert_eq!(moment(&st).clock, None, "{style:?}");
         }
         // Hidden hides it, and every other theme rests its own way.
@@ -591,7 +591,7 @@ mod tests {
         st.power.charging = true;
         assert_eq!(badge(&st), Some(Badge::Charging));
         // The long pill has room for it beside the time.
-        assert_eq!(geom(&st), Some(Geom::new(190.0, 38.0, 19.0)));
+        assert_eq!(geom(&st), Some(Geom::new(studio_diorama::LONG, 38.0, 19.0)));
         st.settings.idle_style = IdleStyle::Minimal;
         assert_eq!(badge(&st), None);
     }
@@ -627,7 +627,7 @@ mod tests {
     }
 
     /// How far the ball goes from one end of the long pill to the other.
-    const TRAVEL: f32 = 190.0 - 38.0;
+    const TRAVEL: f32 = studio_diorama::LONG - 38.0;
 
     /// 10 November 2026 at `hour:minute`, as minutes since 1 January 2000.
     fn abs(hour: u32, minute: u32) -> f64 {
@@ -655,7 +655,7 @@ mod tests {
         settle();
         let mut st = state(10, 8);
         st.now = 50.0;
-        // 190 DIPs long: the ball goes 152 DIPs from one end to the other.
+        // 170 DIPs long: the ball goes 132 DIPs from one end to the other.
         grab(&st, 500.0);
         assert!(held() && !night(&st));
         // A tremble is still a tap.

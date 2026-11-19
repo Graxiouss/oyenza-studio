@@ -8,6 +8,11 @@ repository.workspace = true
 description = "Poni - a living notch (Dynamic Island) for Windows 10/11"
 build = "build.rs"
 
+[features]
+default = []
+# For local UI/package testing only; official builds leave this disabled.
+local-pro-unlock = []
+
 [[bin]]
 name = "poni"
 path = "src/main.rs"

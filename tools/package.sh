@@ -4,6 +4,7 @@
 #   tools/package.sh                 # makensis must be on PATH
 #   NSIS_HOST=user@host tools/package.sh   # build the installer on a Linux box with nsis
 #
+# PONI_LOCAL_PRO=1 unlocks Pro in this local build only.
 # Optional: SELFTEST_HOST=user@host also runs `poni.exe --selftest` under Wine + Xvfb
 # there and copies the screenshots back to dist/selftest/.
 set -euo pipefail
@@ -14,7 +15,11 @@ export PATH="$HOME/.cargo/bin:$PATH"
 
 cd "$ROOT"
 cargo test -p poni-core --quiet
-cargo build -p poni --release --target x86_64-pc-windows-gnu
+FEATURES=()
+if [[ "${PONI_LOCAL_PRO:-}" == "1" ]]; then
+  FEATURES+=(--features local-pro-unlock)
+fi
+cargo build -p poni --release --target x86_64-pc-windows-gnu "${FEATURES[@]}"
 EXE="$ROOT/target/x86_64-pc-windows-gnu/release/poni.exe"
 
 mkdir -p "$ROOT/dist"

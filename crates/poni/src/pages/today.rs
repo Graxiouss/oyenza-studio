@@ -1,30 +1,7 @@
-//! Today page: your days at a glance.
-//!
-//! Signed in to Oyenza, with Google Calendar or Gmail switched on for it in
-//! oyenza.app (`poni_core::agenda`): on the left the date, the apps it reads
-//! (one switched off shows dimmed) and five weeks from this Monday, with a dot
-//! under each date for what's on it (a calendar event, a flight from Gmail, a
-//! bill due); on the right the schedule from now on: the meeting on now (or
-//! next, within the hour) with Join, the rest of today, then each date that
-//! holds something, to the end of the five weeks. The list scrolls with the
-//! wheel or trackpad and the grid rings the date at its top; clicking a date
-//! starts the list there, clicking an event opens it in Google Calendar. An
-//! app switched off, not connected or not loading says so on today's first
-//! lines, with the way to fix it; so do weeks the person hasn't agreed to in
-//! oyenza.app yet.
-//!
-//! Otherwise the same date and weeks (without dots), and beside them one card:
-//! sign in (signed out), pick the apps in oyenza.app (none switched on),
-//! getting the day, or try again. A server without the day (from before it,
-//! or with it switched off) keeps the page's stat tiles (CPU, memory, disk,
-//! battery or uptime). On an island narrower than [`COMPACT_BELOW`] the weeks
-//! make way. The header leaves the date out on this page, so the page always
-//! shows it.
-//!
-//! Stats are sampled once a second by the app only while the tiles show; the
-//! days are asked for by the Oyenza worker only while this page is open. The
-//! page itself never asks for continuous frames: "48 min left" and what's
-//! still to come move once a minute, and the list jumps to where it scrolls.
+//! Today page: the current date and a responsive, five-week calendar.
+//! Google Calendar events appear as blue dots. The calendar remains useful
+//! without an Oyenza connection; its days are loaded only while this page is
+//! open, and the page itself does not request continuous frames.
 
 use crate::commands::{Command, OyenzaCmd};
 use crate::gfx::{Image, TextStyle, Weight};
@@ -39,17 +16,13 @@ use poni_core::sysmon::Module;
 
 const HEIGHT: f32 = 200.0;
 
-/// Below this content width the weeks make way for the list (the island can
-/// be made as narrow as 480).
-const COMPACT_BELOW: f32 = 480.0;
-const CELL_W: f32 = 23.0;
-const GRID_W: f32 = 7.0 * CELL_W;
+/// Maximum day-cell width; narrower windows distribute the calendar evenly.
+const MAX_CELL_W: f32 = 60.0;
 /// A week's row: the date, and its dots under it.
 const CELL_H: f32 = 26.0;
 /// The initials row, under the weekday and the date.
 const GRID_Y: f32 = 48.0;
 const INITIALS_H: f32 = 16.0;
-const COL_GAP: f32 = 20.0;
 const LOGO: f32 = 14.0;
 const TILE_GAP: f32 = 8.0;
 const TILE_RADIUS: f32 = 16.0;
@@ -148,37 +121,29 @@ fn side(st: &AppState) -> Side {
     }
 }
 
-/// The stat tiles show (the app samples the stats only meanwhile).
-pub fn shows_tiles(st: &AppState) -> bool {
-    side(st) == Side::Tiles
+/// The calendar-only page does not sample system stats.
+pub fn shows_tiles(_st: &AppState) -> bool {
+    false
 }
 
-/// The day's "48 min left" and what's still to come move with the clock: a
-/// look at the next minute while the days show.
-pub fn next_wake(st: &AppState) -> Option<f64> {
-    (side(st) == Side::Day).then(|| st.now + (60 - st.local.second.min(59)) as f64)
+/// The calendar has no time-dependent motion or countdown.
+pub fn next_wake(_st: &AppState) -> Option<f64> {
+    None
 }
 
 pub fn draw(ui: &mut Ui, st: &mut AppState, area: Rect) {
-    // Fixed layout height: the island's spring may still be opening.
     let area = Rect::new(area.x, area.y, area.w, HEIGHT);
-    let compact = area.w < COMPACT_BELOW;
-    let x = if compact { area.x } else { area.x + GRID_W + COL_GAP };
-    let right = Rect::new(x, area.y, (area.right() - x).max(0.0), area.h);
-    let left = Rect::new(area.x, area.y, GRID_W, area.h);
+    let empty = Rect::new(area.right(), area.y, 0.0, area.h);
     let side = side(st);
     if side == Side::Day {
-        draw_days(ui, st, left, right, compact);
+        draw_days(ui, st, area, empty, false);
         return;
     }
-    if !compact {
-        draw_weeks_grid(ui, st, left, None, None);
-    }
-    // The bottom-right tile (or the card) shares the Pill card's corner.
+    draw_weeks_grid(ui, st, area, None, None, true);
     let card = super::card::pill_card(st, area);
     match side {
-        Side::Card(ask) => draw_ask(ui, st, right, card, ask),
-        _ => draw_tiles(ui, st, right, card),
+        Side::Card(ask) => draw_ask(ui, st, empty, card, ask),
+        _ => draw_tiles(ui, st, empty, card),
     }
 }
 
@@ -246,36 +211,43 @@ fn draw_ask(ui: &mut Ui, st: &mut AppState, r: Rect, card: Option<(Rect, f32)>, 
 
 // ------------------------------------------------------------------ the weeks
 
-/// The date, the apps Today reads (with the days), and five weeks from this
-/// Monday: today filled, a dot under each date for what's on it, and the date
-/// at the top of the list ringed. With the days, a date from today to the last
-/// one the answer speaks for can be clicked: returns the one clicked.
-fn draw_weeks_grid(ui: &mut Ui, st: &AppState, r: Rect, days: Option<(&Weeks, Sources)>, ring: Option<i64>) -> Option<i64> {
+/// The current date and a five-week calendar, optionally with event dots,
+/// a selected date, and clickable days for the agenda layout.
+fn draw_weeks_grid(ui: &mut Ui, st: &AppState, r: Rect, days: Option<(&Weeks, Sources)>, ring: Option<i64>, calendar_only: bool) -> Option<i64> {
     let t = st.local;
     if !valid_date(&t) {
         return None;
     }
+    let cell_w = (r.w / 7.0).min(MAX_CELL_W);
+    let grid_w = cell_w * 7.0;
+    let grid_x = r.center().x - grid_w / 2.0;
     let today = days_from_civil(t.year, t.month, t.day);
     let weekday = WEEKDAY_LONG[weekday_from_days(today) as usize % 7].to_uppercase();
     ui.c.text(&weekday, Rect::new(r.x, r.y, r.w, 16.0), &TextStyle::caption().weight(Weight::Bold).color(st.accent));
     let date = format!("{} {}", t.day, MONTH_LONG[(t.month.clamp(1, 12) - 1) as usize]);
     ui.c.text(&date, Rect::new(r.x, r.y + 16.0, r.w, 24.0), &TextStyle::value());
     if let Some((_, apps)) = days {
-        // The apps it reads, at the top right; one switched off for Studio, dimmed.
-        let mut x = r.right() - LOGO;
-        for (m, s) in [(Mark::Gmail, apps.gmail), (Mark::Calendar, apps.googlecalendar)] {
-            if let Some(img) = logo(m) {
-                let lr = Rect::new(x, r.y + 1.0, LOGO, LOGO);
-                ui.c.with_alpha(if s == Source::Off { 0.35 } else { 1.0 }, |c| c.image(&img, lr, 3.5));
+        if calendar_only {
+            if let Some(img) = logo(Mark::Calendar) {
+                let lr = Rect::new(r.right() - LOGO, r.y + 1.0, LOGO, LOGO);
+                ui.c.with_alpha(if apps.googlecalendar == Source::Off { 0.35 } else { 1.0 }, |c| c.image(&img, lr, 3.5));
             }
-            x -= LOGO + 5.0;
+        } else {
+            let mut x = r.right() - LOGO;
+            for (m, s) in [(Mark::Gmail, apps.gmail), (Mark::Calendar, apps.googlecalendar)] {
+                if let Some(img) = logo(m) {
+                    let lr = Rect::new(x, r.y + 1.0, LOGO, LOGO);
+                    ui.c.with_alpha(if s == Source::Off { 0.35 } else { 1.0 }, |c| c.image(&img, lr, 3.5));
+                }
+                x -= LOGO + 5.0;
+            }
         }
     }
 
     // Every initial in one tone; weekend days are told apart by the dimmer numbers.
     let initials_st = TextStyle::caption().weight(Weight::Semibold).color(palette::TEXT_FAINT).center();
     for (col, s) in INITIALS.iter().enumerate() {
-        ui.c.text(s, Rect::new(r.x + col as f32 * CELL_W, r.y + GRID_Y, CELL_W, INITIALS_H), &initials_st);
+        ui.c.text(s, Rect::new(grid_x + col as f32 * cell_w, r.y + GRID_Y, cell_w, INITIALS_H), &initials_st);
     }
     let top = r.y + GRID_Y + INITIALS_H;
     let start = agenda::grid_start(today);
@@ -285,11 +257,11 @@ fn draw_weeks_grid(ui: &mut Ui, st: &AppState, r: Rect, days: Option<(&Weeks, So
     for i in 0..agenda::GRID_DAYS {
         let day = start + i;
         let (row, col) = ((i / 7) as f32, (i % 7) as usize);
-        let cell = Rect::new(r.x + col as f32 * CELL_W, top + row * CELL_H, CELL_W, CELL_H);
+        let cell = Rect::new(grid_x + col as f32 * cell_w, top + row * CELL_H, cell_w, CELL_H);
         let num = Rect::new(cell.x, cell.y, cell.w, 20.0);
         let c = Point::new(num.center().x, num.center().y);
         let (_, _, d) = civil_from_days(day);
-        let open = days.is_some_and(|(w, _)| day >= today && day <= w.last);
+        let open = !calendar_only && days.is_some_and(|(w, _)| day >= today && day <= w.last);
         let hovered = open && {
             let resp = ui.button(wid_n("today.date", i as u64), num);
             if resp.clicked {
@@ -319,22 +291,27 @@ fn draw_weeks_grid(ui: &mut Ui, st: &AppState, r: Rect, days: Option<(&Weeks, So
         }
         // What's on: a dot for each kind, never for days gone by.
         if let Some(k) = days.and_then(|(w, _)| w.kinds.get(&day)).filter(|_| day >= today) {
-            let dots: Vec<Color> = [(k.calendar, CALENDAR_BLUE), (k.flight, GMAIL_RED), (k.bill, palette::ORANGE)].into_iter().filter(|(on, _)| *on).map(|(_, c)| c).collect();
-            for (j, col) in dots.iter().enumerate() {
-                let x = c.x - (dots.len() as f32 - 1.0) * 2.5 + j as f32 * 5.0;
-                ui.c.fill_circle(Point::new(x, cell.y + 22.0), 1.5, *col);
+            let dots = [
+                k.calendar.then_some(CALENDAR_BLUE),
+                (!calendar_only && k.flight).then_some(GMAIL_RED),
+                (!calendar_only && k.bill).then_some(palette::ORANGE),
+            ];
+            let count = dots.iter().flatten().count();
+            for (j, col) in dots.into_iter().flatten().enumerate() {
+                let x = c.x - (count as f32 - 1.0) * 2.5 + j as f32 * 5.0;
+                ui.c.fill_circle(Point::new(x, cell.y + 22.0), 1.5, col);
             }
         }
         // Where a month starts: a step line between its 1st and the days before it.
         if d == 1 && i > 0 {
             let y = cell.y - 1.5;
             if row > 0.0 {
-                ui.c.line(Point::new(cell.x, y), Point::new(r.x + GRID_W, y), step, 1.0);
+                ui.c.line(Point::new(cell.x, y), Point::new(grid_x + grid_w, y), step, 1.0);
             }
             if col > 0 {
                 ui.c.line(Point::new(cell.x, y), Point::new(cell.x, y + CELL_H), step, 1.0);
                 if row < 4.0 {
-                    ui.c.line(Point::new(r.x, y + CELL_H), Point::new(cell.x, y + CELL_H), step, 1.0);
+                    ui.c.line(Point::new(grid_x, y + CELL_H), Point::new(cell.x, y + CELL_H), step, 1.0);
                 }
             }
         }
@@ -451,6 +428,13 @@ fn top_day(lines: &[Placed], scroll: f32) -> Option<i64> {
 /// The weeks on the left, the list on the right.
 fn draw_days(ui: &mut Ui, st: &mut AppState, left: Rect, list: Rect, compact: bool) {
     let Some(answer) = st.oyenza.agenda.clone() else { return };
+    let show = st.settings.oyenza_show_amounts || st.oyenza.reveal;
+    let now_min = st.local.hour as i32 * 60 + st.local.minute as i32;
+    let w = agenda::weeks(&answer, &st.oyenza.bills, &st.oyenza.bills_today, &st.day_key(), now_min, show, st.ui.today_pick);
+    if list.w <= 0.0 {
+        draw_weeks_grid(ui, st, left, Some((&w, answer.apps)), None, true);
+        return;
+    }
     // Opened again after a while: from today (a jump just asked for, by a click or a self-test, goes ahead).
     if !st.ui.today_jump && st.now - st.ui.today_drawn > STALE_S {
         st.ui.today_scroll = 0.0;
@@ -458,9 +442,6 @@ fn draw_days(ui: &mut Ui, st: &mut AppState, left: Rect, list: Rect, compact: bo
         st.ui.today_jump = false;
     }
     st.ui.today_drawn = st.now;
-    let show = st.settings.oyenza_show_amounts || st.oyenza.reveal;
-    let now_min = st.local.hour as i32 * 60 + st.local.minute as i32;
-    let w = agenda::weeks(&answer, &st.oyenza.bills, &st.oyenza.bills_today, &st.day_key(), now_min, show, st.ui.today_pick);
     let lines = lay_out(&w, &answer);
     let max = max_scroll(&lines, st.ui.today_pick);
     if std::mem::take(&mut st.ui.today_jump) {
@@ -471,7 +452,7 @@ fn draw_days(ui: &mut Ui, st: &mut AppState, left: Rect, list: Rect, compact: bo
 
     if !compact {
         let ring = top_day(&lines, st.ui.today_scroll).filter(|d| *d != w.today);
-        if let Some(day) = draw_weeks_grid(ui, st, left, Some((&w, answer.apps)), ring) {
+        if let Some(day) = draw_weeks_grid(ui, st, left, Some((&w, answer.apps)), ring, false) {
             // Today goes back to the top; another date starts the list (from the next frame, which the click asks for).
             st.ui.today_pick = (day != w.today).then_some(day);
             st.ui.today_jump = true;

@@ -88,7 +88,7 @@ const BADGE_GAP: f32 = 6.0;
 const OYEN_IDLE_W: f32 = 30.0;
 const OYEN_CLOCK_W: f32 = 22.0;
 const OYEN_MEDIA_W: f32 = 24.0;
-const OYEN_CLOCK_LEAD: f32 = 12.0 + OYEN_CLOCK_W;
+const OYEN_CLOCK_LEAD: f32 = 7.0 + OYEN_CLOCK_W;
 /// The countdown before a prayer: the moon, then "Maghrib 10 min" (152,
 /// its words' room), then its OK.
 const PRAYER_W: f32 = 152.0 + PRAYER_OK_ROOM;
@@ -266,25 +266,29 @@ pub fn geom(m: &Mode, st: &AppState) -> Geom {
         return g;
     }
     match m {
-        Mode::Idle => match st.settings.idle_style {
-            // The status bar is the Pill theme's; the other themes show the clock.
-            IdleStyle::Clock | IdleStyle::Status => {
-                let base = if st.settings.use_24h { 84.0 } else { 104.0 };
+        Mode::Idle => {
+            if st.settings.idle_style == IdleStyle::Hidden {
+                hidden_strip()
+            } else {
+                let eyes = if oyen::on(st.settings.theme) {
+                    Geom::new(84.0, 36.0, 16.0)
+                } else {
+                    Geom::new(88.0, 30.0, 14.0)
+                };
+                let clock = if st.settings.use_24h { 64.0 } else { 72.0 };
                 let badge = match clock_badge(st) {
-                    Some(ClockBadge::Charging) => 22.0,
-                    Some(ClockBadge::Low(_)) => 34.0,
+                    Some(ClockBadge::Charging) => 14.0,
+                    Some(ClockBadge::Low(_)) => 20.0,
                     None => 0.0,
                 };
                 let lead = if oyen::on(st.settings.theme) { OYEN_CLOCK_LEAD } else { 0.0 };
-                Geom::new(base + badge + lead, 30.0, 14.0)
+                Geom::new(eyes.w.max(clock + badge + lead), eyes.h, eyes.r)
             }
-            IdleStyle::Minimal => Geom::new(150.0, 26.0, 12.0),
-            // A little taller than the eyes, so his ears clear the top edge.
-            IdleStyle::Eyes if oyen::on(st.settings.theme) => Geom::new(104.0, 36.0, 16.0),
-            IdleStyle::Eyes => Geom::new(118.0, 30.0, 14.0),
-            IdleStyle::Hidden => hidden_strip(),
-        },
+        }
         Mode::Activity(Activity::Media) => {
+            if st.settings.lyrics && !crate::pill::lyric::sings(st) && st.settings.idle_style != IdleStyle::Hidden {
+                return geom(&Mode::Idle, st);
+            }
             if !st.settings.lyrics {
                 return if st.settings.idle_style == IdleStyle::Hidden {
                     Geom::new(MEDIA_W, 32.0, 15.0)
@@ -319,9 +323,9 @@ pub fn geom(m: &Mode, st: &AppState) -> Geom {
         Mode::Activity(Activity::Recording) => Geom::new(recording_w(st), 32.0, 15.0),
         Mode::Activity(Activity::Download) => Geom::new(if download_many(st) { DOWNLOAD_MANY_W } else { DOWNLOAD_W }, 32.0, 15.0),
         Mode::Activity(Activity::Notes) => Geom::new(notes_w(st), 32.0, 15.0),
-        Mode::Hud(HudTag::Volume) => Geom::new(316.0, 46.0, 22.0),
+        Mode::Hud(HudTag::Volume) => Geom::new(316.0, 52.0, 25.0),
         Mode::Hud(HudTag::Charging) | Mode::Hud(HudTag::LowBattery) => Geom::new(300.0, 40.0, 19.0),
-        Mode::Hud(HudTag::Bluetooth) => Geom::new(336.0, 52.0, 25.0),
+        Mode::Hud(HudTag::Bluetooth) => Geom::new(336.0, 58.0, 28.0),
         Mode::Notice => Geom::new(372.0, 52.0, 24.0),
         Mode::Expanded(p) => {
             let extra = if *p == PageKind::Addons && st.ui.addon_about.is_some() {
@@ -344,7 +348,7 @@ fn hidden_strip() -> Geom {
 
 pub fn ui_scale(m: &Mode, st: &AppState) -> f32 {
     let visible_rest = st.settings.idle_style != IdleStyle::Hidden
-        && (matches!(m, Mode::Idle) || matches!(m, Mode::Activity(Activity::Media)) && !st.settings.lyrics);
+        && (matches!(m, Mode::Idle) || matches!(m, Mode::Activity(Activity::Media)));
     if visible_rest {
         crate::island::UI_SCALE * crate::island::REST_SCALE
     } else {
@@ -459,7 +463,7 @@ fn draw_idle(ui: &mut Ui, st: &mut AppState, body: Rect) {
         IdleStyle::Clock | IdleStyle::Status => {
             // Oyen theme: he peeks on the left and the clock centres in the rest.
             let body = if oyen::on(st.settings.theme) {
-                draw_oyen_rest(ui, st, body, body.x + 11.0 + OYEN_CLOCK_W / 2.0, OYEN_CLOCK_W, body.bottom() - 5.0);
+                draw_oyen_rest(ui, st, body, body.x + 7.0 + OYEN_CLOCK_W / 2.0, OYEN_CLOCK_W, body.bottom() - 5.0);
                 Rect::new(body.x + OYEN_CLOCK_LEAD, body.y, body.w - OYEN_CLOCK_LEAD, body.h)
             } else {
                 body
@@ -608,8 +612,11 @@ pub fn draw_music(ui: &mut Ui, st: &mut AppState, body: Rect, words: bool) {
         );
         return;
     }
+    let compact_lyrics = words && st.settings.idle_style != IdleStyle::Hidden;
     let art = Rect::new(body.x + 12.0, cy - 11.0, 22.0, 22.0);
-    art_or_icon(ui, st, art, playing);
+    if !compact_lyrics {
+        art_or_icon(ui, st, art, playing);
+    }
     let eq = Rect::new(body.right() - 34.0, cy - 8.0, 20.0, 16.0);
     let sings = words && crate::pill::lyric::sings(st);
     let alpha = if sings { 1.0 } else { peek_alpha(st, body.w) };
@@ -626,11 +633,13 @@ pub fn draw_music(ui: &mut Ui, st: &mut AppState, body: Rect, words: bool) {
     } else {
         equalizer(ui, eq, st.media_accent(), playing, st.now);
     }
+    let text_clear = crate::pill::media::TEXT_CLEAR;
+    let x0 = if compact_lyrics { body.x + 6.0 } else { art.right() + text_clear };
     if sings {
-        use crate::pill::media::{middle, PAUSED_TEXT, TEXT_CLEAR};
-        middle(ui, st, body, art.right() + TEXT_CLEAR, eq.x - TEXT_CLEAR, if playing { 1.0 } else { PAUSED_TEXT });
+        use crate::pill::media::{middle, PAUSED_TEXT};
+        middle(ui, st, body, x0, eq.x - text_clear, if playing { 1.0 } else { PAUSED_TEXT });
     } else if alpha > 0.01 {
-        draw_peek(ui, st, art.right() + 10.0, eq.x - 10.0, body, alpha);
+        draw_peek(ui, st, x0, eq.x - 10.0, body, alpha);
     }
 }
 
@@ -1081,7 +1090,7 @@ pub(crate) fn text_with_dim_width(ui: &mut Ui, text: &str, dim: &str, style: &Te
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::state::{LyricsState, LyricsStatus, MediaSession};
+    use crate::state::{LyricsState, LyricsStatus, MediaSession, PowerState};
     use poni_core::lrc::parse_lrc;
     use poni_core::settings::Settings;
     use poni_core::store::Store;
@@ -1112,7 +1121,7 @@ mod tests {
         st.settings.lyrics = true;
         assert_eq!(
             ui_scale(&Mode::Activity(Activity::Media), &st),
-            crate::island::UI_SCALE
+            crate::island::UI_SCALE * crate::island::REST_SCALE
         );
 
         st.settings.idle_style = IdleStyle::Hidden;
@@ -1123,8 +1132,8 @@ mod tests {
     fn volume_bluetooth_and_pro_addon_detail_are_taller() {
         let mut st = AppState::new(Settings::default(), Store::default());
         st.settings.theme = poni_core::settings::Theme::Classic;
-        assert_eq!(geom(&Mode::Hud(HudTag::Volume), &st).h, 46.0);
-        assert_eq!(geom(&Mode::Hud(HudTag::Bluetooth), &st).h, 52.0);
+        assert_eq!(geom(&Mode::Hud(HudTag::Volume), &st).h, 52.0);
+        assert_eq!(geom(&Mode::Hud(HudTag::Bluetooth), &st).h, 58.0);
 
         let addons = Mode::Expanded(PageKind::Addons);
         let today = Mode::Expanded(PageKind::Today);
@@ -1136,6 +1145,32 @@ mod tests {
             page_h + pages::addons::ABOUT_EXTRA_HEIGHT
         );
         assert_eq!(geom(&today, &st).h, today_h);
+    }
+
+    #[test]
+    fn visible_idle_styles_share_eyes_geometry() {
+        for theme in [poni_core::settings::Theme::Classic, poni_core::settings::Theme::Oyen] {
+            let mut st = AppState::new(Settings::default(), Store::default());
+            st.settings.theme = theme;
+            st.power = PowerState { has_battery: true, percent: 10, charging: false, on_ac: false, saver: false };
+            let mut sizes = Vec::new();
+            for use_24h in [true, false] {
+                st.settings.use_24h = use_24h;
+                sizes.clear();
+                for idle_style in [IdleStyle::Clock, IdleStyle::Minimal, IdleStyle::Eyes] {
+                    st.settings.idle_style = idle_style;
+                    sizes.push(geom(&Mode::Idle, &st));
+                }
+                assert!(sizes.windows(2).all(|pair| pair[0] == pair[1]));
+                let expected_w = match (oyen::on(theme), use_24h) {
+                    (false, true) => 88.0,
+                    (false, false) => 92.0,
+                    (true, true) => 113.0,
+                    (true, false) => 121.0,
+                };
+                assert_eq!(sizes[0].w, expected_w, "{theme:?}, {use_24h}");
+            }
+        }
     }
 
     /// Music playing 12 s into a song, with these lyrics found for it.
@@ -1167,14 +1202,32 @@ mod tests {
     fn music_sings_its_line_in_every_theme_while_the_song_has_synced_lyrics() {
         let media = Mode::Activity(Activity::Media);
         // No lyrics: Classic's compact pill, art and bars.
-        assert_eq!(geom(&media, &playing(None)).w, MEDIA_W);
+        let mut no_lyrics = playing(None);
+        no_lyrics.settings.idle_style = IdleStyle::Hidden;
+        assert_eq!(geom(&media, &no_lyrics).w, MEDIA_W);
+        let visible = playing(None);
+        assert_eq!(geom(&media, &visible), geom(&Mode::Idle, &visible));
         // Synced lyrics: as wide as its words (what `pill::media` measured).
-        let sung = playing(Some("[00:10.00]Paper lanterns on the line\n[00:14.00]Count the windows\n"));
+        let mut sung = playing(Some("[00:10.00]Paper lanterns on the line\n[00:14.00]Count the windows\n"));
+        sung.settings.idle_style = IdleStyle::Hidden;
         assert!(crate::pill::lyric::sings(&sung));
         assert_eq!(geom(&media, &sung).w, crate::pill::media::fit_w());
+        sung.settings.idle_style = IdleStyle::Clock;
+        for theme in [
+            poni_core::settings::Theme::Classic,
+            poni_core::settings::Theme::Oyen,
+            poni_core::settings::Theme::Glass,
+            poni_core::settings::Theme::Pill,
+            poni_core::settings::Theme::Diorama,
+        ] {
+            sung.settings.theme = theme;
+            assert_eq!(geom(&media, &sung).w, crate::pill::media::fit_w(), "{theme:?}");
+            assert_ne!(geom(&media, &sung), geom(&Mode::Idle, &sung), "{theme:?}: lyrics fit their line");
+        }
         // Lyrics switched off: keep the indicator compact and the waveform on the right.
         let mut off = playing(Some("[00:10.00]Paper lanterns on the line\n"));
         off.settings.lyrics = false;
+        off.settings.idle_style = IdleStyle::Hidden;
         assert_eq!(geom(&media, &off).w, MEDIA_W);
         let body = Rect::new(0.0, 0.0, MEDIA_W, 32.0);
         let eq = media_eq_rect(body);
@@ -1188,7 +1241,9 @@ mod tests {
         );
         off.power.saver = false;
         assert_eq!(next_wake(&media, &off), None, "no lyric or title-peek wakes");
-        assert_eq!(geom(&media, &playing(Some("plain words\nno stamps\n"))).w, MEDIA_W);
+        let mut plain_words = playing(Some("plain words\nno stamps\n"));
+        plain_words.settings.idle_style = IdleStyle::Hidden;
+        assert_eq!(geom(&media, &plain_words).w, MEDIA_W);
         // Paused, a singing pill keeps its size (the title shows after a while).
         let mut paused = sung;
         paused.media.as_mut().unwrap().timeline = Timeline::new(12.0, 200.0, 0.0, false);
@@ -1206,6 +1261,10 @@ mod tests {
         for theme in [Theme::Classic, Theme::Oyen, Theme::Glass, Theme::Pill, Theme::Diorama] {
             st.settings.theme = theme;
             assert_eq!(geom(&media, &st).h, crate::pill::media::H_READS, "{theme:?}: the line over its reading");
+            st.settings.idle_style = IdleStyle::Clock;
+            assert_eq!(geom(&media, &st).w, crate::pill::media::fit_w(), "{theme:?}: lyrics fit their line");
+            assert_ne!(geom(&media, &st), geom(&Mode::Idle, &st), "{theme:?}: lyrics fit their line");
+            st.settings.idle_style = IdleStyle::Hidden;
         }
         // Readings switched off: one row again, as for a song without them.
         st.settings.lyrics_pronunciation = false;
@@ -1435,7 +1494,12 @@ mod tests {
         // tall where Pill's capsules are 32 and 24: with the time for the
         // clock (and the status bar, which is Pill's), alone for Minimal
         // (and Eyes).
-        for (look, w) in [(IdleStyle::Clock, 190.0), (IdleStyle::Status, 190.0), (IdleStyle::Minimal, 190.0), (IdleStyle::Eyes, 190.0)] {
+        for (look, w) in [
+            (IdleStyle::Clock, studio_diorama::LONG),
+            (IdleStyle::Status, studio_diorama::LONG),
+            (IdleStyle::Minimal, studio_diorama::LONG),
+            (IdleStyle::Eyes, studio_diorama::LONG),
+        ] {
             diorama.settings.idle_style = look;
             let g = geom(&Mode::Idle, &diorama);
             assert_eq!((g.w, g.h, g.r), (w, 38.0, 19.0), "{look:?}");

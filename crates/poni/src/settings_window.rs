@@ -541,7 +541,7 @@ pub fn blocks(section: Section, st: &AppState) -> Vec<Block> {
                     item(Key::Tab(p), p.title(), sub, Ctl::Switch(Some(!st.tab_hidden(p))))
                 })
                 .collect();
-            vec![Block::Group(Some("When the island opens"), open), Block::Group(Some("Tabs in the island"), tabs), Block::Note("Oyenza and the add-ons' pages always have a tab.")]
+            vec![Block::Group(Some("When the island opens"), open), Block::Group(Some("Tabs in the island"), tabs), Block::Note("The Oyenza account is available here, not as an island tab.")]
         }
         Section::Addons => vec![Block::Addons],
         Section::Focus => {
