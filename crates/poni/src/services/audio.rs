@@ -1,5 +1,4 @@
 //! Master volume change notifications (Core Audio).
-aaaaa
 
 //!
 //! A dedicated MTA thread owns the `IMMDeviceEnumerator` and the
