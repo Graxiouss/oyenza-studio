@@ -271,9 +271,9 @@ pub fn geom(m: &Mode, st: &AppState) -> Geom {
                 hidden_strip()
             } else {
                 let eyes = if oyen::on(st.settings.theme) {
-                    Geom::new(84.0, 36.0, 16.0)
+                    Geom::new(70.0, 36.0, 16.0)
                 } else {
-                    Geom::new(88.0, 30.0, 14.0)
+                    Geom::new(70.0, 30.0, 14.0)
                 };
                 let clock = if st.settings.use_24h { 64.0 } else { 72.0 };
                 let badge = match clock_badge(st) {
@@ -1152,23 +1152,30 @@ mod tests {
         for theme in [poni_core::settings::Theme::Classic, poni_core::settings::Theme::Oyen] {
             let mut st = AppState::new(Settings::default(), Store::default());
             st.settings.theme = theme;
-            st.power = PowerState { has_battery: true, percent: 10, charging: false, on_ac: false, saver: false };
+            st.power = PowerState { has_battery: false, percent: 10, charging: false, on_ac: false, saver: false };
             let mut sizes = Vec::new();
-            for use_24h in [true, false] {
-                st.settings.use_24h = use_24h;
-                sizes.clear();
-                for idle_style in [IdleStyle::Clock, IdleStyle::Minimal, IdleStyle::Eyes] {
-                    st.settings.idle_style = idle_style;
-                    sizes.push(geom(&Mode::Idle, &st));
+            for has_battery in [false, true] {
+                st.power.has_battery = has_battery;
+                for use_24h in [true, false] {
+                    st.settings.use_24h = use_24h;
+                    sizes.clear();
+                    for idle_style in [IdleStyle::Clock, IdleStyle::Minimal, IdleStyle::Eyes] {
+                        st.settings.idle_style = idle_style;
+                        sizes.push(geom(&Mode::Idle, &st));
+                    }
+                    assert!(sizes.windows(2).all(|pair| pair[0] == pair[1]));
+                    let expected_w = match (oyen::on(theme), has_battery, use_24h) {
+                        (false, false, true) => 70.0,
+                        (false, false, false) => 72.0,
+                        (false, true, true) => 84.0,
+                        (false, true, false) => 92.0,
+                        (true, false, true) => 93.0,
+                        (true, false, false) => 101.0,
+                        (true, true, true) => 113.0,
+                        (true, true, false) => 121.0,
+                    };
+                    assert_eq!(sizes[0].w, expected_w, "{theme:?}, battery={has_battery}, 24h={use_24h}");
                 }
-                assert!(sizes.windows(2).all(|pair| pair[0] == pair[1]));
-                let expected_w = match (oyen::on(theme), use_24h) {
-                    (false, true) => 88.0,
-                    (false, false) => 92.0,
-                    (true, true) => 113.0,
-                    (true, false) => 121.0,
-                };
-                assert_eq!(sizes[0].w, expected_w, "{theme:?}, {use_24h}");
             }
         }
     }

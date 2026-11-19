@@ -34,7 +34,7 @@ const PCT_GAP: f32 = 3.0;
 const MID_GAP: f32 = 6.0;
 const PCT_INK: Color = Color::white(0.55);
 /// Eyes: Classic's two eyes, centred in a clock-sized capsule.
-const EYES_W: f32 = 68.0;
+const EYES_W: f32 = 70.0;
 
 /// The battery glyph at its own size (DIPs): a 20 x 10 body, then the nub
 /// 0.75 away and 1.75 wide. [`battery`] scales it with its rect's height.
