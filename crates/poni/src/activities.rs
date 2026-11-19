@@ -271,14 +271,14 @@ pub fn geom(m: &Mode, st: &AppState) -> Geom {
                 hidden_strip()
             } else {
                 let eyes = if oyen::on(st.settings.theme) {
-                    Geom::new(70.0, 36.0, 16.0)
+                    Geom::new(60.0, 36.0, 16.0)
                 } else {
-                    Geom::new(70.0, 30.0, 14.0)
+                    Geom::new(60.0, 30.0, 14.0)
                 };
-                let clock = if st.settings.use_24h { 64.0 } else { 72.0 };
+                let clock = if st.settings.use_24h { 54.0 } else { 64.0 };
                 let badge = match clock_badge(st) {
-                    Some(ClockBadge::Charging) => 14.0,
-                    Some(ClockBadge::Low(_)) => 20.0,
+                    Some(ClockBadge::Charging) => 12.0,
+                    Some(ClockBadge::Low(_)) => 18.0,
                     None => 0.0,
                 };
                 let lead = if oyen::on(st.settings.theme) { OYEN_CLOCK_LEAD } else { 0.0 };
@@ -1165,14 +1165,14 @@ mod tests {
                     }
                     assert!(sizes.windows(2).all(|pair| pair[0] == pair[1]));
                     let expected_w = match (oyen::on(theme), has_battery, use_24h) {
-                        (false, false, true) => 70.0,
-                        (false, false, false) => 72.0,
-                        (false, true, true) => 84.0,
-                        (false, true, false) => 92.0,
-                        (true, false, true) => 93.0,
-                        (true, false, false) => 101.0,
-                        (true, true, true) => 113.0,
-                        (true, true, false) => 121.0,
+                        (false, false, true) => 60.0,
+                        (false, false, false) => 64.0,
+                        (false, true, true) => 72.0,
+                        (false, true, false) => 82.0,
+                        (true, false, true) => 83.0,
+                        (true, false, false) => 93.0,
+                        (true, true, true) => 101.0,
+                        (true, true, false) => 111.0,
                     };
                     assert_eq!(sizes[0].w, expected_w, "{theme:?}, battery={has_battery}, 24h={use_24h}");
                 }

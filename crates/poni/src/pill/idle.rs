@@ -22,8 +22,8 @@ const H: f32 = 32.0;
 const SIDE: f32 = 6.0;
 /// The time on its own, centred (a PC without a battery): Classic's clock
 /// widths, so "23:59" and "12:59 PM" keep air on both sides.
-const CLOCK_W: f32 = 70.0;
-const CLOCK_12H_W: f32 = 80.0;
+const CLOCK_W: f32 = 60.0;
+const CLOCK_12H_W: f32 = 70.0;
 /// The time with the battery: the time's slot at the left end ("23:59" or
 /// "12:59 PM", 15 semibold), the battery's at the right ("100%", the gap,
 /// the glyph), and the gap between them. 110 and 130 wide.
@@ -34,7 +34,7 @@ const PCT_GAP: f32 = 3.0;
 const MID_GAP: f32 = 6.0;
 const PCT_INK: Color = Color::white(0.55);
 /// Eyes: Classic's two eyes, centred in a clock-sized capsule.
-const EYES_W: f32 = 70.0;
+const EYES_W: f32 = 60.0;
 
 /// The battery glyph at its own size (DIPs): a 20 x 10 body, then the nub
 /// 0.75 away and 1.75 wide. [`battery`] scales it with its rect's height.
