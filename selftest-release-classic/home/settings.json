@@ -1,0 +1,72 @@
+{
+  "settings_version": 5,
+  "theme": "classic",
+  "idle_style": "clock",
+  "use_24h": true,
+  "hover_delay_ms": 220,
+  "collapse_delay_ms": 0,
+  "expanded_width": 620.0,
+  "hide_in_fullscreen": true,
+  "step_aside": false,
+  "monitor": "primary",
+  "island_x": null,
+  "show_media_activity": true,
+  "lyrics": true,
+  "lyrics_pronunciation": true,
+  "lyrics_offset_ms": 0,
+  "hud_volume": true,
+  "hud_power": true,
+  "hud_bluetooth": true,
+  "sounds": true,
+  "start_page": "media",
+  "remember_page": true,
+  "hidden_tabs": [],
+  "pomodoro": {
+    "focus_min": 25,
+    "short_break_min": 5,
+    "long_break_min": 15,
+    "long_every": 4,
+    "auto_start_breaks": true,
+    "auto_start_focus": false
+  },
+  "oyenza_show_amounts": false,
+  "system_history": true,
+  "addons": {},
+  "prayer": {
+    "place": null,
+    "world_place": null,
+    "follow_location": true,
+    "sound": "tone",
+    "remind_before_min": 10,
+    "pause_music": true,
+    "follow": "kemenag"
+  },
+  "caffeine": {
+    "bedtime": 1380,
+    "half_life": 5.0,
+    "bed_limit_mg": 35,
+    "day_limit_mg": 400,
+    "remind": true,
+    "bean": "arabica"
+  },
+  "game_stats": false,
+  "game_peek": false,
+  "usage": {
+    "hidden": [],
+    "added": [],
+    "notices": false,
+    "near_pct": 80
+  },
+  "record": {
+    "target": "screen",
+    "camera": false,
+    "microphone": true,
+    "system_audio": false
+  },
+  "notifications": {
+    "who": true,
+    "text": true,
+    "apps": []
+  },
+  "ielts_spice": "ngegas"
+}
