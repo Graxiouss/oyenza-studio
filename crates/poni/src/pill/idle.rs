@@ -22,7 +22,7 @@ const H: f32 = 32.0;
 const SIDE: f32 = 6.0;
 /// The time on its own, centred (a PC without a battery): Classic's clock
 /// widths, so "23:59" and "12:59 PM" keep air on both sides.
-const CLOCK_W: f32 = 60.0;
+const CLOCK_W: f32 = 65.0;
 const CLOCK_12H_W: f32 = 70.0;
 /// The time with the battery: the time's slot at the left end ("23:59" or
 /// "12:59 PM", 15 semibold), the battery's at the right ("100%", the gap,
@@ -34,7 +34,7 @@ const PCT_GAP: f32 = 3.0;
 const MID_GAP: f32 = 6.0;
 const PCT_INK: Color = Color::white(0.55);
 /// Eyes: Classic's two eyes, centred in a clock-sized capsule.
-const EYES_W: f32 = 60.0;
+const EYES_W: f32 = 65.0;
 
 /// The battery glyph at its own size (DIPs): a 20 x 10 body, then the nub
 /// 0.75 away and 1.75 wide. [`battery`] scales it with its rect's height.
@@ -51,10 +51,10 @@ pub fn geom(st: &AppState) -> Option<Geom> {
             return Some(g);
         }
     }
-    let w = if battery_state(st).is_some() {
-        clock_width(st).max(EYES_W)
-    } else {
-        EYES_W
+    let w = match st.settings.idle_style {
+        IdleStyle::Minimal | IdleStyle::Eyes => EYES_W,
+        IdleStyle::Clock | IdleStyle::Status => clock_width(st).max(EYES_W),
+        IdleStyle::Hidden => EYES_W,
     };
     match st.settings.idle_style {
         // Where the status bar leaves the resting pill to us, it is the clock.
@@ -197,24 +197,23 @@ mod tests {
     }
 
     #[test]
-    fn visible_idle_styles_share_eyes_size() {
+    fn minimal_and_eyes_stay_compact_while_clock_fits_its_content() {
         for battery in [false, true] {
             for use_24h in [false, true] {
                 let mut st = state(battery, use_24h);
-                let mut sizes = Vec::new();
-                for idle_style in [IdleStyle::Clock, IdleStyle::Minimal, IdleStyle::Eyes] {
-                    st.settings.idle_style = idle_style;
-                    sizes.push(geom(&st));
-                }
-                assert!(sizes.windows(2).all(|pair| pair[0] == pair[1]));
-                let expected_w = if battery {
+                st.settings.idle_style = IdleStyle::Clock;
+                let expected_clock = if battery {
                     if use_24h { 110.0 } else { 130.0 }
                 } else if use_24h {
                     CLOCK_W
                 } else {
                     CLOCK_12H_W
                 };
-                assert_eq!(sizes[0], Some(Geom::new(expected_w, H, H / 2.0)));
+                assert_eq!(geom(&st), Some(Geom::new(expected_clock, H, H / 2.0)));
+                for idle_style in [IdleStyle::Minimal, IdleStyle::Eyes] {
+                    st.settings.idle_style = idle_style;
+                    assert_eq!(geom(&st), Some(Geom::new(EYES_W, H, H / 2.0)), "{idle_style:?}");
+                }
             }
         }
     }
@@ -228,9 +227,9 @@ mod tests {
         assert_eq!(battery_state(&st), Some((99, true)));
         assert_eq!(battery_state(&state(false, true)), None);
         st.settings.idle_style = IdleStyle::Minimal;
-        assert_eq!(geom(&st), Some(Geom::new(110.0, H, H / 2.0)));
+        assert_eq!(geom(&st), Some(Geom::new(EYES_W, H, H / 2.0)));
         st.settings.idle_style = IdleStyle::Eyes;
-        assert_eq!(geom(&st), Some(Geom::new(110.0, H, H / 2.0)));
+        assert_eq!(geom(&st), Some(Geom::new(EYES_W, H, H / 2.0)));
         // Hidden stays Classic's invisible strip.
         st.settings.idle_style = IdleStyle::Hidden;
         assert_eq!(geom(&st), None);

@@ -271,18 +271,22 @@ pub fn geom(m: &Mode, st: &AppState) -> Geom {
                 hidden_strip()
             } else {
                 let eyes = if oyen::on(st.settings.theme) {
-                    Geom::new(60.0, 36.0, 16.0)
+                    Geom::new(65.0, 36.0, 16.0)
                 } else {
-                    Geom::new(60.0, 30.0, 14.0)
+                    Geom::new(65.0, 30.0, 14.0)
                 };
-                let clock = if st.settings.use_24h { 54.0 } else { 64.0 };
-                let badge = match clock_badge(st) {
-                    Some(ClockBadge::Charging) => 12.0,
-                    Some(ClockBadge::Low(_)) => 18.0,
-                    None => 0.0,
-                };
-                let lead = if oyen::on(st.settings.theme) { OYEN_CLOCK_LEAD } else { 0.0 };
-                Geom::new(eyes.w.max(clock + badge + lead), eyes.h, eyes.r)
+                if matches!(st.settings.idle_style, IdleStyle::Minimal | IdleStyle::Eyes) {
+                    eyes
+                } else {
+                    let clock = if st.settings.use_24h { 54.0 } else { 64.0 };
+                    let badge = match clock_badge(st) {
+                        Some(ClockBadge::Charging) => 12.0,
+                        Some(ClockBadge::Low(_)) => 18.0,
+                        None => 0.0,
+                    };
+                    let lead = if oyen::on(st.settings.theme) { OYEN_CLOCK_LEAD } else { 0.0 };
+                    Geom::new(eyes.w.max(clock + badge + lead), eyes.h, eyes.r)
+                }
             }
         }
         Mode::Activity(Activity::Media) => {
@@ -1148,25 +1152,23 @@ mod tests {
     }
 
     #[test]
-    fn visible_idle_styles_share_eyes_geometry() {
+    fn minimal_and_eyes_stay_at_60_while_the_clock_fits_its_content() {
         for theme in [poni_core::settings::Theme::Classic, poni_core::settings::Theme::Oyen] {
             let mut st = AppState::new(Settings::default(), Store::default());
             st.settings.theme = theme;
             st.power = PowerState { has_battery: false, percent: 10, charging: false, on_ac: false, saver: false };
-            let mut sizes = Vec::new();
             for has_battery in [false, true] {
                 st.power.has_battery = has_battery;
                 for use_24h in [true, false] {
                     st.settings.use_24h = use_24h;
-                    sizes.clear();
+                    let mut sizes = Vec::new();
                     for idle_style in [IdleStyle::Clock, IdleStyle::Minimal, IdleStyle::Eyes] {
                         st.settings.idle_style = idle_style;
                         sizes.push(geom(&Mode::Idle, &st));
                     }
-                    assert!(sizes.windows(2).all(|pair| pair[0] == pair[1]));
                     let expected_w = match (oyen::on(theme), has_battery, use_24h) {
-                        (false, false, true) => 60.0,
-                        (false, false, false) => 64.0,
+                        (false, false, true) => 65.0,
+                        (false, false, false) => 65.0,
                         (false, true, true) => 72.0,
                         (false, true, false) => 82.0,
                         (true, false, true) => 83.0,
@@ -1175,6 +1177,8 @@ mod tests {
                         (true, true, false) => 111.0,
                     };
                     assert_eq!(sizes[0].w, expected_w, "{theme:?}, battery={has_battery}, 24h={use_24h}");
+                    assert_eq!(sizes[1].w, 65.0, "{theme:?}: Minimal");
+                    assert_eq!(sizes[2].w, 65.0, "{theme:?}: Eyes");
                 }
             }
         }
