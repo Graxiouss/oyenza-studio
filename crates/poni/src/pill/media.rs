@@ -40,6 +40,7 @@ pub(crate) const H_READS: f32 = 46.0;
 const SIDES: f32 = 88.0;
 const MIN_W: f32 = 240.0;
 const MAX_W: f32 = 520.0;
+const COMPACT_W: f32 = 48.0;
 /// The song ("Title · artist") is held to the spec's width for a title on
 /// the collapsed pill (6.4's peek): without lyrics it rests there all song
 /// long, so it stays as compact as that; a sung line may take the full
@@ -103,6 +104,9 @@ thread_local! {
 }
 
 pub fn geom(st: &AppState) -> Option<Geom> {
+    if !st.settings.lyrics {
+        return Some(Geom::new(COMPACT_W, H, H / 2.0));
+    }
     let h = height(st);
     Some(Geom::new(fit_w(), h, h / 2.0))
 }
@@ -120,6 +124,11 @@ pub(crate) fn height(st: &AppState) -> f32 {
 pub fn draw(ui: &mut Ui, st: &mut AppState, body: Rect) -> bool {
     let now = st.now;
     let playing = st.media.as_ref().is_some_and(|m| m.is_playing());
+    if !st.settings.lyrics {
+        let bars = super::music::eq_color(st.media_accent(), ui.c.look().light);
+        equalizer(ui, body.center().x - EQ_W / 2.0, body.center().y, bars, if playing { 1.0 } else { PAUSED_TEXT }, false, now);
+        return true;
+    }
     let (level, easing) = play_level(playing, now);
     if easing {
         ui.request_anim();
@@ -172,12 +181,15 @@ pub(crate) fn fit_w() -> f32 {
 /// still and the pill draws only when its text changes.
 pub fn is_live(st: &AppState) -> Option<bool> {
     let playing = st.media.as_ref().is_some_and(|m| m.is_playing());
-    Some(playing && !st.power.saver)
+    Some(st.settings.lyrics && playing && !st.power.saver)
 }
 
 /// The next line and the end of the peek (the line takes over from the
 /// title), whichever comes first.
 pub fn next_wake(st: &AppState) -> Option<f64> {
+    if !st.settings.lyrics {
+        return None;
+    }
     let peek = (st.ui.peek_until > st.now).then_some(st.ui.peek_until);
     match (super::lyric::next_wake(st), peek) {
         (Some(a), Some(b)) => Some(a.min(b)),
@@ -493,6 +505,16 @@ mod tests {
         st.power.saver = false;
         st.media.as_mut().unwrap().timeline = Timeline::new(10.0, 200.0, 0.0, false);
         assert_eq!(is_live(&st), Some(false), "paused: nothing moves");
+    }
+
+    #[test]
+    fn lyrics_off_keeps_only_a_static_waveform_in_the_small_pill() {
+        let mut st = playing("One");
+        st.settings.lyrics = false;
+        st.ui.peek_until = 102.0;
+        assert_eq!(geom(&st).unwrap().w, COMPACT_W);
+        assert_eq!(is_live(&st), Some(false));
+        assert_eq!(next_wake(&st), None);
     }
 
     #[test]
