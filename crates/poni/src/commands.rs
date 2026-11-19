@@ -220,6 +220,8 @@ pub enum Command {
     OpenSystem(poni_core::sysmon::Module),
     /// Request an app's icon for the System page (arrives in `AppState::app_icons`).
     LoadAppIcon(String),
+    /// Set the default output volume and mute state.
+    SetVolume { level: f32, muted: bool },
     /// Show over games: find out whether Windows lets Poni read frames
     /// (the answer lands in `AppState::game.access`).
     CheckFps,

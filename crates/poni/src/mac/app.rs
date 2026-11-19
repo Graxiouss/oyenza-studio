@@ -2957,6 +2957,11 @@ impl App {
                 }
                 Command::SaveStore => self.set_timer(Timer::Save, 800),
                 Command::SetPage(p) => self.set_page(p),
+                Command::SetVolume { level, muted } => {
+                    if let Err(e) = services::audio::set_volume(level, muted) {
+                        pwarn!("audio: setting the volume failed ({e})");
+                    }
+                }
                 Command::OpenSystem(m) => {
                     self.st.ui.system_module = m;
                     self.set_page(PageKind::System);

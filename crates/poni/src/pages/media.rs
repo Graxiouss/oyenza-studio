@@ -22,7 +22,7 @@ use crate::commands::{Command, MediaCmd};
 use crate::gfx::{ts, TextStyle, Weight};
 use crate::icons::Icon;
 use crate::state::{AppState, LyricsState, LyricsStatus, MediaSession, PageUiState};
-use crate::ui::{wid, wid_n, Ui, WidgetId};
+use crate::ui::{wid, wid_n, PillStyle, Ui, WidgetId};
 use poni_core::addons;
 use poni_core::datetime::fmt_duration;
 use poni_core::geom::{lerp, palette, Color, Point, Rect};
@@ -35,8 +35,9 @@ use std::collections::HashMap;
 
 // ---------------------------------------------------------------- layout
 
-/// Content height with a media session (the play button's bottom + air).
-const H_SESSION: f32 = 148.0;
+/// Content height with a media session, including the lyrics and volume controls.
+const H_SESSION: f32 = 180.0;
+pub(crate) const PLAYER_FOOTER_H: f32 = 28.0;
 /// Content height of the "Nothing playing" state.
 const H_EMPTY: f32 = 124.0;
 
@@ -347,7 +348,7 @@ fn draw_session(ui: &mut Ui, st: &mut AppState, area: Rect, a: &mut Anim, fr: &F
     let mid_x = snap(x0 + ART + GAP_ART, scale);
     let mid_right = if show_lyrics { x0 + w - lyr_w - GAP_LYRICS } else { x0 + w };
     let mid = Rect::new(mid_x, y0, snap(mid_right - mid_x, scale).max(0.0), H_SESSION);
-    let col = Rect::new(snap(x0 + w - lyr_w, scale), y0, lyr_w, H_SESSION);
+    let col = Rect::new(snap(x0 + w - lyr_w, scale), y0, lyr_w, H_SESSION - PLAYER_FOOTER_H);
 
     let playing = m.is_playing();
     let tl = m.timeline;
@@ -483,6 +484,42 @@ fn draw_session(ui: &mut Ui, st: &mut AppState, area: Rect, a: &mut Anim, fr: &F
     if get_ja_readings {
         st.settings.set_addon(addons::JAPANESE_READINGS.id, true);
         st.cmd(Command::SaveSettings);
+    }
+    draw_player_options(ui, st, area, H_SESSION, accent);
+}
+
+/// Lyrics toggle and system-volume controls shared by Classic and Pill.
+pub(crate) fn draw_player_options(ui: &mut Ui, st: &mut AppState, area: Rect, height: f32, accent: Color) {
+    let y = area.y + height - PLAYER_FOOTER_H + 1.0;
+    let total_w = 78.0 + 10.0 + 92.0 + 10.0 + 96.0;
+    let x = area.center().x - total_w / 2.0;
+    let lyrics_style = if st.settings.lyrics { PillStyle::Primary(accent) } else { PillStyle::Utility };
+    if ui.pill(wid("media.lyrics_toggle"), Rect::new(x, y, 78.0, 26.0), "Lyrics", Some(Icon::Lyrics), lyrics_style).clicked {
+        st.settings.lyrics = !st.settings.lyrics;
+        st.cmd(Command::SaveSettings);
+    }
+
+    let volume = st.volume;
+    let current = if volume.muted { 0.0 } else { volume.level };
+    let label = if volume.muted {
+        "Muted".to_string()
+    } else if volume.known {
+        format!("Volume {}%", (current * 100.0).round() as u8)
+    } else {
+        "Volume".to_string()
+    };
+    ui.c.text(&label, Rect::new(x + 88.0, y, 92.0, 12.0), &TextStyle::footnote().color(palette::TEXT_DIM).center());
+    let track = Rect::new(x + 88.0, y + 16.0, 92.0, 4.0);
+    let scrub = ui.progress_bar(wid("media.volume"), track, current, accent, volume.known);
+    if let Some(level) = scrub.released {
+        st.cmd(Command::SetVolume { level, muted: false });
+    }
+
+    let label = if volume.muted { "Unmute" } else { "Mute" };
+    let icon = if volume.muted { Icon::VolumeMute } else { Icon::Volume };
+    let style = if volume.known { PillStyle::Utility } else { PillStyle::Neutral };
+    if ui.pill(wid("media.volume_toggle"), Rect::new(x + 190.0, y, 96.0, 26.0), label, Some(icon), style).clicked && volume.known {
+        st.cmd(Command::SetVolume { level: volume.level, muted: !volume.muted });
     }
 }
 

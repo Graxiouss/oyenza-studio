@@ -50,6 +50,10 @@ impl AudioService {
             .map_err(|e| windows::core::Error::new(E_FAIL, format!("audio thread: {e}")))?;
         Ok(Self { tx, done, thread: Some(thread) })
     }
+
+    pub fn set_volume(&self, level: f32, muted: bool) -> bool {
+        self.tx.send(Msg::SetVolume { level, muted }).is_ok()
+    }
 }
 
 impl Drop for AudioService {
@@ -69,6 +73,8 @@ impl Drop for AudioService {
 enum Msg {
     /// The default render endpoint (console or multimedia role) changed.
     DefaultChanged,
+    /// Change the current endpoint from the UI.
+    SetVolume { level: f32, muted: bool },
     Shutdown,
 }
 
@@ -246,6 +252,19 @@ fn worker(sink: EventSink, rx: Receiver<Msg>, client_tx: Sender<Msg>) {
     while let Ok(msg) = rx.recv() {
         match msg {
             Msg::Shutdown => break,
+            Msg::SetVolume { level, muted } => {
+                if let Some(binding) = binding.as_ref() {
+                    let level = if level.is_finite() { level.clamp(0.0, 1.0) } else { 0.0 };
+                    if let Err(e) = unsafe { binding.volume.SetMasterVolumeLevelScalar(level, std::ptr::null()) } {
+                        crate::pwarn!("audio: setting the volume failed ({e})");
+                    }
+                    if let Err(e) = unsafe {
+                        binding.volume.SetMute(windows::Win32::Foundation::BOOL(i32::from(muted)), std::ptr::null())
+                    } {
+                        crate::pwarn!("audio: setting mute failed ({e})");
+                    }
+                }
+            }
             Msg::DefaultChanged => {
                 // One switch fires once per role; handle the burst once.
                 let mut shutdown = false;

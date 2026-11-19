@@ -4838,6 +4838,11 @@ impl App {
                     SetTimer(self.hwnd, TIMER_SAVE, 800, None);
                 },
                 Command::SetPage(p) => self.set_page(p),
+                Command::SetVolume { level, muted } => {
+                    if !self.services.as_ref().is_some_and(|s| s.set_volume(level, muted)) {
+                        pwarn!("audio: volume control is unavailable");
+                    }
+                }
                 Command::OpenSystem(m) => {
                     self.st.ui.system_module = m;
                     self.set_page(PageKind::System);

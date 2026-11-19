@@ -62,6 +62,7 @@ type Listener = extern "C" fn(u32, u32, *const Addr, *mut c_void) -> i32;
 #[link(name = "CoreAudio", kind = "framework")]
 extern "C" {
     fn AudioObjectGetPropertyData(id: u32, addr: *const Addr, qual_size: u32, qual: *const c_void, size: *mut u32, data: *mut c_void) -> i32;
+    fn AudioObjectSetPropertyData(id: u32, addr: *const Addr, qual_size: u32, qual: *const c_void, size: u32, data: *const c_void) -> i32;
     fn AudioObjectGetPropertyDataSize(id: u32, addr: *const Addr, qual_size: u32, qual: *const c_void, size: *mut u32) -> i32;
     fn AudioHardwareCreateAggregateDevice(desc: *const c_void, out: *mut u32) -> i32;
     fn AudioHardwareDestroyAggregateDevice(id: u32) -> i32;
@@ -120,6 +121,52 @@ fn read(device: u32) -> Option<(f32, bool)> {
 /// The current level, if there is an output device (for the smoke test).
 pub fn current() -> Option<(f32, bool)> {
     default_device().and_then(read)
+}
+
+/// Set the default output's master volume and mute state.
+pub fn set_volume(level: f32, muted: bool) -> Result<(), i32> {
+    let device = default_device().ok_or(-1)?;
+    let level = if level.is_finite() { level.clamp(0.0, 1.0) } else { 0.0 };
+    let main = Addr { selector: VOLUME, scope: SCOPE_OUTPUT, element: 0 };
+    if has(device, main) {
+        let result = unsafe {
+            AudioObjectSetPropertyData(device, &main, 0, std::ptr::null(), std::mem::size_of_val(&level) as u32, &level as *const f32 as *const c_void)
+        };
+        if result != 0 {
+            return Err(result);
+        }
+    } else {
+        let mut found = false;
+        for element in [1, 2] {
+            let addr = Addr { selector: VOLUME, scope: SCOPE_OUTPUT, element };
+            if has(device, addr) {
+                let result = unsafe {
+                    AudioObjectSetPropertyData(device, &addr, 0, std::ptr::null(), std::mem::size_of_val(&level) as u32, &level as *const f32 as *const c_void)
+                };
+                if result != 0 {
+                    return Err(result);
+                }
+                found = true;
+            }
+        }
+        if !found {
+            return Err(-1);
+        }
+    }
+
+    let mute = Addr { selector: MUTE, scope: SCOPE_OUTPUT, element: 0 };
+    if has(device, mute) {
+        let value = u32::from(muted);
+        let result = unsafe {
+            AudioObjectSetPropertyData(device, &mute, 0, std::ptr::null(), std::mem::size_of_val(&value) as u32, &value as *const u32 as *const c_void)
+        };
+        if result != 0 {
+            return Err(result);
+        }
+    } else if muted {
+        return Err(-1);
+    }
+    Ok(())
 }
 
 fn device_addrs() -> Vec<Addr> {

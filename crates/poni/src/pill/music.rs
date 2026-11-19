@@ -41,9 +41,8 @@ use poni_core::svgpath::Seg;
 
 // ---------------------------------------------------------------- layout (spec 6.7)
 
-/// Content height with a media session: the play button's target ends here.
-/// Classic's height, so the card is as tall as Classic's island.
-const H_SESSION: f32 = 148.0;
+/// Content height with a media session, matching Classic's player and footer.
+const H_SESSION: f32 = 180.0;
 /// Content height of the empty card: one row, the size of the art.
 const H_EMPTY: f32 = 72.0;
 
@@ -271,7 +270,7 @@ fn draw_session(ui: &mut Ui, st: &mut AppState, area: Rect, a: &mut Anim, fr: &F
     let mut synced_shown = false;
     let mut get_ja_readings = false;
     if let Some(lyr_w) = cols.lyrics_w {
-        let col = Rect::new(snap(x0 + area.w - lyr_w), y0, lyr_w, H_SESSION);
+        let col = Rect::new(snap(x0 + area.w - lyr_w), y0, lyr_w, H_SESSION - classic::PLAYER_FOOTER_H);
         let offer = if pronounce && st.lyrics.wants_ja_readings { addons::ja_offer(st.addon(addons::JAPANESE_READINGS.id)) } else { None };
         let ctx = LyricsCtx { now, pos: lyric_pos, live: playing && has_dur, can_seek: m.can_seek, scale, track_key: &m.track_key, pronounce, offer };
         let out = classic::draw_lyrics(ui, &st.lyrics, &mut st.ui, col, a, fr, &ctx, &mut acts);
@@ -313,6 +312,7 @@ fn draw_session(ui: &mut Ui, st: &mut AppState, area: Rect, a: &mut Anim, fr: &F
         st.settings.set_addon(addons::JAPANESE_READINGS.id, true);
         st.cmd(Command::SaveSettings);
     }
+    classic::draw_player_options(ui, st, area, H_SESSION, accent);
 }
 
 /// The player's name in capitals ("SPOTIFY"), with "PAUSED" while it is, as

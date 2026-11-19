@@ -181,6 +181,10 @@ impl Services {
         }
     }
 
+    pub fn set_volume(&self, level: f32, muted: bool) -> bool {
+        self._audio.as_ref().is_some_and(|a| a.set_volume(level, muted))
+    }
+
     pub fn request_lyrics(&self, s: &MediaSession) {
         if let Some(l) = &self.lyrics {
             l.request(s);
