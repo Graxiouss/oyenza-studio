@@ -14,8 +14,9 @@ use crate::ui::Ui;
 use poni_core::geom::{palette, Color, Point, Rect};
 use poni_core::svgpath::Seg;
 
-/// One height for every pop-up, with round ends (spec 6.1).
+/// The compact pop-up height, with round ends (spec 6.1).
 const H: f32 = 32.0;
+const FAT_H: f32 = 38.0;
 /// The spec's 260 plus room for "Muted" and "100%" (its value was a bare "64").
 const VOLUME_W: f32 = 272.0;
 /// Charging, on battery and low battery: the longest label and the battery.
@@ -57,12 +58,12 @@ const SEP: f32 = 7.0;
 const MID_GAP: f32 = 16.0;
 
 pub fn geom(t: HudTag, st: &AppState) -> Option<Geom> {
-    let w = match t {
-        HudTag::Volume => VOLUME_W,
-        HudTag::Charging | HudTag::LowBattery => BATTERY_W,
-        HudTag::Bluetooth => bluetooth_w(st),
+    let (w, h) = match t {
+        HudTag::Volume => (VOLUME_W, FAT_H),
+        HudTag::Charging | HudTag::LowBattery => (BATTERY_W, H),
+        HudTag::Bluetooth => (bluetooth_w(st), FAT_H),
     };
-    Some(Geom::new(w, H, H / 2.0))
+    Some(Geom::new(w, h, h / 2.0))
 }
 
 pub fn draw(ui: &mut Ui, st: &mut AppState, _t: HudTag, body: Rect) -> bool {
@@ -291,12 +292,16 @@ mod tests {
     }
 
     #[test]
-    fn every_pop_up_is_a_capsule_as_tall_as_the_resting_pill() {
+    fn volume_and_bluetooth_pop_ups_are_fatter() {
         let st = with_device("Sound Buds", Some(80));
-        for t in [HudTag::Volume, HudTag::Charging, HudTag::LowBattery, HudTag::Bluetooth] {
-            let g = geom(t, &st).unwrap();
-            assert_eq!((g.h, g.r), (32.0, 16.0), "{t:?}");
-        }
+        let volume = geom(HudTag::Volume, &st).unwrap();
+        let bluetooth = geom(HudTag::Bluetooth, &st).unwrap();
+        let charging = geom(HudTag::Charging, &st).unwrap();
+        let low_battery = geom(HudTag::LowBattery, &st).unwrap();
+        assert_eq!((volume.h, volume.r), (FAT_H, FAT_H / 2.0));
+        assert_eq!((bluetooth.h, bluetooth.r), (FAT_H, FAT_H / 2.0));
+        assert_eq!((charging.h, charging.r), (H, H / 2.0));
+        assert_eq!((low_battery.h, low_battery.r), (H, H / 2.0));
     }
 
     #[test]

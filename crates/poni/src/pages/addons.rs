@@ -54,6 +54,7 @@ const BADGE_ONE_LINE: f32 = 24.0;
 const LINE_GAP: f32 = 10.0;
 /// Where a Pro add-on's page sends people: Pro's features and prices.
 const PRICING_URL: &str = "https://studio.oyenza.com/#pricing";
+pub const ABOUT_EXTRA_HEIGHT: f32 = 6.0;
 
 /// The add-ons this app has, in the page's order: all of them, on Windows
 /// and on the Mac (whose Prayer times use macOS's location and sounds).

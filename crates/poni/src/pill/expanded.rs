@@ -34,7 +34,12 @@ const TIP_GAP: f32 = 4.0;
 pub fn geom(p: PageKind, st: &AppState) -> Option<Geom> {
     // Classic's size (header, page, bottom padding), so the window laid out
     // for the tallest page fits the card as well.
-    let h = pages::HEADER_H + pages::content_height(p, st) + pages::PAD;
+    let extra = if p == PageKind::Addons && st.ui.addon_about.is_some() {
+        pages::addons::ABOUT_EXTRA_HEIGHT
+    } else {
+        0.0
+    };
+    let h = pages::HEADER_H + pages::content_height(p, st) + pages::PAD + extra;
     Some(Geom::new(st.settings.expanded_width, h.round(), RADIUS))
 }
 
@@ -114,6 +119,17 @@ mod tests {
 
     fn state(theme: Theme) -> AppState {
         AppState::new(Settings { theme, ..Settings::default() }, Store::default())
+    }
+
+    #[test]
+    fn pro_addon_about_card_gets_a_little_more_height() {
+        let mut st = state(Theme::Pill);
+        let before = geom(PageKind::Addons, &st).unwrap().h;
+        st.ui.addon_about = Some("notes");
+        assert_eq!(
+            geom(PageKind::Addons, &st).unwrap().h,
+            before + pages::addons::ABOUT_EXTRA_HEIGHT
+        );
     }
 
     #[test]

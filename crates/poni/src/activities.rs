@@ -319,12 +319,17 @@ pub fn geom(m: &Mode, st: &AppState) -> Geom {
         Mode::Activity(Activity::Recording) => Geom::new(recording_w(st), 32.0, 15.0),
         Mode::Activity(Activity::Download) => Geom::new(if download_many(st) { DOWNLOAD_MANY_W } else { DOWNLOAD_W }, 32.0, 15.0),
         Mode::Activity(Activity::Notes) => Geom::new(notes_w(st), 32.0, 15.0),
-        Mode::Hud(HudTag::Volume) => Geom::new(316.0, 40.0, 19.0),
+        Mode::Hud(HudTag::Volume) => Geom::new(316.0, 46.0, 22.0),
         Mode::Hud(HudTag::Charging) | Mode::Hud(HudTag::LowBattery) => Geom::new(300.0, 40.0, 19.0),
-        Mode::Hud(HudTag::Bluetooth) => Geom::new(336.0, 46.0, 22.0),
+        Mode::Hud(HudTag::Bluetooth) => Geom::new(336.0, 52.0, 25.0),
         Mode::Notice => Geom::new(372.0, 52.0, 24.0),
         Mode::Expanded(p) => {
-            let h = pages::HEADER_H + pages::content_height(*p, st) + pages::PAD;
+            let extra = if *p == PageKind::Addons && st.ui.addon_about.is_some() {
+                pages::addons::ABOUT_EXTRA_HEIGHT
+            } else {
+                0.0
+            };
+            let h = pages::HEADER_H + pages::content_height(*p, st) + pages::PAD + extra;
             Geom::new(st.settings.expanded_width, h.round(), 30.0)
         }
         Mode::Aside => hidden_strip(),
@@ -1112,6 +1117,25 @@ mod tests {
 
         st.settings.idle_style = IdleStyle::Hidden;
         assert_eq!(ui_scale(&Mode::Idle, &st), crate::island::UI_SCALE);
+    }
+
+    #[test]
+    fn volume_bluetooth_and_pro_addon_detail_are_taller() {
+        let mut st = AppState::new(Settings::default(), Store::default());
+        st.settings.theme = poni_core::settings::Theme::Classic;
+        assert_eq!(geom(&Mode::Hud(HudTag::Volume), &st).h, 46.0);
+        assert_eq!(geom(&Mode::Hud(HudTag::Bluetooth), &st).h, 52.0);
+
+        let addons = Mode::Expanded(PageKind::Addons);
+        let today = Mode::Expanded(PageKind::Today);
+        let page_h = geom(&addons, &st).h;
+        let today_h = geom(&today, &st).h;
+        st.ui.addon_about = Some("notes");
+        assert_eq!(
+            geom(&addons, &st).h,
+            page_h + pages::addons::ABOUT_EXTRA_HEIGHT
+        );
+        assert_eq!(geom(&today, &st).h, today_h);
     }
 
     /// Music playing 12 s into a song, with these lyrics found for it.
